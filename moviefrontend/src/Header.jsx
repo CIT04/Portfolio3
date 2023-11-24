@@ -13,7 +13,7 @@ import CustomDropdown from './CustomDropdown';
 
 function BasicExample() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary fixed-top">
       <Container>
         <Row className="w-100">
           {/* Logo with Image */}
