@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,7 @@ import MovieCardList from './MovieCard.jsx';
 
 
 function App() {
+
   
   // Background color and padding
   const appStyle = {
