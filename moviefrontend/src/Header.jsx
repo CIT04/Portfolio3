@@ -33,10 +33,12 @@ function BasicExample() {
 
           {/* Search Bar with Filters */}
           <Col xs={4} className="d-flex align-items-center">
+          <CustomDropdown/>
+          
             <form className="d-flex">
               <input className="form-control me-sm-2" type="search" placeholder="Search" />
 
-              <CustomDropdown/>
+              
 
               <button className="btn btn-secondary my-2 my-sm-0" type="submit">
                 Search
