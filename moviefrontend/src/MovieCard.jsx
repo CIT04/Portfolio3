@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function MovieCard({ title, description }) {
+function MovieCard({ title, plot, poster, year }) {
   return (
     <Col md={4} style={{ marginBottom: '20px' }}>
       <Card>
         {/* Assuming you have an image URL for each movie, replace 'holder.js/100px180' with the actual URL */}
-        <Card.Img variant="top" src="holder.js/100px180" />
+        <Card.Img variant="top" src={poster} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Text>{description}</Card.Text>
+          <Card.Text>{plot}</Card.Text>
           <Button variant="primary">Go somewhere</Button>
         </Card.Body>
       </Card>
@@ -22,21 +22,25 @@ function MovieCard({ title, description }) {
 }
 
 function MovieCardList() {
-  // Movie data array
-  const movies = [
-    { title: 'Movie 1', description: 'Description for Movie 1' },
-    { title: 'Movie 2', description: 'Description for Movie 2' },
-    { title: 'Movie 3', description: 'Description for Movie 3' },
-    // Add more movies as needed
-  ];
+
+  const [count, setCount] = useState(6);  // Load this many users
+  const [medias, setMedias] = useState([]); // The list of users
+
+  function loadMedias () {
+    fetch("http://localhost:5001/api/media/")
+      .then(res => res.json())
+      .then(json => {setMedias(json.items);});
+  }
+
+  useEffect(loadMedias, [count]); // When count changes, load users again
 
   return (
     <div className="App">
       {/* Use Bootstrap Container, Row, and Col to create a grid */}
       <Container>
         <Row>
-          {movies.map((movie, index) => (
-            <MovieCard key={index} title={movie.title} description={movie.description} />
+          {medias.map((media, index) => (
+            <MovieCard key={index} title={media.title} plot={media.plot} poster={media.poster} year={media.year}/>
           ))}
         </Row>
       </Container>
