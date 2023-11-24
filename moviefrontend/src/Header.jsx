@@ -6,6 +6,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import CustomDropdown from './CustomDropdown';
+
+
+
 
 function BasicExample() {
   return (
@@ -32,13 +36,7 @@ function BasicExample() {
             <form className="d-flex">
               <input className="form-control me-sm-2" type="search" placeholder="Search" />
 
-              <NavDropdown title="Filters" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#">Separated link</NavDropdown.Item>
-              </NavDropdown>
+              <CustomDropdown/>
 
               <button className="btn btn-secondary my-2 my-sm-0" type="submit">
                 Search
