@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image'
 
 
 
@@ -12,8 +13,17 @@ const Header = () => {
     <Navbar expand="lg" className="bg-body-tertiary justify-content-between" data-bs-theme="light">
         <Navbar fixed="top" />
       <Container>
-          {/**Logo */}
-        <Navbar.Brand href="#">LOGO HERE</Navbar.Brand>
+
+      <Navbar.Brand href="#">
+  <Image
+    src={process.env.PUBLIC_URL + '/imdb.png'}
+    alt="det virker ikke"
+    width="100"
+    height="40"
+    className="d-inline-block align-top"
+  />
+  Navbar
+</Navbar.Brand>
         <Navbar.Toggle type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
