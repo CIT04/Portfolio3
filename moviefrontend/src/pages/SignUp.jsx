@@ -1,6 +1,5 @@
 import React from "react";
-import "./SignUpForm.css";
-import NavLink from "react-bootstrap/esm/NavLink";
+import "./css/SignUpForm.css";
 
 const SignUpForm = () => {
   return (

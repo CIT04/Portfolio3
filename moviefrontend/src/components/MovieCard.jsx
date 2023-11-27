@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import './MovieCard.css'; // Import the CSS file
+import './css/MovieCard.css';
+
 
 export function MovieCard({ title, plot, poster, year }) {
   return (

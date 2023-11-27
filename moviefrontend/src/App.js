@@ -1,12 +1,17 @@
 
 import './App.css';
-import Header from './Header';
+import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState,useEffect } from 'react';
-import MovieCarousel from './MovieCarousel.jsx';
-import Login from './Login'
-import SignUp from './SignUp'
+import SignUp from './pages/SignUp.jsx';
 
+import React from "react"
+//import ReactDOM from "react-dom/client"
+//mport App from "./App"
+//import { Route, Routes } from "react-router-dom"
+import LoginForm from "./pages/Login.jsx"
+import MovieCarousel from './components/MovieCarousel.jsx';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
 
@@ -30,25 +35,30 @@ function App() {
 
   return (
     <div className="App" style={appStyle}>
-
+      
       {/* Render the Header component */}
       <Header />
-
-      {/* Render the Header component */}
+    
+      {/* Routes */}
+      
+      
+      {/* Todays featured */}
       <h1>Todays featured</h1>
-      <MovieCarousel medias={medias}/>
+      <MovieCarousel medias={medias} />
+      
+      {/* IMDB top 10 */}
       <h1>IMDB top 10</h1>
-      <MovieCarousel medias={medias}/>
-
+      <MovieCarousel medias={medias} />
+  
       {/* Log in page */}
-      <Login />
-
+      <LoginForm />
+  
       {/* Sign up page */}
       <SignUp />
-
-      </div>
-    
+    </div>
   );
+  
 }
+
 
 export default App;
