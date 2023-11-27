@@ -4,6 +4,8 @@ import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState,useEffect } from 'react';
 import MovieCarousel from './MovieCarousel.jsx';
+import Login from './Login'
+import SignUp from './SignUp'
 
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
 
   return (
     <div className="App" style={appStyle}>
+
       {/* Render the Header component */}
       <Header />
 
@@ -36,6 +39,12 @@ function App() {
       <MovieCarousel medias={medias}/>
       <h1>IMDB top 10</h1>
       <MovieCarousel medias={medias}/>
+
+      {/* Log in page */}
+      <Login />
+
+      {/* Sign up page */}
+      <SignUp />
 
       </div>
     
