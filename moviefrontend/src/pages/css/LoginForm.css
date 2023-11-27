@@ -2,7 +2,7 @@
   width: 400px;
   max-width: 100%;
   margin: 50px auto;
-  background-color: lightblue;
+  background-color: rgb(77, 77, 77);
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
@@ -46,9 +46,9 @@
 #login-form form input[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: dodgerblue;
+  background-color: rgb(255, 243, 18);
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
