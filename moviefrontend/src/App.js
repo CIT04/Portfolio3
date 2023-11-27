@@ -2,12 +2,24 @@
 import './App.css';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MovieCardList from './MovieCard.jsx';
+import React, { useState,useEffect } from 'react';
+import MovieCarousel from './MovieCarousel.jsx';
 
 
 function App() {
 
-  
+  const [count, setCount] = useState(6);  // Load this many users
+  const [medias, setMedias] = useState([]); // The list of users
+
+  function loadMedias () {
+    fetch("http://localhost:5001/api/media/")
+      .then(res => res.json())
+      .then(json => {setMedias(json.items);});
+  }
+
+  useEffect(loadMedias, [count]); // When count changes, load users again
+
+
   // Background color and padding
   const appStyle = {
     backgroundColor: '#8484B0', // Set your desired color
@@ -20,7 +32,10 @@ function App() {
       <Header />
 
       {/* Render the Header component */}
-      <MovieCardList />
+      <h1>Todays featured</h1>
+      <MovieCarousel medias={medias}/>
+      <h1>IMDB top 10</h1>
+      <MovieCarousel medias={medias}/>
 
       </div>
     
