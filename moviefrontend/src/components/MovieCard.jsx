@@ -8,8 +8,8 @@ export function MovieCard({ title, plot, poster, year }) {
     <Card>
       <Card.Img variant="top" src={poster} className="card-img-top" />
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{plot}</Card.Text>
+        <Card.Title><h5>{title}<h1/></h5></Card.Title>
+        <Card.Text><h6>{plot}</h6></Card.Text>
         <Card.Text>{year}</Card.Text>
       </Card.Body>
     </Card>

@@ -1,14 +1,42 @@
+/* MovieCard.css */
+
 .card {
-    width: 200px;
-    height: 500px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .card-img-top {
-    height: 400px;
-  }
+  position: relative;
+  overflow: hidden;
+  transition: height 0.3s ease; /* Add a smooth transition effect */
+}
+
+.card:hover {
+  height: 400px; /* Increase the height on hover */
+}
+
+.card-img-top {
+  height: 400px;
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1); /* Increase the image size on hover */
+}
+
+.card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 30px; /* Set the initial minimal height for the plot */
+  overflow: hidden;
+  padding: 5px; /* Adjust the padding as needed */
+  background-color: rgba(45, 45, 45, 0.7); /* Add a semi-transparent background */
+  backdrop-filter: blur(5px); /* Add the blur effect to the background */
+  transition: max-height 0.3s ease; /* Add a smooth transition effect */
+}
+
+.card:hover .card-body {
+  max-height: 100%; /* Expand the text area on hover */
+}
+
+.card-title,
 .card-text {
-    max-height: 100px; /* Set the maximum height for the plot */
-    overflow: hidden;
+  color: rgb(255, 255, 255); /* Adjust the text color as needed */
 }

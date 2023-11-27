@@ -29,7 +29,7 @@ function App() {
 
   // Background color and padding
   const appStyle = {
-    backgroundColor: '#8484B0', // Set your desired color
+    
     padding: '0px', // Set your desired padding
   };
 
