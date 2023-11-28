@@ -2,6 +2,7 @@ import './App.css';
 import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './pages/SignUp.jsx';
+import UserPage from './pages/UserPage.jsx';
 
 import React from "react"
 //import ReactDOM from "react-dom/client"
@@ -40,20 +41,44 @@ function App() {
     
       {/* Routes */}
       
-      
+      {/*--------------------Home Page----------------------*/}
+
+      <br></br>
+      <br></br>
+      <br></br>
+
       {/* Todays featured */}
       <h1>Todays featured</h1>
       <MovieCarousel medias={medias} />
+
+      <br></br>
       
       {/* IMDB top 10 */}
       <h1>IMDB top 10</h1>
       <MovieCarousel medias={medias} />
+
+      {/*--------------------Log In Page----------------------*/}
   
-      {/* Log in page */}
       <LoginForm />
+
+      {/*--------------------Sign Up Page----------------------*/}
   
-      {/* Sign up page */}
       <SignUp />
+
+      {/*--------------------User Page----------------------*/}
+
+      <h1>History</h1>
+      <MovieCarousel medias={medias} />
+
+      <br></br>
+      <br></br>
+
+      <h1>Bookmarks</h1>
+      <MovieCarousel medias={medias} />
+
+      <UserPage />
+
+
     </div>
   );
   
