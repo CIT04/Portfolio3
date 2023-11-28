@@ -1,6 +1,6 @@
 /* Team.css */
 
-body {
+.bodyteams {
     font-family: 'Arial', sans-serif;
     background-color: #ba9595;
     margin: 0;
@@ -13,11 +13,11 @@ body {
     padding: 20px;
   }
   
-  h1 {
+  .h1teams {
     color: #e0d612;
   }
   
-  h2 {
+  .h2teams {
     color: #e0d612;
   }
   

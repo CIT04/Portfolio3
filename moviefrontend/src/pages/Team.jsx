@@ -32,10 +32,9 @@ const Team = () => {
 
   return (
     <div className="container">
-      <h1>Full Cast and Crew</h1>
-
+      <h1 className='h1teams'>Full Cast and Crew</h1>
       <div className="cast-list">
-        <h2>Cast</h2>
+        <h2 className='h2teams'>Cast</h2>
         <ul className='ulteam'>
           {cast.map((actor, index) => (
             <li className='liteam' key={index}>{actor}</li>
@@ -44,7 +43,7 @@ const Team = () => {
         </ul>
       </div>
       <div className="crew-list">
-        <h2>Crew</h2>
+        <h2 className='h2teams'>Crew</h2>
         <ul className='ulteam'>
           {crew.map((crewMember) => (
             <li className='liteam' >{crewMember}</li>
