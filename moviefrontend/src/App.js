@@ -85,10 +85,15 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-      {/* Team page */}
+      {/*--------------------Team Page----------------------*/}
       <Team/>
 
       <Actor actors= {actors}/>
+      
+
+
+      {/*--------------------Search Page----------------------*/}
+      
       <SearchResultColumn searchResults={search}/>
       
 

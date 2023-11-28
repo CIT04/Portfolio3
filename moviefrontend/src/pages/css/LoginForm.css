@@ -22,6 +22,7 @@
   background-color: white;
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
+  color: black
 }
 
 #login-form form label {
@@ -46,9 +47,9 @@
 #login-form form input[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: dodgerblue;
+  background-color: rgb(235, 212, 39);
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
