@@ -7,17 +7,16 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import CustomDropdown from './css/CustomDropdown';
 
+import './css/HeaderStyle.css';
 
-
-
-function BasicExample() {
+function Header() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary fixed-top">
+    <Navbar expand="lg" className="custom-navbar fixed-top">
       <Container>
         <Row className="w-100">
           {/* Logo with Image */}
           <Col xs={4}>
-            <Navbar.Brand href="#">
+            <Navbar.Brand href="#" className="navbar-logo">
               <Image
                 src={process.env.PUBLIC_URL + '/imdb.png'}
                 alt="det virker ikke"
@@ -25,29 +24,31 @@ function BasicExample() {
                 height="40"
                 className="d-inline-block align-top"
               />
-             
-
             </Navbar.Brand>
           </Col>
 
           {/* Search Bar with Filters */}
-          <Col xs={4} className="d-flex align-items-center">
-          <CustomDropdown/>
-          
-            <form className="d-flex">
-              <input className="form-control me-sm-2" type="search" placeholder="Search" />
+          <Col xs={6} className="d-flex align-items-center">
+            <CustomDropdown />
 
-              
+            <form className="d-flex flex-grow-1">
+              <input
+                className="form-control search-input flex-grow-1"
+                type="search"
+                placeholder="Search for movies, TV shows, and more..."
+              />
 
-              <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+              <button className="btn btn-secondary search-button" type="submit">
                 Search
               </button>
             </form>
           </Col>
 
           {/* Signin */}
-          <Col xs={4} className="d-flex align-items-center justify-content-end">
-            <Nav.Link href="#link">Signin</Nav.Link>
+          <Col xs={2} className="d-flex align-items-center justify-content-end">
+            <Nav.Link href="#link" className="signin-link">
+              Signin
+            </Nav.Link>
           </Col>
         </Row>
       </Container>
@@ -55,4 +56,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Header;
