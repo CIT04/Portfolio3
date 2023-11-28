@@ -3,6 +3,7 @@ import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './pages/SignUp.jsx';
 import UserPage from './pages/UserPage.jsx';
+import MediaDisplay from './pages/MediaDisplay.jsx';
 
 import React from "react"
 //import ReactDOM from "react-dom/client"
@@ -47,11 +48,14 @@ function App() {
       
       {/* Render the Header component */}
       <Header />
+
+      
     
       {/* Routes */}
 
       <MovieCarousel medias={medias} />
 
+      <MediaDisplay/>
       {/*--------------------Log In Page----------------------*/}
   
       <LoginForm />
@@ -79,7 +83,6 @@ function App() {
 
       {/* Team page */}
       <Team/>
-
 
     </div>
   );
