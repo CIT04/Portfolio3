@@ -31,9 +31,9 @@ const Team = () => {
   }
 
   return (
-    <div className="container">
+    <div className="containerteam">
       <h1 className='h1teams'>Full Cast and Crew</h1>
-      <div className="cast-list">
+      <div className="cast-listteam">
         <h2 className='h2teams'>Cast</h2>
         <ul className='ulteam'>
           {cast.map((actor, index) => (
@@ -42,7 +42,7 @@ const Team = () => {
           ))}
         </ul>
       </div>
-      <div className="crew-list">
+      <div className="crew-listteam">
         <h2 className='h2teams'>Crew</h2>
         <ul className='ulteam'>
           {crew.map((crewMember) => (

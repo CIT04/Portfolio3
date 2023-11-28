@@ -7,7 +7,7 @@
     padding: 0;
   }
   
-  .container {
+  .containerteam {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -37,13 +37,13 @@
   }
   
   /* Style for cast list */
-  .cast-list {
+  .cast-listteam {
     margin-bottom: 20px;
     color: #000000;
   }
   
   /* Style for crew list */
-  .crew-list {
+  .crew-listteam {
     margin-bottom: 20px;
     color: #000000 ;
   }
