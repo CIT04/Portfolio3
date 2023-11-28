@@ -4,7 +4,7 @@ import SearchResult from './SearchResult';
 
 const SearchResultColumn = ({ searchResults }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {searchResults.map((result, index) => (
         <SearchResult
           key={index}

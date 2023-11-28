@@ -40,7 +40,7 @@ function App() {
   }
 
   function loadSearch () {
-    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=tom holland")
+    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=Leonardo DiCaprio")
       .then(res => res.json())
       .then(json => {setSearch(json.items);});
   }

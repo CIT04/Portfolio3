@@ -1,9 +1,11 @@
 /* SearchResult.css */
 .search-result {
     border: 1px solid #ccc;
+    border-radius: 8px;
     padding: 10px;
     margin: 5px;
     display: flex;
+    width: 50%;
   }
   
   .search-result img {
