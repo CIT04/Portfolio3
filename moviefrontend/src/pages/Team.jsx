@@ -36,18 +36,18 @@ const Team = () => {
 
       <div className="cast-list">
         <h2>Cast</h2>
-        <ul>
+        <ul className='ulteams'>
           {cast.map((actor, index) => (
-            <li key={index}>{actor}</li>
+            <li className='liteams' key={index}>{actor}</li>
           ))}
         </ul>
       </div>
 
       <div className="crew-list">
         <h2>Crew</h2>
-        <ul>
+        <ul className='ulteams'>
           {crew.map((crewMember) => (
-            <li >{crewMember}</li>
+            <li className='liteams' >{crewMember}</li>
           ))}
         </ul>
       </div>

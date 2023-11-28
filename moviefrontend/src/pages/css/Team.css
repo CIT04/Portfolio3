@@ -21,12 +21,12 @@ body {
     color: #e0d612;
   }
   
-  ul {
+  .ulteams {
     list-style: none;
     padding: 0;
   }
   
-  li {
+  .liteams {
     margin-bottom: 10px;
     padding: 10px;
     background-color: #fff;

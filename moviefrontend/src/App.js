@@ -14,11 +14,17 @@ import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import SearchResultColumn from './SearchResultColumn.jsx';
+import Actor from './pages/Actor.jsx';
+
+
 
 function App() {
 
   const [mediaCount, setMediaCount] = useState(6);  // 
   const [medias, setMedias] = useState([]); // The list of users
+
+  const[actorCount, setActorCount] = useState(5);
+  const[actors, setActors]=useState([]);
 
   const [searchCount, setSearchCount] = useState(6);  // 
   const [search, setSearch] = useState([]); // The list of users
@@ -27,6 +33,11 @@ function App() {
     fetch("http://localhost:5001/api/media/")
       .then(res => res.json())
       .then(json => {setMedias(json.items);});
+  }
+  function loadActors (){
+    fetch("http://localhost:5001/api/person/")
+    .then(res=>res.json())
+    .then(json => {setActors(json.items);});
   }
 
   function loadSearch () {
@@ -37,6 +48,7 @@ function App() {
 
   useEffect(loadMedias, [mediaCount]); // When count changes, load users again
   useEffect(loadSearch, [searchCount]);
+  useEffect(loadActors, [actorCount]);
 
 
   // Background color and padding
@@ -60,6 +72,7 @@ function App() {
   
       <SignUp />
 
+
       {/*--------------------User Page----------------------*/}
 
       <h1>History</h1>
@@ -73,13 +86,11 @@ function App() {
 
       <UserPage />
 
-      
-
-
-
       {/* Team page */}
       <Team/>
 
+      <Actor actors= {actors}/>
+      
 
     </div>
   );
