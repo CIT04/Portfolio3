@@ -4,7 +4,6 @@ import '../components/css/MovieCard.css';
 import MediaCards from "../components/MediaCards";
 import Stack from 'react-bootstrap/Stack';
 import MovieCard from "../components/MovieCard";
-const a = [1,2,3];
 
 const MediaDisplay = () => {
 const [count, setCount] = useState(5);  // Load this many users
@@ -59,9 +58,12 @@ function loadMedia () {
                                             <div className="p-2">
                                                 <h3>Genres</h3>
                                                 <h4>
+                                                    {/* TODO
                                                     {media.mediaGenres.map((genre, index) => (
                                                     <p key={index}>{genre}</p>
                                                     ))}
+
+                                                    */}
                                                 </h4>
                                                 <p>aa</p>
                                             </div>

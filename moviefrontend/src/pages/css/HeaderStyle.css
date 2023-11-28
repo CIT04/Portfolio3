@@ -1,0 +1,40 @@
+.custom-navbar {
+    background-color: #101010; /* Dark grey background color */
+}
+
+.navbar-logo {
+    color: #fff; /* White color for the logo */
+}
+
+.search-input {
+    background-color: #333; /* Darker grey background color for the search input */
+    color: #fff; /* White color for the text in the search input */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius for a modern look */
+    padding: 8px; /* Add some padding for better spacing */
+}
+
+.search-button {
+    background-color: #555; /* Darker grey background color for the search button */
+    color: #fff; /* White color for the text in the search button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius for a modern look */
+    margin-left: 8px; /* Add some margin to separate the button from the input */
+}
+
+.signin-link {
+    color: #fff; /* White color for the Signin link */
+}
+
+/* Additional styles for the CustomDropdown */
+.custom-dropdown {
+    margin-right: 16px; /* Increase the margin to move the dropdown further away from the search bar */
+
+}
+
+.custom-dropdown-button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}

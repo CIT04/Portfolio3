@@ -1,0 +1,51 @@
+/* Actor.css */
+
+.actor-page {
+  font-family: 'Arial', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.actor-card {
+  border: 1px solid #969696;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.actor-card h2 {
+  color: #e0d612;
+  margin-bottom: 5px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actor-card p {
+  color: #000000;
+}
+
+.actor-movies h3 {
+  color: #333;
+}
+
+.actor-movies ul {
+  list-style: none;
+  padding: 0;
+}
+
+.actor-movies li {
+  margin-bottom: 15px;
+}
+
+.actor-movies h2 {
+  color: #e0d612;
+  margin-bottom: 5px;
+}
+
+.actor-movies p {
+  color: #000000;
+}

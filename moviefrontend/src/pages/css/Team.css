@@ -1,32 +1,34 @@
 /* Team.css */
 
-body {
+.bodyteams {
     font-family: 'Arial', sans-serif;
     background-color: #ba9595;
     margin: 0;
     padding: 0;
   }
   
-  .container {
+  .containerteam {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
   }
   
-  h1 {
+  .h1teams {
     color: #e0d612;
   }
   
-  h2 {
+  .h2teams {
     color: #e0d612;
   }
   
-  ul {
+
+  .ulteam {
     list-style: none;
     padding: 0;
   }
   
-  li {
+
+  .liteam {
     margin-bottom: 10px;
     padding: 10px;
     background-color: #fff;
@@ -35,13 +37,13 @@ body {
   }
   
   /* Style for cast list */
-  .cast-list {
+  .cast-listteam {
     margin-bottom: 20px;
     color: #000000;
   }
   
   /* Style for crew list */
-  .crew-list {
+  .crew-listteam {
     margin-bottom: 20px;
     color: #000000 ;
   }

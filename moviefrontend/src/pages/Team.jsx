@@ -31,23 +31,23 @@ const Team = () => {
   }
 
   return (
-    <div className="container">
-      <h1>Full Cast and Crew</h1>
-
-      <div className="cast-list">
-        <h2>Cast</h2>
-        <ul>
+    <div className="containerteam">
+      <h1 className='h1teams'>Full Cast and Crew</h1>
+      <div className="cast-listteam">
+        <h2 className='h2teams'>Cast</h2>
+        <ul className='ulteam'>
           {cast.map((actor, index) => (
-            <li key={index}>{actor}</li>
+            <li className='liteam' key={index}>{actor}</li>
+
           ))}
         </ul>
       </div>
-
-      <div className="crew-list">
-        <h2>Crew</h2>
-        <ul>
+      <div className="crew-listteam">
+        <h2 className='h2teams'>Crew</h2>
+        <ul className='ulteam'>
           {crew.map((crewMember) => (
-            <li >{crewMember}</li>
+            <li className='liteam' >{crewMember}</li>
+
           ))}
         </ul>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const CustomDropdown = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -10,27 +11,31 @@ const CustomDropdown = () => {
   const types = ['Movie', 'Series', 'Game'];
 
   const handleGenreChange = (genre) => {
-    if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter((selectedGenre) => selectedGenre !== genre));
-    } else {
-      setSelectedGenres([...selectedGenres, genre]);
-    }
+    setSelectedGenres((prevGenres) => {
+      if (prevGenres.includes(genre)) {
+        return prevGenres.filter((selectedGenre) => selectedGenre !== genre);
+      } else {
+        return [...prevGenres, genre];
+      }
+    });
   };
 
   const handleTypeChange = (type) => {
-    if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter((selectedType) => selectedType !== type));
-    } else {
-      setSelectedTypes([...selectedTypes, type]);
-    }
+    setSelectedTypes((prevTypes) => {
+      if (prevTypes.includes(type)) {
+        return prevTypes.filter((selectedType) => selectedType !== type);
+      } else {
+        return [...prevTypes, type];
+      }
+    });
   };
 
   return (
-    <NavDropdown title="Filters" id="basic-nav-dropdown">
-      <div className="d-flex">
+    <NavDropdown title="Filters" id="basic-nav-dropdown" className="custom-dropdown">
+      <div className="d-flex flex-column p-4">
         {/* First Row - Genre */}
-        <div className="flex-grow-1">
-          <h6>Genre</h6>
+        <div className="mb-3">
+          <h6 className="mb-2">Genre</h6>
           <Form>
             {genres.map((genre) => (
               <Form.Check
@@ -45,8 +50,8 @@ const CustomDropdown = () => {
         </div>
 
         {/* Second Row - Type */}
-        <div className="flex-grow-1">
-          <h6>Type</h6>
+        <div className="mb-3">
+          <h6 className="mb-2">Type</h6>
           <Form>
             {types.map((type) => (
               <Form.Check
@@ -59,6 +64,11 @@ const CustomDropdown = () => {
             ))}
           </Form>
         </div>
+
+        {/* Apply Button */}
+        <Button variant="warning" className="mt-3" onClick={() => console.log('Apply Filters')}>
+          Apply Filters
+        </Button>
       </div>
     </NavDropdown>
   );

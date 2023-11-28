@@ -3,9 +3,9 @@ import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './pages/SignUp.jsx';
 import UserPage from './pages/UserPage.jsx';
+import SearchResultColumn from './pages/SearchResultColumn.jsx';
 import MediaDisplay from './pages/MediaDisplay.jsx';
-
-import React from "react"
+import React from "react";
 //import ReactDOM from "react-dom/client"
 //mport App from "./App"
 //import { Route, Routes } from "react-router-dom"
@@ -14,12 +14,17 @@ import MovieCarousel from './components/MovieCarousel.jsx';
 import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import SearchResultColumn from './SearchResultColumn.jsx';
+import Actor from './pages/Actor.jsx';
+
+
 
 function App() {
 
   const [mediaCount, setMediaCount] = useState(6);  // 
   const [medias, setMedias] = useState([]); // The list of users
+
+  const[actorCount, setActorCount] = useState(5);
+  const[actors, setActors]=useState([]);
 
   const [searchCount, setSearchCount] = useState(6);  // 
   const [search, setSearch] = useState([]); // The list of users
@@ -29,15 +34,21 @@ function App() {
       .then(res => res.json())
       .then(json => {setMedias(json.items);});
   }
+  function loadActors (){
+    fetch("http://localhost:5001/api/person/")
+    .then(res=>res.json())
+    .then(json => {setActors(json.items);});
+  }
 
   function loadSearch () {
-    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=spider-man")
+    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=Leonardo DiCaprio")
       .then(res => res.json())
       .then(json => {setSearch(json.items);});
   }
 
   useEffect(loadMedias, [mediaCount]); // When count changes, load users again
   useEffect(loadSearch, [searchCount]);
+  useEffect(loadActors, [actorCount]);
 
 
   // Background color and padding
@@ -52,7 +63,7 @@ function App() {
       
     
       {/* Routes */}
-
+      <h1>Todays featured</h1>
       <MovieCarousel medias={medias} />
 
       <MediaDisplay/>
@@ -63,6 +74,7 @@ function App() {
       {/*--------------------Sign Up Page----------------------*/}
   
       <SignUp />
+
 
       {/*--------------------User Page----------------------*/}
 
@@ -75,14 +87,19 @@ function App() {
       <h1>Bookmarks</h1>
       <MovieCarousel medias={medias} />
 
-      <UserPage />
+      <UserPage searchResults={search}/>
 
+      {/*--------------------Team Page----------------------*/}
+      <Team/>
+
+      <Actor actors= {actors}/>
       
 
 
-
-      {/* Team page */}
-      <Team/>
+      {/*--------------------Search Page----------------------*/}
+      
+      <SearchResultColumn searchResults={search}/>
+      
 
     </div>
   );
