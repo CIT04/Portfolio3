@@ -1,0 +1,50 @@
+/* Team.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ba9595;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #e0d612;
+  }
+  
+  h2 {
+    color: #e0d612;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+  
+  /* Style for cast list */
+  .cast-list {
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+  /* Style for crew list */
+  .crew-list {
+    margin-bottom: 20px;
+    color: #000000 ;
+  }
+  
+  /* Optional: Add more styles based on your design preferences */
+  
