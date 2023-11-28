@@ -3,7 +3,7 @@ import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './pages/SignUp.jsx';
 import UserPage from './pages/UserPage.jsx';
-
+import SearchResultColumn from './pages/SearchResultColumn.jsx';
 import React from "react"
 //import ReactDOM from "react-dom/client"
 //mport App from "./App"
@@ -13,9 +13,12 @@ import MovieCarousel from './components/MovieCarousel.jsx';
 import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
+<<<<<<< Updated upstream
 import SearchResultColumn from './SearchResultColumn.jsx';
 import Actor from './pages/Actor.jsx';
 
+=======
+>>>>>>> Stashed changes
 
 
 function App() {
@@ -41,7 +44,7 @@ function App() {
   }
 
   function loadSearch () {
-    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=spider-man")
+    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=tom holland")
       .then(res => res.json())
       .then(json => {setSearch(json.items);});
   }
@@ -61,7 +64,7 @@ function App() {
       <Header />
     
       {/* Routes */}
-
+      <h1>Todays featured</h1>
       <MovieCarousel medias={medias} />
 
       {/*--------------------Log In Page----------------------*/}
@@ -84,13 +87,25 @@ function App() {
       <h1>Bookmarks</h1>
       <MovieCarousel medias={medias} />
 
-      <UserPage />
+      <UserPage searchResults={search}/>
 
+<<<<<<< Updated upstream
       {/* Team page */}
       <Team/>
 
       <Actor actors= {actors}/>
       
+=======
+
+      <SearchResultColumn searchResults={search}/>
+
+
+      {/* Team page */}
+      <Team/>
+
+      
+
+>>>>>>> Stashed changes
 
     </div>
   );

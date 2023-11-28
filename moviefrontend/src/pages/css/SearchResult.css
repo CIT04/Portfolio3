@@ -1,0 +1,19 @@
+/* SearchResult.css */
+.search-result {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+  }
+  
+  .search-result img {
+    max-width: 100px;
+    max-height: 150px;
+    margin-right: 10px;
+  }
+  
+  .search-result-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }

@@ -36,18 +36,30 @@ const Team = () => {
 
       <div className="cast-list">
         <h2>Cast</h2>
+<<<<<<< Updated upstream
         <ul className='ulteams'>
           {cast.map((actor, index) => (
             <li className='liteams' key={index}>{actor}</li>
+=======
+        <ul className='ulteam'>
+          {cast.map((actor, index) => (
+            <li className='liteam' key={index}>{actor}</li>
+>>>>>>> Stashed changes
           ))}
         </ul>
       </div>
 
       <div className="crew-list">
         <h2>Crew</h2>
+<<<<<<< Updated upstream
         <ul className='ulteams'>
           {crew.map((crewMember) => (
             <li className='liteams' >{crewMember}</li>
+=======
+        <ul className='ulteam'>
+          {crew.map((crewMember) => (
+            <li className='liteam' >{crewMember}</li>
+>>>>>>> Stashed changes
           ))}
         </ul>
       </div>

@@ -21,12 +21,20 @@ body {
     color: #e0d612;
   }
   
+<<<<<<< Updated upstream
   .ulteams {
+=======
+  .ulteam {
+>>>>>>> Stashed changes
     list-style: none;
     padding: 0;
   }
   
+<<<<<<< Updated upstream
   .liteams {
+=======
+  .liteam {
+>>>>>>> Stashed changes
     margin-bottom: 10px;
     padding: 10px;
     background-color: #fff;
