@@ -8,8 +8,9 @@ import React from "react"
 //import ReactDOM from "react-dom/client"
 //mport App from "./App"
 //import { Route, Routes } from "react-router-dom"
-import LoginForm from "./pages/Login.jsx"
+import LoginForm from "./pages/Login.jsx";
 import MovieCarousel from './components/MovieCarousel.jsx';
+import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -78,6 +79,10 @@ function App() {
 
       <UserPage />
 
+
+
+      {/* Team page */}
+      <Team/>
 
     </div>
   );
