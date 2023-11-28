@@ -13,12 +13,8 @@ import MovieCarousel from './components/MovieCarousel.jsx';
 import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
-<<<<<<< Updated upstream
-import SearchResultColumn from './SearchResultColumn.jsx';
 import Actor from './pages/Actor.jsx';
 
-=======
->>>>>>> Stashed changes
 
 
 function App() {
@@ -89,23 +85,13 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-<<<<<<< Updated upstream
       {/* Team page */}
       <Team/>
 
       <Actor actors= {actors}/>
-      
-=======
-
       <SearchResultColumn searchResults={search}/>
-
-
-      {/* Team page */}
-      <Team/>
-
       
 
->>>>>>> Stashed changes
 
     </div>
   );
