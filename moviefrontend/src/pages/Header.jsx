@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import CustomDropdown from './css/CustomDropdown';
+import CustomDropdown from './CustomDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './css/HeaderStyle.css';
 import React, { useEffect, useState } from 'react';
