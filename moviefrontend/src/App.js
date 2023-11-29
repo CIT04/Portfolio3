@@ -67,7 +67,7 @@ function App() {
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
-      <Route path="/team" element={  <Actor actors= {actors}/>}/>
+      <Route path="/actor" element={  <Actor actors= {actors}/>}/>
 
       
       </Routes>
