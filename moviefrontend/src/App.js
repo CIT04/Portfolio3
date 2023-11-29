@@ -21,6 +21,10 @@ import { Route, Routes } from 'react-router';
 
 function App() {
 
+  
+
+  
+  
   const [mediaCount, setMediaCount] = useState(6);  // 
   const [medias, setMedias] = useState([]); // The list of users
 
@@ -28,7 +32,7 @@ function App() {
   const[actors, setActors]=useState([]);
 
   const [searchCount, setSearchCount] = useState(6);  // 
-  const [search, setSearch] = useState([]); // The list of users
+   
 
   function loadMedias () {
     fetch("http://localhost:5001/api/media/")
@@ -41,14 +45,10 @@ function App() {
     .then(json => {setActors(json.items);});
   }
 
-  function loadSearch () {
-    fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=Leonardo DiCaprio")
-      .then(res => res.json())
-      .then(json => {setSearch(json.items);});
-  }
+
 
   useEffect(loadMedias, [mediaCount]); // When count changes, load users again
-  useEffect(loadSearch, [searchCount]);
+ 
   useEffect(loadActors, [actorCount]);
 
 
@@ -59,6 +59,7 @@ function App() {
     <div className="App">
       
       {/* Render the Header component */}
+
       <Header />
 
       <Routes>
@@ -66,10 +67,11 @@ function App() {
       <Route path="/media" element={  <MediaDisplay/>}/>
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>
-      <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
-      <Route path="/actor" element={  <Actor actors= {actors}/>}/>
+      {/* <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/> */}
+      <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
+      <Route path="/actor/:id" element={  <Actor/>}/>
 
-      
+  
       </Routes>
      
     

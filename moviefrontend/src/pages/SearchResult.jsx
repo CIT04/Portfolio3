@@ -1,9 +1,10 @@
 // SearchResult.js
 import React from 'react';
 import './css/SearchResult.css';
+import { useParams } from 'react-router';
 
 
-const SearchResult = ({ poster, title, year, rating }) => {
+const SearchResult = ({poster, title, year, rating  }) => {
   return (
     <div className="search-result">
       <img src={poster} alt={'Image not found'} />
