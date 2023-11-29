@@ -13,6 +13,15 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(139, 139, 139, 0.375); /* Semi-transparent white background */
+  overflow: hidden; /* Ensure the blur doesn't bleed out of the box */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition effect */
+}
+
+.actor-card:hover {
+  transform: scale(1.05); /* Scale up on hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increase box shadow on hover */
 }
 
 .actor-card h2 {

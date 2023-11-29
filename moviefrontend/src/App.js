@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Actor from './pages/Actor.jsx';
 import { Route, Routes } from 'react-router';
+import SingleActor from './pages/SingleActor.jsx';
 
 
 
@@ -34,6 +35,9 @@ function App() {
   const [searchCount, setSearchCount] = useState(6);  // 
    
 
+  const [selectedMedia, setSelectedMedia] = useState(["tt0795176"]);
+ 
+
   function loadMedias () {
     fetch("http://localhost:5001/api/media/")
       .then(res => res.json())
@@ -45,14 +49,9 @@ function App() {
     .then(json => {setActors(json.items);});
   }
 
-
-
   useEffect(loadMedias, [mediaCount]); // When count changes, load users again
  
   useEffect(loadActors, [actorCount]);
-
-
-  // Background color and padding
 
 
   return (
@@ -62,21 +61,24 @@ function App() {
 
       <Header />
 
+      {/* Routes */}
       <Routes>
       <Route path="/" element={ <MovieCarousel medias={medias} />}/>
-      <Route path="/media" element={  <MediaDisplay/>}/>
+      <Route path="/media" element={  <MediaDisplay mediaId = {selectedMedia}/>}/>
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>
       {/* <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/> */}
       <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
       <Route path="/actor/:id" element={  <Actor/>}/>
+      <Route path="/user" element={  <UserPage />}/>
+      <Route path="/actor/:actorId" element={<SingleActor />} />
 
-  
+
       </Routes>
      
     
       {/* Routes */}
-      <h1>Todays featured</h1>
+     
      
 
      
@@ -89,7 +91,8 @@ function App() {
       
 
 
-      {/*--------------------User Page----------------------
+
+      {/*------User Page--------
 
       <h1>History</h1>
       <MovieCarousel medias={medias} />
@@ -102,21 +105,11 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-      {/*--------------------Team Page----------------------
-
+      ------------------------*/}
       
-      
-
-
-      {/*--------------------Search Page----------------------*/}
-      
-   
-      
-
     </div>
   );
   
 }
-
 
 export default App;
