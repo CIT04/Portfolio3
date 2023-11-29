@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import CustomDropdown from './css/CustomDropdown';
-import  'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './css/HeaderStyle.css';
 
 function Header() {
@@ -17,6 +17,7 @@ function Header() {
           {/* Logo with Image */}
           <Col xs={4}>
             <Navbar.Brand href="/" className="navbar-logo">
+              <NavLink to='/'>
               <Image
                 src={process.env.PUBLIC_URL + '/imdb.png'}
                 alt="det virker ikke"
@@ -24,6 +25,7 @@ function Header() {
                 height="40"
                 className="d-inline-block align-top"
               />
+              </NavLink>
             </Navbar.Brand>
           </Col>
 
@@ -46,9 +48,9 @@ function Header() {
 
           {/* Signin */}
           <Col xs={2} className="d-flex align-items-center justify-content-end">
-            <Nav.Link href="/signup" className="signin-link">
+            <NavLink to="/signup" className="signin-link">
               Signin
-            </Nav.Link>
+            </NavLink>
           </Col>
         </Row>
       </Container>
