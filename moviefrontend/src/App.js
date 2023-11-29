@@ -52,15 +52,13 @@ function App() {
   useEffect(loadActors, [actorCount]);
 
 
-  // Background color and padding
-
-
   return (
     <div className="App">
       
       {/* Render the Header component */}
       <Header />
 
+      {/* Routes */}
       <Routes>
       <Route path="/" element={ <MovieCarousel medias={medias} />}/>
       <Route path="/media" element={  <MediaDisplay/>}/>
@@ -69,22 +67,7 @@ function App() {
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
       <Route path="/actor" element={  <Actor actors= {actors}/>}/>
 
-      
       </Routes>
-     
-    
-      {/* Routes */}
-      <h1>Todays featured</h1>
-     
-
-     
-      {/*--------------------Log In Page----------------------*/}
-  
-      
-
-      {/*--------------------Sign Up Page----------------------*/}
-  
-      
 
 
       {/*--------------------User Page----------------------
@@ -100,17 +83,8 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-      {/*--------------------Team Page----------------------
-
+   ---*/}
       
-      
-
-
-      {/*--------------------Search Page----------------------*/}
-      
-   
-      
-
     </div>
   );
   
