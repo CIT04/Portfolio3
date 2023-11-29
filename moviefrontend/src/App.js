@@ -31,6 +31,8 @@ function App() {
   const [searchCount, setSearchCount] = useState(6);  // 
   const [search, setSearch] = useState([]); // The list of users
 
+  const [selectedMedia, setSelectedMedia] = useState([]);
+  selectedMedia = "tt0795176";
   function loadMedias () {
     fetch("http://localhost:5001/api/media/")
       .then(res => res.json())
@@ -62,7 +64,7 @@ function App() {
       {/* Routes */}
       <Routes>
       <Route path="/" element={ <MovieCarousel medias={medias} />}/>
-      <Route path="/media" element={  <MediaDisplay/>}/>
+      <Route path="/media" element={  <MediaDisplay mediaId = {selectedMedia}/>}/>
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
