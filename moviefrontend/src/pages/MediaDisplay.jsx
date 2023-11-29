@@ -10,6 +10,7 @@ const [count, setCount] = useState(5);  // Load this many users
   const [media, setMedia] = useState([]); // The list of users
 
 function loadMedia () {
+
     fetch("http://localhost:5001/api/media/tt0098936")
       .then(res => res.json())
       .then(json => { 

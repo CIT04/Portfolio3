@@ -15,6 +15,7 @@ import Team from "./pages/Team.jsx";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Actor from './pages/Actor.jsx';
+import { Route, Routes } from 'react-router';
 
 
 
@@ -60,23 +61,32 @@ function App() {
       {/* Render the Header component */}
       <Header />
 
+      <Routes>
+      <Route path="/" element={ <MovieCarousel medias={medias} />}/>
+      <Route path="/media" element={  <MediaDisplay/>}/>
+      <Route path="/login" element={  <LoginForm />}/>
+      <Route path="/signin" element={  <SignUp />}/>
+      <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
+
       
+      </Routes>
+     
     
       {/* Routes */}
       <h1>Todays featured</h1>
-      <MovieCarousel medias={medias} />
+     
 
-      <MediaDisplay/>
+     
       {/*--------------------Log In Page----------------------*/}
   
-      <LoginForm />
+      
 
       {/*--------------------Sign Up Page----------------------*/}
   
-      <SignUp />
+      
 
 
-      {/*--------------------User Page----------------------*/}
+      {/*--------------------User Page----------------------
 
       <h1>History</h1>
       <MovieCarousel medias={medias} />
@@ -89,8 +99,7 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-      {/*--------------------Team Page----------------------*/}
-      <Team/>
+      {/*--------------------Team Page----------------------
 
       <Actor actors= {actors}/>
       
@@ -98,7 +107,7 @@ function App() {
 
       {/*--------------------Search Page----------------------*/}
       
-      <SearchResultColumn searchResults={search}/>
+   
       
 
     </div>
