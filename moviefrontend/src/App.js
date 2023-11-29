@@ -65,8 +65,9 @@ function App() {
       <Route path="/" element={ <MovieCarousel medias={medias} />}/>
       <Route path="/media" element={  <MediaDisplay/>}/>
       <Route path="/login" element={  <LoginForm />}/>
-      <Route path="/signin" element={  <SignUp />}/>
+      <Route path="/signup" element={  <SignUp />}/>
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
+      <Route path="/team" element={  <Actor actors= {actors}/>}/>
 
       
       </Routes>
@@ -101,7 +102,7 @@ function App() {
 
       {/*--------------------Team Page----------------------
 
-      <Actor actors= {actors}/>
+      
       
 
 
