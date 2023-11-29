@@ -1,0 +1,61 @@
+/* SingleActor.css */
+
+.actor-details {
+    font-family: 'Arial', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .actor-details .actor-card {
+    border: 1px solid #969696;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(139, 139, 139, 0.375); /* Semi-transparent white background */
+    overflow: hidden; /* Ensure the blur doesn't bleed out of the box */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition effect */
+  }
+  
+  .actor-details .actor-card:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increase box shadow on hover */
+  }
+  
+  .actor-details .actor-card h2 {
+    color: #e0d612;
+    margin-bottom: 5px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .actor-details .actor-card p {
+    color: #000000;
+  }
+  
+  .actor-details .actor-movies h3 {
+    color: #333;
+  }
+  
+  .actor-details .actor-movies ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .actor-details .actor-movies li {
+    margin-bottom: 15px;
+  }
+  
+  .actor-details .actor-movies h2 {
+    color: #e0d612;
+    margin-bottom: 5px;
+  }
+  
+  .actor-details .actor-movies p {
+    color: #000000;
+  }
+  
