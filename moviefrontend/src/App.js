@@ -66,11 +66,12 @@ function App() {
       <Route path="/signup" element={  <SignUp />}/>
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
       <Route path="/actor" element={  <Actor actors= {actors}/>}/>
+      <Route path="/user" element={  <UserPage />}/>
 
       </Routes>
 
 
-      {/*--------------------User Page----------------------
+      {/*------User Page--------
 
       <h1>History</h1>
       <MovieCarousel medias={medias} />
@@ -83,12 +84,11 @@ function App() {
 
       <UserPage searchResults={search}/>
 
-   ---*/}
+      ------------------------*/}
       
     </div>
   );
   
 }
-
 
 export default App;

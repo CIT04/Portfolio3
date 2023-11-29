@@ -44,10 +44,10 @@
   margin-bottom: 20px;
 }
 
-#signup-form form input[type="submit"] {
+#login-form form input[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: rgb(235, 212, 39);
+  background-color: rgb(255, 225, 0);
   border: none;
   color: rgb(0, 0, 0);
   font-size: 16px;
@@ -58,7 +58,7 @@
   transition: background-color 0.3s ease;
 }
 
-#signup-form form input[type="submit"]:hover {
-  background-color: deepskyblue;
+#login-form form input[type="submit"]:hover {
+  background-color: rgb(235, 212, 39);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
