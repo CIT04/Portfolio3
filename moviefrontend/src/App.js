@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Actor from './pages/Actor.jsx';
 import { Route, Routes } from 'react-router';
+import SingleActor from './pages/SingleActor.jsx';
 
 
 
@@ -40,7 +41,7 @@ function App() {
     .then(res=>res.json())
     .then(json => {setActors(json.items);});
   }
-
+  
   function loadSearch () {
     fetch("http://localhost:5001/api/media/search?page=0&pageSize=10&Type=movie&search=Leonardo DiCaprio")
       .then(res => res.json())
@@ -66,9 +67,28 @@ function App() {
       <Route path="/signup" element={  <SignUp />}/>
       <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/>
       <Route path="/actor" element={  <Actor actors= {actors}/>}/>
+
       <Route path="/user" element={  <UserPage />}/>
 
+      <Route path="/actor/:actorId" element={<SingleActor />} />
+
+
       </Routes>
+     
+    
+      {/* Routes */}
+     
+     
+
+     
+      {/*--------------------Log In Page----------------------*/}
+  
+      
+
+      {/*--------------------Sign Up Page----------------------*/}
+  
+      
+
 
 
       {/*------User Page--------
