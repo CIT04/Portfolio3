@@ -1,106 +1,94 @@
 import React, { useState, useEffect } from "react";
-import Card from 'react-bootstrap/Card';
-import '../components/css/MovieCard.css';
-import MediaCards from "../components/MediaCards";
-import Stack from 'react-bootstrap/Stack';
 import MovieCard from "../components/MovieCard";
-import './css/MediaDisplay.css';
-import { Button } from "react-bootstrap";
+import "./css/MediaDisplay.css"; // Update the path based on your project structure
 
-const MediaDisplay = ({mediaId}) => {
-const [count, setCount] = useState(5);  // Load this many users
-const [media, setMedia] = useState([]); 
-const [status, setStatus] = useState([]); 
+const MediaDisplay = () => {
+  const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
 
-useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/api/media/"+mediaId);
-        const json = await response.json();
-        setMedia(json);
-        setStatus('done');
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setStatus('error');
-      }
-    };
-  
-    fetchData();
-  
+  useEffect(() => {
+    fetch("http://localhost:5001/api/media/tt0098936")
+      .then((res) => res.json())
+      .then((json) => {
+        setMedia({ status: 'done', ...json });
+      });
+  }, []);
 
-  }, [count]);
-  
-    
   return (
+    <div className="movie-page-container">
+      <div className="header-container">
+        <MovieCard poster={media.poster} />
+        <div className="title-container">
+          <h1>{media.title}</h1>
+          <h6>Original title: {media.title}</h6>
+        </div>
+      </div>
 
-    //First line
-    <div>
-    <div style={{ display: 'flex' }}>
-    <Stack direction="horizontal" gap={3}>
-      <div className="p-2">Type: i stykker{media.type}</div>
-      <div className="p-2">Duration: {media.runtime} min.</div>
-      <div className="p-2">{media.rated}</div>
-    </Stack>
+      <div className="details-container">
+        <div className="info-container">
+          <p>Type: {media.type}</p>
+          <p>Duration: {media.runtime} min.</p>
+          <p>{media.rated}</p>
+        </div>
 
-    <Stack direction="horizontal" gap={3}>
-    <div className="p-2">IMDB:{media.average} TODO: stjæl fra mau </div>
-    <Button>Edit Rating</Button>
-    <div className="p-2">Rating:{media.rating}</div>
-    <Button>Edit bookmark</Button>
-    </Stack>
+        <div className="info-container">
+          <p>IMDB: {media.average}</p>
+          <p className="rating-label">Rating:</p>
+          <div className="star-rating-container">
+            <div className="star-rating">
+              {Array.from({ length: 10 }, (_, index) => (
+                <span
+                  key={index}
+                  className="star"
+                  style={{
+                    fontSize: '1.5em',
+                    color:
+                      index < media.rating
+                        ? 'gold'
+                        : index - 0.5 === media.rating
+                        ? 'gold'
+                        : 'gray',
+                  }}
+                >
+                  {index < media.rating
+                    ? '\u2605'
+                    : index - 0.5 === media.rating
+                    ? '\u00BD'
+                    : '\u2606'}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="description-container">
+        <div className="creators-container">
+          <p>Creators: ()</p>
+          <p>Stars: </p>
+        </div>
+        <div className="plot-container">{media.plot}</div>
+      </div>
+
+      <div className="additional-container">
+        <div className="info-container">
+          <p>Languages: {media.language}</p>
+          <p>Country of origin: {media.country}</p>
+        </div>
+
+        <div className="genres-container">
+          <h3>Genres</h3>
+          <div className="genres-list">
+            {media.status !== 'done' ? (
+              <p>Loading</p>
+            ) : (
+              media.mediaGenres.map((genre, index) => (
+                <p key={index}>{genre}</p>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div>
-    <Stack direction="horizontal" gap={3}>
-        <MovieCard poster={media.poster}/>
-            <Stack gap={3}>
-                <div className="p-2"><h1>{media.title}</h1>
-                {/*TODO add originaltitle*/ }
-                <h8>Original title: {media.title}</h8>
-                </div>
-                    <Stack direction="horizontal" gap={3}>
-                        {/*TODO add directors and top 5 actors*/ }
-                        <div className="p-2">
-                            <p>Creators: ()</p>
-                            <p>Stars: </p>
-                        </div>
-                        <div className="p-2">{media.plot} </div>
-                    </Stack>
-                    <Stack direction="horizontal" gap={3}>
-                                            <div className="p-2"><p>Languages:{media.language}</p>
-                                            <p>Country of origin:{media.country}</p>
-                                            </div>
-                                            <div className="p-2">
-                                                <h3>Genres</h3>
-                                                <h4>
-                                                    {/* Wait for media to be loaded before accesing media.mediaGenres  */}
-                                                    {
-                                                    status != 'done' ? 
-                                                            <p>Loading</p>
-                                                    :
-                                                    
-                                                    media.mediaGenres.map((genre, index) => (
-                                                    <p key={index}>{genre}</p>
-                                                    ))
-                                                    }
-                                                    
-                                                
-                                                    
-                                                    
-                                                </h4>
-                                                
-                                            </div>
-                                            
-                     
-                    </Stack>
-                
-            </Stack>
-    </Stack>
-    </div>
-
-
-  </div>
-  
   );
 };
 
