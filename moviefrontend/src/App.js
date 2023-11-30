@@ -35,7 +35,7 @@ function App() {
   const [searchCount, setSearchCount] = useState(6);  // 
    
 
-  const [selectedMedia, setSelectedMedia] = useState(["tt0795176"]);
+ // const [selectedMedia, setSelectedMedia] = useState(["tt0795176"]);
  
 
   function loadMedias () {
@@ -64,7 +64,7 @@ function App() {
       {/* Routes */}
       <Routes>
       <Route path="/" element={ <MovieCarousel medias={medias} />}/>
-      <Route path="/media" element={  <MediaDisplay mediaId = {selectedMedia}/>}/>
+      <Route path="/media/:mediaId" element={<MediaDisplay />} />
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>
       {/* <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/> */}

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
+import { useParams } from 'react-router-dom';
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
+  const { mediaId } = useParams();
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/media/tt0098936")
+    fetch("http://localhost:5001/api/media/"+mediaId)
       .then((res) => res.json())
       .then((json) => {
         setMedia({ status: 'done', ...json });
