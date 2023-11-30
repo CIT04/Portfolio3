@@ -2,6 +2,8 @@ import React from 'react';
 import SearchResult from './SearchResult';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+
 
 const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
@@ -24,23 +26,27 @@ const SearchResultColumn = () => {
   useEffect(loadSearch, [searchstring]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div>
       {search.length === 0 ? (
         <p>No movies with those search terms</p>
       ) : (
         search.map((result) => (
-          <SearchResult
-           mediaid={result.id}
-            key={result.index}
-            poster={result.poster}
-            title={result.title}
-            year={result.year}
-            rating={result.rating}
-          />
+          <NavLink to={"/media/"+result.id} className="nav-link" key={result.id}>
+          <center>
+            <SearchResult
+              mediaid={result.id}
+              poster={result.poster}
+              title={result.title}
+              year={result.year}
+              rating={result.rating}
+            />
+          </center>
+          </NavLink>
         ))
       )}
     </div>
   );
+  
 };
 
 export default SearchResultColumn;

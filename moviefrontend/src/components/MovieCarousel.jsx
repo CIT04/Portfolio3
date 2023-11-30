@@ -16,7 +16,7 @@ function MovieCarousel({ medias }) {
   const mediaChunks = chunkArray(medias, visibleItems);
 
   return (
-    <Carousel keyboard={false} pause={false}>
+    <Carousel keyboard={false} pause={true}>
       {mediaChunks.map((chunk, index) => (
         <Carousel.Item key={index}>
           <Row>
