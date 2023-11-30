@@ -23,6 +23,7 @@ function MovieCarousel({ medias }) {
             {chunk.map((media, mediaIndex) => (
               <Col key={mediaIndex}>
                 <MovieCard
+                  mediaid={media.id}
                   title={media.title}
                   plot={media.plot}
                   poster={media.poster}
