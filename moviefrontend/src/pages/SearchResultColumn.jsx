@@ -42,6 +42,7 @@ useEffect(loadSearch, [searchstring]);
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {search.map((result) => (
         <SearchResult
+          mediaid={result.id}
           key={result.index}
           poster={result.poster}
           title={result.title}
