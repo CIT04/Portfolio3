@@ -67,7 +67,7 @@ const CustomDropdown = () => {
 
         {/* Apply Button */}
         <Button variant="warning" className="mt-3" onClick={() => console.log('Apply Filters')}>
-          Apply Filters
+          Apply
         </Button>
       </div>
     </NavDropdown>
