@@ -62,7 +62,7 @@ function Header({ }) {
           {/* Signin */}
           <Col xs={2} className="d-flex align-items-center justify-content-end">
             <NavLink to="/login" className="signin-link">
-              Signin
+              Log in
             </NavLink>
           </Col>
         </Row>
