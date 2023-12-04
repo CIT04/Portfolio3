@@ -66,7 +66,9 @@ function Header({ }) {
                 <>
                  
                   <NavLink to="/user" className="signin-link">
-                  <p>{userToken.username}</p>
+                  <button className="btn btn-secondary search-button" type="submit">
+                  {userToken.username}
+                  </button>
                   
                   </NavLink>
                   

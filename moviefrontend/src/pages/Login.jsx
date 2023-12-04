@@ -1,54 +1,61 @@
-import "./css/LoginForm.css";
-import { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import UserContext from '../components/UserContext';
-import React, { useContext, useEffect } from 'react';
-
+import "./css/LoginForm.css"
 
 const LoginForm = () => {
-  const { userToken, setToken } = useContext(UserContext);
-  const [user, setUser] = useState(null);
-  
-  
- 
-  const username = "normal bruger";
-  const password = "bent123";
-  const loginCredentials = {
-    Username: username,
-    Password: password
+  const { setToken } = useContext(UserContext);
+  const navi = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+    const loginCredentials = {
+      Username: username,
+      Password: password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:5001/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginCredentials),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const json = await response.json();
+      setToken(json);
+
+      // Navigate to "/" after successful login
+      navi('/');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
-  function login() {
-    fetch("http://localhost:5001/api/user/login", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginCredentials)
-    })
-      .then(res => res.json())
-      .then(json => {setToken(json);})
-      .catch(error => console.error('Error fetching data:', error));
-  }
-  useEffect(() => {
-    login();
-  }, []); 
-
-
-
-  console.log(userToken)
-
-
-
   return (
     <div id="login-form">
       <h1>Login</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username or Email:</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" />
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" />
         <input type="submit" value="Submit" />
-        <text>Do you not have an account? <p>{userToken != null && userToken.token}</p></text> <NavLink to='/signup'><b>Sign Up</b></NavLink>
+        <text>
+          Do you not have an account?{' '}
+          {/* Display relevant information here */}
+        </text>
+        <NavLink to="/signup">
+          <b>Sign Up</b>
+        </NavLink>
       </form>
     </div>
   );
