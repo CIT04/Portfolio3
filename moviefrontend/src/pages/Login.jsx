@@ -11,13 +11,9 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const username = event.target.username.value;
-    const password = event.target.password.value;
-
-    const loginCredentials = {
-      Username: username,
-      Password: password,
+   const loginCredentials = {
+      Username: event.target.username.value,
+      Password: event.target.password.value,
     };
 
     try {
