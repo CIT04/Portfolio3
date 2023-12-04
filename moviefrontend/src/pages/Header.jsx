@@ -7,11 +7,12 @@ import Image from 'react-bootstrap/Image';
 import CustomDropdown from './CustomDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './css/HeaderStyle.css';
-import React, { useEffect, useState } from 'react';
+import UserContext from '../components/UserContext';
+import React, { useEffect, useState, useContext } from 'react';
 
 function Header({ }) {
   const [searchInput, setSearchInput] = useState('');
-
+  const { userToken, setToken } = useContext(UserContext);
   // const handleInputChange = (e) => {
   //   const value = e.target.value;
   //   setSearchInput(value);
@@ -61,9 +62,25 @@ function Header({ }) {
 
           {/* Signin */}
           <Col xs={2} className="d-flex align-items-center justify-content-end">
-            <NavLink to="/login" className="signin-link">
-              Log in
-            </NavLink>
+                {userToken != null ? (
+                <>
+                 
+                  <NavLink to="/user" className="signin-link">
+                  <p>{userToken.username}</p>
+                  
+                  </NavLink>
+                  
+                  <NavLink to="/" className="signin-link">
+                  <button className="btn btn-secondary search-button" type="submit"  onClick={() => setToken(null)}>
+                  Log Out
+                  </button>
+                  </NavLink>
+                </>
+              ) : (
+                <NavLink to="/login" className="signin-link">
+                  Log In
+                </NavLink>
+              )}
           </Col>
         </Row>
       </Container>
