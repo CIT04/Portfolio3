@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import UserContext from '../components/UserContext';
-import "./css/LoginForm.css"
+import './css/LoginForm.css';
+import FormGroup from 'react-bootstrap/esm/FormGroup';
 
 const LoginForm = () => {
   const { setToken } = useContext(UserContext);
+  const [error, setError] = useState(null);
   const navi = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -38,16 +40,29 @@ const LoginForm = () => {
       navi('/');
     } catch (error) {
       console.error('Error fetching data:', error);
+      setError('Login failed. Please check your credentials.');
     }
   };
+
   return (
     <div id="login-form">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username or Email:</label>
-        <input type="text" id="username" name="username" />
+        <input
+          type="text"
+          id="username"
+          name="username"
+          className={error ? 'form-control is-invalid' : 'form-control'}
+        />
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          // className={error ? 'form-control is-invalid' : 'form-control'}
+        />
+        {error && <div className="invalid-feedback">{error}</div>}
         <input type="submit" value="Submit" />
         <text>
           Do you not have an account?{' '}
