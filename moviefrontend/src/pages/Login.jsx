@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
 import "./css/LoginForm.css";
 import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import UserContext from '../components/UserContext';
+import React, { useContext, useEffect } from 'react';
 
 
 const LoginForm = () => {
+  const { userToken, setToken } = useContext(UserContext);
   const [user, setUser] = useState(null);
+  
+  
  
   const username = "normal bruger";
   const password = "bent123";
@@ -21,19 +26,16 @@ const LoginForm = () => {
       body: JSON.stringify(loginCredentials)
     })
       .then(res => res.json())
-      .then(json => {setUser(json);})
+      .then(json => {setToken(json);})
       .catch(error => console.error('Error fetching data:', error));
   }
   useEffect(() => {
     login();
-  }, []); // empty dependency array to execute only once on mount
+  }, []); 
 
-  // useEffect(() => {
-   
-  // }, [user]); // log user when it changes
 
-  // console.log("loginCredentials");
-  console.log(JSON.stringify(loginCredentials));
+
+  console.log(userToken)
 
 
 
@@ -46,7 +48,7 @@ const LoginForm = () => {
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" />
         <input type="submit" value="Submit" />
-        <text>Do you not have an account? <p>{user != null && user.token}</p></text> <a href="https://www.google.com"> <b>Sign Up</b> </a>
+        <text>Do you not have an account? <p>{userToken != null && userToken.token}</p></text> <NavLink to='/signup'><b>Sign Up</b></NavLink>
       </form>
     </div>
   );

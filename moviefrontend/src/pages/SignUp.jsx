@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/SignUpForm.css";
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
   return (
@@ -16,8 +17,9 @@ const SignUpForm = () => {
         <input type="password" id="password" name="password" />
         <label htmlFor="dob">Birthday</label>
         <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy"/>
+        <text>Do you already have an account?</text> <NavLink  to ='/login'><b>Log in</b></NavLink>
         <input type="submit" value="Submit" />
-        <text>Do you already have an account?</text> <a href="https://www.google.com"> <b>Log in</b> </a>
+        
       </form>
     </div>
   );
