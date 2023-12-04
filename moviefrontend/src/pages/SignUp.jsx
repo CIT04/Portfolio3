@@ -58,7 +58,7 @@ const SignUpForm = () => {
       });
     } catch (error) {
       console.error('Error fetching data:', error);
-      setError('Signup failed. Please check your credentials.');
+      setError('Signup failed. Username or Email already exists.');
     }
   };
 
@@ -83,13 +83,15 @@ const SignUpForm = () => {
     <h1>Sign Up</h1>
     <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Username" />
+      <input type="text" id="username" name="username" placeholder="Username" className={error ? 'form-control is-invalid' : 'form-control'}/>
+      {error && <div className="invalid-feedback">{error}</div>}
       <label htmlFor="firstname">First name</label>
       <input type="text" id="firstname" name="firstname" placeholder="First name" />
       <label htmlFor="lastname">Last name</label>
       <input type="text" id="lastname" name="lastname" placeholder="Last name" />
       <label htmlFor="email">Email</label>
-      <input type="text" id="email" name="email" />
+      <input type="text" id="email" name="email" className={error ? 'form-control is-invalid' : 'form-control'}/>
+      {error && <div className="invalid-feedback">{error}</div>}
       <label htmlFor="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="At least 8 characters, 1 symbol, 1 big letter" />
       <label htmlFor="rePassword">Re-enter password:</label>
@@ -97,6 +99,7 @@ const SignUpForm = () => {
       <label htmlFor="dob">Birthday</label>
       <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy" />
       <p>Do you already have an account? <NavLink to="/login"><b>Log in</b></NavLink></p>
+      
       <input type="submit" value="Submit" />
     </form>
   </div>
