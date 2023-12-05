@@ -24,7 +24,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 30px; /* Set the initial minimal height for the plot */
+  max-height: 34px; /* Set the initial minimal height for the plot */
   overflow: hidden;
   padding: 5px; /* Adjust the padding as needed */
   background-color: rgba(45, 45, 45, 0.7); /* Add a semi-transparent background */
