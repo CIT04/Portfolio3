@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
+  const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
   const { mediaId } = useParams();
 
   useEffect(() => {
@@ -14,6 +15,17 @@ const MediaDisplay = () => {
         setMedia({ status: 'done', ...json });
       });
   }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/rating/"+mediaId)
+      .then((res) => res.json())
+      .then((json) => {
+        setRating({ status: 'done', ...json });
+       
+      });
+  }, []);
+
+  
 
   return (
     <div className="movie-page-container">
@@ -33,7 +45,7 @@ const MediaDisplay = () => {
         </div>
 
         <div className="info-container">
-          <p>IMDB: {media.average}</p>
+          <p>IMDB: {rating.imdbRatings}</p>
           <p className="rating-label">Rating:</p>
           <div className="star-rating-container">
             <div className="star-rating">
@@ -44,16 +56,16 @@ const MediaDisplay = () => {
                   style={{
                     fontSize: '1.5em',
                     color:
-                      index < media.rating
+                      index < rating.averageRating
                         ? 'gold'
-                        : index - 0.5 === media.rating
+                        : index - 0.5 === rating.averageRating
                         ? 'gold'
                         : 'gray',
                   }}
                 >
-                  {index < media.rating
+                  {index < rating.averageRating
                     ? '\u2605'
-                    : index - 0.5 === media.rating
+                    : index - 0.5 === rating.averageRating
                     ? '\u00BD'
                     : '\u2606'}
                 </span>
