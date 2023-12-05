@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
+import BookmarkButton from '../components/BookmarkButton';
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
 import { useParams } from 'react-router-dom';
 import Team from "./Team";
@@ -15,6 +16,10 @@ const MediaDisplay = () => {
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
 
+
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const handleBookmark = (status) => {
+    setIsBookmarked(status);};
 
 
   useEffect(() => {
@@ -56,8 +61,12 @@ const MediaDisplay = () => {
   return (
     <div className="movie-page-container">
       <div className="header-container">
+      
         <MovieCard poster={media.poster} />
         <div className="title-container">
+          <div className="bookmark-button-container">
+            <BookmarkButton onBookmark={handleBookmark} />
+          </div>
           <h1>{media.title}</h1>
           <h6>Original title: {media.title}</h6>
         </div>

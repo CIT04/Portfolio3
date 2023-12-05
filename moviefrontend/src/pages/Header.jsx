@@ -50,6 +50,7 @@ function Header() {
 
           {/* Signin/Signup */}
           <Col xs={2} className="d-flex align-items-center justify-content-end">
+
             {userToken != null ? (
               <>
                 <Nav.Link as={NavLink} to="/user" className="signin-link">
