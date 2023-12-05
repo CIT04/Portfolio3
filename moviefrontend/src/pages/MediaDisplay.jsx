@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
 import { useParams } from 'react-router-dom';
+import Team from "./Team";
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -80,6 +81,8 @@ const MediaDisplay = () => {
         <div className="genres-container">
           <h3>Genres</h3>
           <div className="genres-list">
+
+            
             {media.status !== 'done' ? (
               <p>Loading</p>
             ) : (
@@ -88,7 +91,14 @@ const MediaDisplay = () => {
               ))
             )}
           </div>
+
+          <div className="details-container">
+          <p>Team: {Team.actors}</p>
+          <p>Duration: {media.runtime} min.</p>
+          <p>{media.rated}</p>
+          </div>
         </div>
+
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const TitleCard = ({ title, runtime, rated }) => (
   <Card>
@@ -71,6 +72,21 @@ const GenreCard = ({ genre }) => (
   </Card>
 );
 
+const TeamCard = ({ team }) => (
+  <Card>
+    <Card.Body>
+      <Card.Title>
+        <Link to={`/team/${team.mediaId}`}>
+        <Card.Title>Team</Card.Title>
+        </Link>
+      </Card.Title>
+      <Card.Text>{team.actor.map(actor => actor.person.name).join(", ")}</Card.Text>
+    </Card.Body>
+  </Card>
+);
+
+
+
 const MediaCards = ({
   title,
   runtime,
@@ -84,6 +100,9 @@ const MediaCards = ({
   lang,
   country,
   genre,
+
+  
+ 
 }) => (
   <div>
     <TitleCard title={title} runtime={runtime} rated={rated} />
@@ -94,6 +113,8 @@ const MediaCards = ({
     <PlotCard plot={plot} />
     <LanguageCountryCard lang={lang} country={country} />
     <GenreCard genre={genre} />
+    <TeamCard team={team} />
+
   </div>
 );
 

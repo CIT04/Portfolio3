@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import './css/Team.css'; 
+import './css/Team.css';
 
 const Team = () => {
-  const [cast, setCast] = useState([]);
+  const [actors, setActors] = useState([]);
   const [crew, setCrew] = useState([]);
+  const [wandd, setWandd] = useState([]);
 
   useEffect(() => {
-    const fetchRandomUsers = async () => {
+    const fetchTeam = async () => {
       try {
-        const response = await fetch('https://randomuser.me/api/?results=10');
-        const data = await response.json();
+        const response = await fetch('http://localhost:5001/api/media/team/');
+        const json = await response.json();
 
-    
-        const users = data.results || [];
-        const castNames = users.map(user => `${user.name.first} ${user.name.last}`);
-        const crewNames = users.map((user, index) => `${user.name.first} ${user.name.last}`);
+        setActors(json.actor);
+        setCrew(json.crew);
+        setWandd(json.writersAndDirectors);
 
-        setCast(castNames);
-        setCrew(crewNames);
       } catch (error) {
-        console.error('Error fetching random users', error);
+        console.error('Error fetching team data', error);
       }
     };
 
-    fetchRandomUsers();
+    fetchTeam();
   }, []);
 
-  if (cast.length === 0 && crew.length === 0) {
+  if (actors.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -36,18 +34,24 @@ const Team = () => {
       <div className="cast-listteam">
         <h2 className='h2teams'>Cast</h2>
         <ul className='ulteam'>
-          {cast.map((actor, index) => (
-            <li className='liteam' key={index}>{actor}</li>
-
+          {actors.map((actor, index) => (
+            <li className='liteam' key={index}>{actor.person.name}</li>
           ))}
         </ul>
       </div>
       <div className="crew-listteam">
+        <h2 className='h2teams'>Writers and Directors</h2>
+        <ul className='ulteam'>
+          {wandd.map((writersAndDirectors, index) => (
+          <li className='liteam' key={index}>{writersAndDirectors.person.name}</li>
+          ))}
+        </ul>
+        </div>
+      <div className="crew-listteam">
         <h2 className='h2teams'>Crew</h2>
         <ul className='ulteam'>
-          {crew.map((crewMember) => (
-            <li className='liteam' >{crewMember}</li>
-
+          {crew.map((crew, index) => (
+          <li className='liteam' key={index}>{crew.person.name}</li>
           ))}
         </ul>
       </div>
