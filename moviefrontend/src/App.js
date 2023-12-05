@@ -2,7 +2,7 @@ import './App.css';
 import Header from './pages/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './pages/SignUp.jsx';
-import UserPage from './pages/UserPage.jsx';
+import UserPageWIP from './pages/UserPageWIP.jsx';
 import SearchResultColumn from './pages/SearchResultColumn.jsx';
 import MediaDisplay from './pages/MediaDisplay.jsx';
 import React from "react";
@@ -70,8 +70,8 @@ function App() {
       {/* <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/> */}
       <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
       <Route path="/actor/:id" element={  <Actor/>}/>
-      <Route path="/user" element={  <UserPage />}/>
-        <Route path="/user" element={  <UserPage />}/>
+      <Route path="/user" element={  <UserPageWIP />}/>
+       
         <Route path="/team" element={  <Team />}/>
       <Route path="/actor/:actorId" element={<SingleActor />} />
       <Route path="/media/team/:mediaId" element={<Team/>} />
