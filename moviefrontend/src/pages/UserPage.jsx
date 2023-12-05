@@ -2,9 +2,9 @@ import React from 'react';
 
 const RatedMovies = ({ ratedMovies }) => {
   return (
-    <div>
-    <br></br>
-    <br></br>
+    <div style={{ margin: '0 50px' }}>
+      <br />
+      <br />
       <h1>Your Rated Movies</h1>
       {ratedMovies && ratedMovies.length > 0 ? (
         <ul style={{ listStyle: 'none', padding: 0 }}>
