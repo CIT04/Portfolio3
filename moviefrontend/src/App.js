@@ -71,7 +71,7 @@ function App() {
       <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
       <Route path="/actor/:id" element={  <Actor/>}/>
       <Route path="/user" element={  <UserPageWIP />}/>
-        <Route path="/user" element={  <UserPage />}/>
+       
         <Route path="/team" element={  <Team />}/>
       <Route path="/actor/:actorId" element={<SingleActor />} />
       <Route path="/media/team/:mediaId" element={<Team/>} />
