@@ -2,17 +2,33 @@ import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
 import { useParams } from 'react-router-dom';
+import Team from "./Team";
+import { NavLink } from 'react-router-dom';
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
   const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
+  const [actors, setActors] = useState([]);
+  const [mediaLanguages, setMediaLanguages] = useState([]);
+  const [mediaCountries, setMediaCountry] = useState([]);
+  const [crew, setCrew] = useState([]);
+  const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
+
+
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
       .then((res) => res.json())
       .then((json) => {
-        setMedia({ status: 'done', ...json });
+        setMedia({status: 'done', ...json})
+        setMediaLanguages(json.mediaLanguages)
+        setMediaCountry(json.mediaCountries)
+        
+        console.log(json.mediaLanguages)
+        console.log(json.mediaCountries)
+        console.log("det virker ikke")
+        
       });
   }, []);
 
@@ -24,6 +40,16 @@ const MediaDisplay = () => {
        
       });
   }, []);
+
+  useEffect(() => {
+        fetch('http://localhost:5001/api/media/team/'+mediaId)
+        .then((res) => res.json())
+        .then((json) => {
+          setActors(json.actor)
+          setCrew(json.crew)
+          setWandd(json.writersAndDirectors);
+      });
+    },[]);
 
   
 
@@ -77,21 +103,29 @@ const MediaDisplay = () => {
 
       <div className="description-container">
         <div className="creators-container">
-          <p>Creators: ()</p>
-          <p>Stars: </p>
+          <p>Creators: {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
+          <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
+          <NavLink to={`/media/team/${mediaId}`} className="nav-link">
+          <button>
+          See full crew (hvis du tør)
+          </button>
+          </NavLink>
         </div>
         <div className="plot-container">{media.plot}</div>
       </div>
 
       <div className="additional-container">
         <div className="info-container">
-          <p>Languages: {media.language}</p>
-          <p>Country of origin: {media.country}</p>
+          <p>Languages: {mediaLanguages.join(', ')}</p>
+          
+          <p>Country of origin: {mediaCountries.join(', ')} </p> 
         </div>
 
         <div className="genres-container">
           <h3>Genres</h3>
           <div className="genres-list">
+
+            
             {media.status !== 'done' ? (
               <p>Loading</p>
             ) : (
@@ -101,6 +135,7 @@ const MediaDisplay = () => {
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
