@@ -65,7 +65,7 @@ const MediaDisplay = () => {
 
       <div className="details-container">
         <div className="info-container">
-        <p>Type: {media.type.charAt(0).toUpperCase() + media.type.slice(1)}</p>
+        <p>Type: {media.type}</p>
           <p>Duration: {media.runtime} min.</p>
           <p>Parental Guidance Rating: {media.rated}  </p>
         </div>
