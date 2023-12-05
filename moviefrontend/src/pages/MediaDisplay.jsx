@@ -9,10 +9,11 @@ const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
   const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
   const [actors, setActors] = useState([]);
-  const { mediaId } = useParams();
-
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
+  const { mediaId } = useParams();
+
+
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
@@ -35,11 +36,9 @@ const MediaDisplay = () => {
         fetch('http://localhost:5001/api/media/team/'+mediaId)
         .then((res) => res.json())
         .then((json) => {
-          setActors(json.actor);
-          console.log(json.actor)
-          // setCrew(json.crew);
-          // setWandd({json.writersAndDirectors});
-
+          setActors(json.actor)
+          setCrew(json.crew)
+          setWandd(json.writersAndDirectors);
       });
     },[]);
 
@@ -95,7 +94,7 @@ const MediaDisplay = () => {
 
       <div className="description-container">
         <div className="creators-container">
-          <p>Creators: ()</p>
+          <p>Creators: {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
           <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
           <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           <button>
