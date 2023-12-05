@@ -4,6 +4,7 @@ import "./css/MediaDisplay.css"; // Update the path based on your project struct
 import { useParams } from 'react-router-dom';
 import Team from "./Team";
 import { NavLink } from 'react-router-dom';
+import { Button } from 'react-bootstrap'; // Import Button component from Bootstrap
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -14,8 +15,6 @@ const MediaDisplay = () => {
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
-
-
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
@@ -37,21 +36,18 @@ const MediaDisplay = () => {
       .then((res) => res.json())
       .then((json) => {
         setRating({ status: 'done', ...json });
-       
       });
   }, []);
 
   useEffect(() => {
-        fetch('http://localhost:5001/api/media/team/'+mediaId)
-        .then((res) => res.json())
-        .then((json) => {
-          setActors(json.actor)
-          setCrew(json.crew)
-          setWandd(json.writersAndDirectors);
+    fetch('http://localhost:5001/api/media/team/'+mediaId)
+      .then((res) => res.json())
+      .then((json) => {
+        setActors(json.actor);
+        setCrew(json.crew);
+        setWandd(json.writersAndDirectors);
       });
-    },[]);
-
-  
+  },[]);
 
   return (
     <div className="movie-page-container">
@@ -59,20 +55,20 @@ const MediaDisplay = () => {
         <MovieCard poster={media.poster} />
         <div className="title-container">
           <h1>{media.title}</h1>
-          <h6>Original title: {media.title}</h6>
+          <h6><b>Original title:</b> {media.title}</h6>
         </div>
       </div>
 
       <div className="details-container">
         <div className="info-container">
-        <p>Type: {media.type}</p>
-          <p>Duration: {media.runtime} min.</p>
+        <p><b>Type:</b> {media.type}</p>
+          <p><b>Duration:</b> {media.runtime} min.</p>
           <p>Parental Guidance Rating: {media.rated}  </p>
         </div>
 
         <div className="info-container">
-          <p>IMDB: {rating.imdbRatings}</p>
-          <p className="rating-label">Rating:</p>
+          <p><b>IMDB:</b> {rating.imdbRatings}</p>
+          <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
             <div className="star-rating">
               {Array.from({ length: 10 }, (_, index) => (
@@ -102,30 +98,29 @@ const MediaDisplay = () => {
       </div>
 
       <div className="description-container">
-        <div className="creators-container">
-          <p>Creators: {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
-          <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
-          <NavLink to={`/media/team/${mediaId}`} className="nav-link">
-          <button>
-          See full crew
-          </button>
-          </NavLink>
-        </div>
+      <div className="creators-container">
+        <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
+        <p><b>Stars:</b> {actors.map(actor => actor.person.name).join(', ')} </p>
+        <NavLink to={`/media/team/${mediaId}`} className="nav-link">
+          {/* Styled Bootstrap Button */}
+          <Button variant="info" className="see-crew-button" style={{ maxWidth: '200px' }}>
+            See Full Crew
+          </Button>
+        </NavLink>
+      </div>
         <div className="plot-container">{media.plot}</div>
       </div>
 
       <div className="additional-container">
         <div className="info-container">
-          <p>Languages: {mediaLanguages.join(', ')}</p>
+          <p><b>Languages:</b> {mediaLanguages.join(', ')}</p>
           
-          <p>Country of origin: {mediaCountries.join(', ')} </p> 
+          <p><b>Country of origin:</b> {mediaCountries.join(', ')} </p> 
         </div>
 
         <div className="genres-container">
           <h3>Genres</h3>
           <div className="genres-list">
-
-            
             {media.status !== 'done' ? (
               <p>Loading</p>
             ) : (
@@ -135,14 +130,12 @@ const MediaDisplay = () => {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );
 };
 
 export default MediaDisplay;
-
 
 /*
   <MediaCards
