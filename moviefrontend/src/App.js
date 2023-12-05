@@ -74,6 +74,7 @@ function App() {
         <Route path="/user" element={  <UserPage />}/>
         <Route path="/team" element={  <Team />}/>
       <Route path="/actor/:actorId" element={<SingleActor />} />
+      <Route path="/media/team/:mediaId" element={<Team/>} />
 
 
       </Routes>

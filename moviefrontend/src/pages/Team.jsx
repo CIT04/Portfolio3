@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './css/Team.css';
+import { useParams } from 'react-router-dom';
+
 
 const Team = () => {
   const [actors, setActors] = useState([]);
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
 
+  const { mediaId } = useParams();
+  
+
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/media/team/');
+        const response = await fetch(`http://localhost:5001/api/media/team/${mediaId}`);
         const json = await response.json();
 
         setActors(json.actor);
@@ -28,7 +33,7 @@ const Team = () => {
     return <div>Loading...</div>;
   }
 
-  return (
+  return (    
     <div className="containerteam">
       <h1 className='h1teams'>Full Cast and Crew</h1>
       <div className="cast-listteam">

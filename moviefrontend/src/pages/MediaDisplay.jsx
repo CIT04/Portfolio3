@@ -3,11 +3,16 @@ import MovieCard from "../components/MovieCard";
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
 import { useParams } from 'react-router-dom';
 import Team from "./Team";
+import { NavLink } from 'react-router-dom';
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
   const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
+  const [actors, setActors] = useState([]);
   const { mediaId } = useParams();
+
+  const [crew, setCrew] = useState([]);
+  const [wandd, setWandd] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
@@ -25,6 +30,18 @@ const MediaDisplay = () => {
        
       });
   }, []);
+
+  useEffect(() => {
+        fetch('http://localhost:5001/api/media/team/'+mediaId)
+        .then((res) => res.json())
+        .then((json) => {
+          setActors(json.actor);
+          console.log(json.actor)
+          // setCrew(json.crew);
+          // setWandd({json.writersAndDirectors});
+
+      });
+    },[]);
 
   
 
@@ -79,7 +96,12 @@ const MediaDisplay = () => {
       <div className="description-container">
         <div className="creators-container">
           <p>Creators: ()</p>
-          <p>Stars: </p>
+          <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
+          <NavLink to={`/media/team/${mediaId}`} className="nav-link">
+          <button>
+          See full crew
+          </button>
+          </NavLink>
         </div>
         <div className="plot-container">{media.plot}</div>
       </div>
@@ -102,12 +124,6 @@ const MediaDisplay = () => {
                 <p key={index}>{genre}</p>
               ))
             )}
-          </div>
-
-          <div className="details-container">
-          <p>Team: {Team.actors}</p>
-          <p>Duration: {media.runtime} min.</p>
-          <p>{media.rated}</p>
           </div>
         </div>
 
