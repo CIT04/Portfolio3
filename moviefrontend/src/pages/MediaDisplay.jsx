@@ -9,6 +9,8 @@ const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
   const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
   const [actors, setActors] = useState([]);
+  const [mediaLanguages, setMediaLanguages] = useState([]);
+  const [mediaCountries, setMediaCountry] = useState([]);
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
@@ -19,7 +21,14 @@ const MediaDisplay = () => {
     fetch("http://localhost:5001/api/media/"+mediaId)
       .then((res) => res.json())
       .then((json) => {
-        setMedia({ status: 'done', ...json });
+        setMedia({status: 'done', ...json})
+        setMediaLanguages(json.mediaLanguages)
+        setMediaCountry(json.mediaCountries)
+        
+        console.log(json.mediaLanguages)
+        console.log(json.mediaCountries)
+        console.log("det virker ikke")
+        
       });
   }, []);
 
@@ -98,7 +107,7 @@ const MediaDisplay = () => {
           <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
           <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           <button>
-          See full crew
+          See full crew (hvis du tør)
           </button>
           </NavLink>
         </div>
@@ -107,8 +116,9 @@ const MediaDisplay = () => {
 
       <div className="additional-container">
         <div className="info-container">
-          <p>Languages: {media.language}</p>
-          <p>Country of origin: {media.country}</p>
+          <p>Languages: {mediaLanguages.join(', ')}</p>
+          
+          <p>Country of origin: {mediaCountries.join(', ')} </p> 
         </div>
 
         <div className="genres-container">
