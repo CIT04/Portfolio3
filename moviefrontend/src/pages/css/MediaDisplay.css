@@ -1,100 +1,118 @@
 .movie-page-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #333; /* Dark background */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #555; /* Slightly lighter background for header */
-    color: #fff;
-  }
-  
-  .title-container {
-    margin-left: 20px;
-  }
-  
-  .title-container h1 {
-    margin: 0;
-    font-size: 44px;
-    color: #fff; /* White text */
-  }
-  
-  .title-container h6 {
-    margin: 5px 0 0;
-    font-size: 14px;
-    color: #ccc;
-  }
-  
-  .details-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #444; /* Dark background */
-  }
-  
-  .info-container {
-    flex: 1;
-  }
-  
-  .description-container {
-    padding: 20px;
-    background-color: #555; /* Slightly lighter background for description */
-  }
-  
-  .creators-container {
-    margin-bottom: 20px;
-  }
-  
-  .additional-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-    background-color: #444; /* Dark background */
-  }
-  
-  .genres-container {
-    margin-bottom: 20px;
-  }
-  
-  .genres-list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .genres-list p {
-    margin: 0 10px 5px 0;
-    padding: 8px 12px;
-    background-color: #555; /* Slightly lighter background for genres */
-    border-radius: 4px;
-    font-size: 12px;
-    color: #fff; /* White text */
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #333; /* Dark background */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
 
-  .rating-label {
-    margin-left: 0px;
-    font-size: 1em; /* Adjusted font size */
-  }
-  
-  .star-rating-container {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    margin-top: 10px;
-  }
-  
-  .star-rating {
-    font-size: 1.3em; /* Adjusted font size */
-    display: flex;
-    align-items: center;
-  }
-  
-  .star {
-    margin-right: 6px; /* Adjusted margin */
-  }
+.header-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #555; /* Slightly lighter background for header */
+  color: #fff;
+}
+
+.title-container {
+  margin-left: 20px;
+}
+
+.title-container h1 {
+  margin: 0;
+  font-size: 44px;
+  color: #fff; /* White text */
+}
+
+.title-container h6 {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #444; /* Dark background */
+}
+
+.info-container {
+  flex: 1;
+}
+
+.description-container {
+  padding: 20px;
+  background-color: #555; /* Slightly lighter background for description */
+}
+
+.creators-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.see-crew-button {
+  margin-top: 5px; /* Reduce the top margin */
+  align-self: flex-end;
+  background-color: #f5c518; /* IMDb yellow */
+  color: #333; /* Dark text color */
+  border: none; /* Remove the border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.see-crew-button:hover {
+  background-color: #333; /* Dark background on hover */
+  color: #f5c518; /* IMDb yellow on hover */
+}
+
+.additional-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  background-color: #444; /* Dark background */
+}
+
+.genres-container {
+  margin-bottom: 20px;
+}
+
+.genres-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.genres-list p {
+  margin: 0 10px 5px 0;
+  padding: 8px 12px;
+  background-color: #555; /* Slightly lighter background for genres */
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff; /* White text */
+}
+
+.rating-label {
+  margin-left: 0px;
+  font-size: 1em; /* Adjusted font size */
+}
+
+.star-rating-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.star-rating {
+  font-size: 1.3em; /* Adjusted font size */
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  margin-right: 6px; /* Adjusted margin */
+}
