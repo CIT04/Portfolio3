@@ -65,9 +65,9 @@ const MediaDisplay = () => {
 
       <div className="details-container">
         <div className="info-container">
-          <p>Type: {media.type}</p>
+        <p>Type: {media.type.charAt(0).toUpperCase() + media.type.slice(1)}</p>
           <p>Duration: {media.runtime} min.</p>
-          <p>{media.rated}</p>
+          <p>Parental Guidance Rating: {media.rated}  </p>
         </div>
 
         <div className="info-container">
@@ -107,7 +107,7 @@ const MediaDisplay = () => {
           <p>Stars: {actors.map(actor => actor.person.name).join(', ')} </p>
           <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           <button>
-          See full crew (hvis du tør)
+          See full crew
           </button>
           </NavLink>
         </div>
