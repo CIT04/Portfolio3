@@ -41,6 +41,8 @@ const MediaDisplay = () => {
       });
   }, []);
 
+  
+
   useEffect(() => {
     fetch("http://localhost:5001/api/rating/"+mediaId)
       .then((res) => res.json())
@@ -58,6 +60,37 @@ const MediaDisplay = () => {
         setWandd(json.writersAndDirectors);
       });
   },[]);
+
+  const ScrollToTopButton = () => {
+    const [isVisible, setIsVisible] = useState(false);
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsVisible(window.scrollY > 200);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+  
+    return (
+      <div className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
+        &uarr;
+      </div>
+    );
+  };
+ 
+  
 
   return (
     <div className="movie-page-container">
@@ -145,6 +178,7 @@ const MediaDisplay = () => {
                 <p key={index}>{genre}</p>
               ))
             )}
+            <ScrollToTopButton />
           </div>
         </div>
       </div>
