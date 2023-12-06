@@ -37,6 +37,35 @@ const SearchResultColumn = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  const ScrollToTopButton = () => {
+    const [isVisible, setIsVisible] = useState(false);
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsVisible(window.scrollY > 200);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+  
+    return (
+      <div className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
+        &uarr;
+      </div>
+    );
+  };
+
   return (
     <div>
       
@@ -80,10 +109,15 @@ const SearchResultColumn = () => {
           Next
         </Button>
       </center>
-      
-      </div>
+
+      {/* Include the ScrollToTopButton component */}
+      <ScrollToTopButton />
     </div>
+      </div>  
   );
 };
 
 export default SearchResultColumn;
+
+
+ 
