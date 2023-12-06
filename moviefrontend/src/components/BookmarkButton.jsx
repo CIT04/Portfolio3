@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import UserContext from './UserContext';
 
-const BookmarkButton = ({ onBookmark }) => {
+const BookmarkButton = ({ onBookmark, m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { userToken, setToken } = useContext(UserContext);
   
@@ -11,7 +11,7 @@ const BookmarkButton = ({ onBookmark }) => {
     setIsBookmarked(!isBookmarked);
     const bookmarks = {
         
-            M_id: "tt0795176", // Replace with the actual media ID
+            M_id: m_id, // Replace with the actual media ID
             U_id: userToken.id, // Replace with the actual user ID
             Time: "2023-12-05T12:34:56", // Replace with the actual timestamp
             Annotation: "This is a sample annotation" // Replace with the actual annotation text

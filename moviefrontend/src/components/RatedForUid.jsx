@@ -71,9 +71,6 @@ const ratedMovies = [
   
     return (
       <div>
-       {userid}
-    
-   
       <RatedMovies ratedMovies={ratedMovies}/>
       </div>
     );
