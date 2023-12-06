@@ -145,7 +145,20 @@
   right: 10px;
 }
 
+
+.stars-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+
+
+
 .bookmark-button:hover {
   background-color: #333; /* Dark background on hover */
   color: #f5c518; /* IMDb yellow on hover */
 }
+

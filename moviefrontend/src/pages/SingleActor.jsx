@@ -3,17 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './css/SingleActor.css'; // Import the CSS file
 
+
 const SingleActor = () => {
   const { actorId } = useParams();
   const [actorDetails, setActorDetails] = useState(null);
 
   useEffect(() => {
     // Fetch actor details based on actorId
-    fetch(`http://localhost:5001/api/person/` + actorId)
+    fetch('http://localhost:5001/api/person/'+actorId)
       .then((res) => res.json())
       .then((json) => {
+        
         // Set the actor details in the state
         setActorDetails(json);
+        console.log(actorId)
       })
       .catch((error) => {
         console.error('Error fetching actor details:', error);
@@ -25,6 +28,7 @@ const SingleActor = () => {
     <div className="actor-details">
       <h1>Actor Details</h1>
       <p>Actor ID: {actorId}</p>
+      {console.log(actorId)}
       {actorDetails === null ? (
         ''
       ) : (
