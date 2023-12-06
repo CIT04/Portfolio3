@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import "./css/bookmark.css";
 import BookmarkButton from "./BookmarkButton";
+import { renderImage } from "./imageUtil";
 
 const formatDate = (time) => {
     const bookmarkDate = new Date(time);
@@ -18,11 +19,7 @@ const Bookmark = ({ media }) => {
   return (
     <NavLink to={`/media/${media.id}`} className="nav-link">
       <div className="bookmark">
-      {media.poster !== "N/A" ? (
-          <img src={media.poster} alt={media.title} />
-        ) : (
-          <img src={process.env.PUBLIC_URL + '/noimage.jpg'} alt="No Image" />
-        )}
+      {renderImage(media.poster, media.title)}
 
         <div className="bookmark-info">
           <h2>{media.title}</h2>
