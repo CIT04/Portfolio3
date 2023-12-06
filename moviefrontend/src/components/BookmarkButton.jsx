@@ -1,29 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import UserContext from './UserContext';
 
-const BookmarkButton = ({ onBookmark, m_id }) => {
+const BookmarkButton = ({ m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { userToken, setToken } = useContext(UserContext);
-  
+
+  useEffect(() => {
+    // Fetch bookmark status when the component mounts
+    fetch(`http://localhost:5001/api/bookmark/${userToken.id}`)
+      .then(res => res.json())
+      .then(bookmarks => {
+        // Check if the current media is bookmarked
+        const isMediaBookmarked = bookmarks.some(bookmark => bookmark.m_id === m_id);
+        setIsBookmarked(isMediaBookmarked);
+      });
+  }, [m_id, userToken.id]);
 
   const handleClick = () => {
     setIsBookmarked(!isBookmarked);
     const bookmarks = {
-        
-            M_id: m_id, // Replace with the actual media ID
-            U_id: userToken.id, // Replace with the actual user ID
-            Time: "2023-12-05T12:34:56", // Replace with the actual timestamp
-            Annotation: "This is a sample annotation" // Replace with the actual annotation text
-          
-      };
+      M_id: m_id,
+      U_id: userToken.id,
+    };
 
-    fetch('http://localhost:5001/api/bookmark/create', {
+    const endpoint = isBookmarked
+      ? `http://localhost:5001/api/bookmark/remove`
+      : `http://localhost:5001/api/bookmark/create`;
+
+    fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(bookmarks)
+      body: JSON.stringify(bookmarks),
     })
       .then((res) => res.json())
       .then((json) => {
@@ -31,8 +41,12 @@ const BookmarkButton = ({ onBookmark, m_id }) => {
         console.log(json);
       });
 
-    onBookmark(!isBookmarked); // Pass the bookmark status to the parent component
+ 
   };
+
+  if (isBookmarked === null) {
+    return <p>Loading...</p>; // You may want to add a loading state while fetching
+  }
 
   return (
     <button onClick={handleClick} className="bookmark-button">

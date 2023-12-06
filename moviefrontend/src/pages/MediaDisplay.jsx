@@ -65,7 +65,7 @@ const MediaDisplay = () => {
         <MovieCard poster={media.poster} />
         <div className="title-container">
           <div className="bookmark-button-container">
-            <BookmarkButton onBookmark={handleBookmark} m_id={media.id}/>
+            <BookmarkButton  m_id={media.id}/>
           </div>
           <h1>{media.title}</h1>
           <h6><b>Original title:</b> {media.title}</h6>
