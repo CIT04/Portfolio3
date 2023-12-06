@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import RatedForUid from '../components/RatedForUid.jsx';
 import Bookmarks from '../components/Bookmarks.jsx';
+import UserContext from '../components/UserContext';
+import { useNavigate } from 'react-router-dom';
+import "./css/userpagecss.css";
 
 const UserPageWIP = () => {
+  const { userToken } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    const userid = "1";
+  useEffect(() => {
+    if (userToken === null) {
+      // If userToken is null, navigate to the home screen
+      navigate('/');
+    }
+  }, [userToken, navigate]);
 
-  
-    return (
-      <div>
-        <RatedForUid userid={userid} />
-        <Bookmarks userid={userid}/>
-      </div>
-    );
-  };
+  // If userToken is null, don't render the components
+  if (userToken === null) {
+    return null;
+  }
+
+  const userid = userToken.id;
+
+  return (
+    <div className='container'>
+      <RatedForUid userid={userid} />
+      <Bookmarks userid={userid} />
+    </div>
+  );
+};
 
 export default UserPageWIP;
