@@ -14,11 +14,16 @@ const formatDate = (time) => {
 
 const Bookmark = ({ media }) => {
   const bookmarkstatus = true;
-  
+  console.log(media.poster);
   return (
     <NavLink to={`/media/${media.id}`} className="nav-link">
       <div className="bookmark">
-        <img src={media.poster} alt="dælens" />
+      {media.poster !== "N/A" ? (
+          <img src={media.poster} alt={media.title} />
+        ) : (
+          <img src={process.env.PUBLIC_URL + '/noimage.jpg'} alt="No Image" />
+        )}
+
         <div className="bookmark-info">
           <h2>{media.title}</h2>
           {/* Display the bookmark time */}

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Bookmark from './Bookmark';
+import './css/bookmarks.css';
+
+
+
 const Bookmarks = ({ userid }) => {
   const [medias, setMedias] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
@@ -50,7 +54,7 @@ const Bookmarks = ({ userid }) => {
   }
 
   return (
-    <table className="table table-bordered">
+    <table className="table table-bordered table-black-background">
       <thead>
         <tr>
           <th>Bookmarked media</th>
