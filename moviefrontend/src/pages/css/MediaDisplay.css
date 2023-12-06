@@ -140,3 +140,13 @@
   right: 10px;
 }
 
+.stars-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+
+

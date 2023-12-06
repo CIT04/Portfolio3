@@ -16,6 +16,7 @@ const MediaDisplay = () => {
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
+  const { actorId } = useParams();
 
 
 
@@ -113,7 +114,10 @@ const MediaDisplay = () => {
       <div className="description-container">
       <div className="creators-container">
         <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
-        <p><b>Stars:</b> {actors.map(actor => actor.person.name).join(', ')} </p>
+        <p><b>Stars:</b> <div className="stars-container">{actors.map(actor => <NavLink to={`/actor/${actor.personId}`} className="nav-link">{actor.person.name}</NavLink>)}
+        </div></p>
+        
+
         <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           {/* Styled Bootstrap Button */}
           <Button variant="info" className="see-crew-button" style={{ maxWidth: '200px' }}>
@@ -123,7 +127,7 @@ const MediaDisplay = () => {
       </div>
         <div className="plot-container">{media.plot}</div>
       </div>
-
+          
       <div className="additional-container">
         <div className="info-container">
           <p><b>Languages:</b> {mediaLanguages.join(', ')}</p>
