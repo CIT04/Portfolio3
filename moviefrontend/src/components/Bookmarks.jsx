@@ -39,19 +39,30 @@ const Bookmarks = ({ userid }) => {
   function fetchMediaForBookmarks(bookmark) {
     return fetch(`http://localhost:5001/api/media/${bookmark.m_id}`)
       .then((res) => res.json())
+      .then((media) => {
+        media.time = bookmark.time;
+        console.log(media);
+        return media;
+      })
       .catch((error) => {
         console.error('Error fetching media for bookmark:', error);
       });
   }
 
   return (
-    <div>
-    {/* Render individual media items with Bookmark component */}
-    {medias.map((media) => (
-        //add time
-      <Bookmark key={media.id} media={media} />
-    ))}
-  </div>
+    <table className="table table-bordered">
+      <thead>
+        <tr>
+          <th>Bookmarked media</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {medias.map((media) => (
+          <Bookmark key={media.id} media={media} />
+        ))}
+      </tbody>
+    </table>
   );
 };
 

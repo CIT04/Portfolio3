@@ -3,9 +3,18 @@ import { NavLink } from 'react-router-dom';
 import "./css/bookmark.css";
 import BookmarkButton from "./BookmarkButton";
 
+const formatDate = (time) => {
+    const bookmarkDate = new Date(time);
+    return bookmarkDate.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    });
+  };
+
 const Bookmark = ({ media }) => {
   const bookmarkstatus = true;
-
+  
   return (
     <NavLink to={`/media/${media.id}`} className="nav-link">
       <div className="bookmark">
@@ -17,8 +26,9 @@ const Bookmark = ({ media }) => {
           {/* Add additional information here */}
           <p>{media.description}</p>
         </div>
+        <div> Date added: {formatDate(media.time)}</div> 
         <div>
-            Time added: {media.time}
+            
           <BookmarkButton onBookmark={bookmarkstatus} m_id={media.id} />
         </div>
       </div>

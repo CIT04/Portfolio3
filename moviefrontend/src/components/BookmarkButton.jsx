@@ -6,6 +6,15 @@ const BookmarkButton = ({ onBookmark, m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { userToken, setToken } = useContext(UserContext);
   
+  // function determaineStatus(m_id,u_id){
+  //   fetch("http://localhost:5001/api/bookmark/"+mediaId)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setMedia({status: 'done', ...json})
+  //       setMediaLanguages(json.mediaLanguages)
+  //       setMediaCountry(json.mediaCountries)
+        
+  // }
 
   const handleClick = () => {
     setIsBookmarked(!isBookmarked);
@@ -13,8 +22,7 @@ const BookmarkButton = ({ onBookmark, m_id }) => {
         
             M_id: m_id, // Replace with the actual media ID
             U_id: userToken.id, // Replace with the actual user ID
-            Time: "2023-12-05T12:34:56", // Replace with the actual timestamp
-            Annotation: "This is a sample annotation" // Replace with the actual annotation text
+           
           
       };
 
