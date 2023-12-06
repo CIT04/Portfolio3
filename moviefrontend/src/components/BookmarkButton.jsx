@@ -6,6 +6,7 @@ const BookmarkButton = ({ m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { userToken, setToken } = useContext(UserContext);
 
+
   useEffect(() => {
     // Fetch bookmark status when the component mounts
     fetch(`http://localhost:5001/api/bookmark/${userToken.id}`)
@@ -17,12 +18,16 @@ const BookmarkButton = ({ m_id }) => {
       });
   }, [m_id, userToken.id]);
 
+
+
   const handleClick = () => {
     setIsBookmarked(!isBookmarked);
     const bookmarks = {
+
       M_id: m_id,
       U_id: userToken.id,
     };
+
 
     const endpoint = isBookmarked
       ? `http://localhost:5001/api/bookmark/remove`
