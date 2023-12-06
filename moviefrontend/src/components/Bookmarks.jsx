@@ -4,13 +4,13 @@ import Bookmark from './Bookmark';
 const Bookmarks = ({ userid }) => {
   const [medias, setMedias] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
-
+  
   useEffect(() => {
     fetchBookmarks(userid);
   }, [userid]);
 
   function fetchBookmarks(uid) {
-    fetch(`http://localhost:5001/api/bookmark/2`)
+    fetch(`http://localhost:5001/api/bookmark/${uid}`)
       .then((res) => res.json())
       .then((json) => {
         setBookmarks(json);
