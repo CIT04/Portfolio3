@@ -9,6 +9,7 @@
 }
 
 .header-container {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 20px;
@@ -30,6 +31,7 @@
   margin: 5px 0 0;
   font-size: 14px;
   color: #ccc;
+  flex: 1;
 }
 
 .details-container {
@@ -62,6 +64,8 @@
   color: #333; /* Dark text color */
   border: none; /* Remove the border */
   transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  
 }
 
 .see-crew-button:hover {
