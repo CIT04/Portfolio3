@@ -34,18 +34,19 @@ function Header() {
 
           {/* Search Bar with Filters */}
           <Col xs={6} className="d-flex align-items-center">
-            <CustomDropdown />
-            <form className="d-flex flex-grow-1" onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
-              <Button variant="secondary" type="submit" className="search-button">
-                Search
-              </Button>
-            </form>
+              <CustomDropdown />
+              <form className="d-flex" onSubmit={handleSearch}>
+                  <input
+                      type="text"
+                      placeholder="Search"
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      className="search-input"
+                  />
+                  <Button variant="secondary" type="submit" className="search-button">
+                      Search
+                  </Button>
+              </form>
           </Col>
 
           {/* Signin/Signup */}
