@@ -121,9 +121,12 @@
 .star {
   margin-right: 6px; /* Adjusted margin */
 }
+
+ /* Bookmark button */
+
 .bookmark-button {
-  background-color: #e0d612;
-  color: black;
+  background-color: #f5c518; /* IMDb yellow */
+  color: #333; /* Dark text color */
   border: none;
   padding: 10px;
   text-align: center;
@@ -133,12 +136,15 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
 }
+
 .bookmark-button-container {
   position: absolute;
   top: 10px;
   right: 10px;
 }
+
 
 .stars-container {
   display: flex;
@@ -149,4 +155,10 @@
   margin-right: 5px; /* Adjust the margin as needed */
 }
 
+
+
+.bookmark-button:hover {
+  background-color: #333; /* Dark background on hover */
+  color: #f5c518; /* IMDb yellow on hover */
+}
 

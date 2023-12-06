@@ -1,52 +1,50 @@
-/* Team.css */
-
 .bodyteams {
-    font-family: 'Arial', sans-serif;
-    background-color: #ba9595;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .containerteam {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .h1teams {
-    color: #e0d612;
-  }
-  
-  .h2teams {
-    color: #e0d612;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  background-color: #232323; /* Dark background color */
+  color: #ffffff; /* Text color */
+  margin: 0;
+  padding: 0;
+}
 
-  .ulteam {
-    list-style: none;
-    padding: 0;
-  }
-  
+.containerteam {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #333333; /* Container background color */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for a subtle lift */
+}
 
-  .liteam {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #000000;
-    border-radius: 5px;
-  }
-  
-  /* Style for cast list */
-  .cast-listteam {
-    margin-bottom: 20px;
-    color: #000000;
-  }
-  
-  /* Style for crew list */
-  .crew-listteam {
-    margin-bottom: 20px;
-    color: #000000 ;
-  }
-  
-  /* Optional: Add more styles based on your design preferences */
-  
+.h1teams,
+.h2teams {
+  color: #e0d612; /* IMDb yellow */
+}
+
+.ulteam {
+  list-style: none;
+  padding: 0;
+}
+
+.liteam {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #444444; /* Lighter grey background color */
+  border: 1px solid #666666; /* Darker grey border */
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.person-name {
+  font-weight: bold;
+}
+
+.role {
+  font-style: italic;
+}
+
+.cast-listteam,
+.crew-listteam {
+  margin-bottom: 30px;
+}

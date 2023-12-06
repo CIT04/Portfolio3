@@ -1,0 +1,9 @@
+.table-black-background {
+    background-color: black;
+    color: rgb(131, 131, 131);  
+  }
+  
+  .table-black-background th, .table-black-background td {
+    border-color: rgb(97, 97, 97);  
+  }
+  
