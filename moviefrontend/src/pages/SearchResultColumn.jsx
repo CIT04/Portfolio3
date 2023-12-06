@@ -67,6 +67,21 @@ const SearchResultColumn = () => {
           </NavLink>
         ))
       )}
+
+
+<div>
+      
+      <center>
+        <Button onClick={handlePrevClick} disabled={currentPage === 0}>
+          Previous 
+        </Button>
+        <span> Page {currentPage + 1} </span>
+        <Button onClick={handleNextClick}>
+          Next
+        </Button>
+      </center>
+      
+      </div>
     </div>
   );
 };
