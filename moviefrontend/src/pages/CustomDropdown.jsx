@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -8,19 +8,16 @@ import { useContext } from 'react';
 const CustomDropdown = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
-  const { types, setTypes } = useContext(TypeContext);
+  const [allTypes, setAllTypes] = useState([]);
+  const [error, setError] = useState('');
+  const { types, setTypesList } = useContext(TypeContext);
 
   const genres = ['Action', 'Drama', 'Comedy', 'Sci-Fi', 'Horror'];
-  
-  const handleGenreChange = (genre) => {
-    setSelectedGenres((prevGenres) => {
-      if (prevGenres.includes(genre)) {
-        return prevGenres.filter((selectedGenre) => selectedGenre !== genre);
-      } else {
-        return [...prevGenres, genre];
-      }
-    });
-  };
+
+  useEffect(() => {
+    // Update allTypes whenever types change
+    setAllTypes(types);
+  }, []);
 
   const handleTypeChange = (type) => {
     setSelectedTypes((prevTypes) => {
@@ -32,30 +29,27 @@ const CustomDropdown = () => {
     });
   };
 
+  const handleApplyFilters = () => {
+    if (selectedTypes.length === 0) {
+      setError('Please select at least one type.');
+    } else {
+      setError('');
+      setTypesList(selectedTypes);
+      console.log('Apply Filters', selectedTypes);
+    }
+  };
+
   return (
     <NavDropdown title="Filters" id="basic-nav-dropdown" className="custom-dropdown">
       <div className="d-flex flex-column p-4">
-        {/* First Row - Genre */}
-        <div className="mb-3">
-          <h6 className="mb-2">Genre</h6>
-          <Form>
-            {genres.map((genre) => (
-              <Form.Check
-                key={genre}
-                type="checkbox"
-                label={genre}
-                checked={selectedGenres.includes(genre)}
-                onChange={() => handleGenreChange(genre)}
-              />
-            ))}
-          </Form>
-        </div>
+        {/*TODO: Implement genres */}
+        {/* ... (code for genres) */}
 
-        {/* Second Row - Type */}
+        {/* Types*/}
         <div className="mb-3">
           <h6 className="mb-2">Type</h6>
           <Form>
-            {types.map((type) => (
+            {allTypes.map((type) => (
               <Form.Check
                 key={type}
                 type="checkbox"
@@ -68,9 +62,12 @@ const CustomDropdown = () => {
         </div>
 
         {/* Apply Button */}
-        <Button variant="warning" className="mt-3" onClick={() => console.log('Apply Filters')}>
+        <Button variant="warning" className="mt-3" onClick={handleApplyFilters}>
           Apply
         </Button>
+
+        {/* Error Message */}
+        {error && <p className="text-danger mt-2">{error}</p>}
       </div>
     </NavDropdown>
   );
