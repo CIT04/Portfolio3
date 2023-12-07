@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import Team from "./Team";
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap'; // Import Button component from Bootstrap
+import RatingComponent from "../components/RatingComponent";
+import TextToSpeech from './TextToSpeech'; // Import TextToSpeech component
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -17,14 +19,12 @@ const MediaDisplay = () => {
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
   const { actorId } = useParams();
+  const [userRating, setUserRating] = useState(0);
 
-
-
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const handleBookmark = (status) => {
-    setIsBookmarked(status);};
-
-
+  
+const handleRatingChange = (selectedRating) => {
+  setUserRating(selectedRating);
+};
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
@@ -100,6 +100,7 @@ const MediaDisplay = () => {
           <h6><b>Original title:</b> {media.title}</h6>
         </div>
       </div>
+      
 
       <div className="details-container">
         <div className="info-container">
@@ -112,6 +113,9 @@ const MediaDisplay = () => {
           <p><b>IMDB:</b> {rating.imdbRatings}</p>
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
+            <div>
+              <RatingComponent/>
+            </div>
             <div className="star-rating">
               {Array.from({ length: 10 }, (_, index) => (
                 <span
@@ -144,14 +148,20 @@ const MediaDisplay = () => {
         <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
         <p><b>Stars:</b> <div className="stars-container">{actors.map(actor => <NavLink to={`/actor/${actor.personId}`} className="nav-link">{actor.person.name}</NavLink>)}
         </div></p>
-        
 
         <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           {/* Styled Bootstrap Button */}
-          <Button variant="info" className="see-crew-button" style={{ maxWidth: '200px' }}>
-            See Full Crew
-          </Button>
+          <Button
+  variant="info"
+  className="see-crew-button"
+  style={{ maxWidth: "200px" }}
+>
+  See Full Crew
+</Button>
         </NavLink>
+
+        <TextToSpeech textToRead={media.plot} />
+
       </div>
         <div className="plot-container">{media.plot}</div>
       </div>

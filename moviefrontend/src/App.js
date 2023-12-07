@@ -20,6 +20,7 @@ import SingleActor from './pages/SingleActor.jsx';
 
 
 
+
 function App() {
 
   
@@ -60,6 +61,7 @@ function App() {
       {/* Render the Header component */}
 
       <Header />
+      
 
       {/* Routes */}
       <Routes>

@@ -24,8 +24,6 @@ const BookmarkButton = ({ m_id }) => {
 
   const handleClick = () => {
     if (!userToken) {
-      // Handle the case where userToken is null (e.g., show a login prompt)
-      // You can customize this part based on your application logic
       console.log('User not logged in');
       return;
     }
