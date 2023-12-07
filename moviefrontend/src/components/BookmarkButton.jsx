@@ -37,23 +37,35 @@ const BookmarkButton = ({ m_id }) => {
     };
 
     const endpoint = isBookmarked
-      ? `http://localhost:5001/api/bookmark/remove`
+      ? `http://localhost:5001/api/bookmark/delete`
       : `http://localhost:5001/api/bookmark/create`;
 
+    const method = isBookmarked? 'DELETE' : 'POST';
+
     fetch(endpoint, {
-      method: 'POST',
+      method: method,
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(bookmarks),
     })
-      .then((res) => res.json())
+    .then((res) => {
+        if (res.ok) {
+          return res.json(); // Parse JSON if the response is OK
+        } else {
+          return Promise.reject(`Failed with status ${res.status}`);
+        }
+      })
       .then((json) => {
         // Do something with the response if needed
         console.log(json);
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error('Error:', error);
       });
 
-     // Pass the bookmark status to the parent component
+    
   };
 
   if (!userToken) {

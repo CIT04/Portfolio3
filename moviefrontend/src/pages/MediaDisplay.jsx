@@ -33,11 +33,6 @@ const MediaDisplay = () => {
         setMedia({status: 'done', ...json})
         setMediaLanguages(json.mediaLanguages)
         setMediaCountry(json.mediaCountries)
-        
-        console.log(json.mediaLanguages)
-        console.log(json.mediaCountries)
-        console.log("det virker ikke")
-        
       });
   }, []);
 
