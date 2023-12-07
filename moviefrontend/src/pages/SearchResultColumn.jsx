@@ -3,16 +3,27 @@ import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import SearchResult from './SearchResult';
 import Button from 'react-bootstrap/Button';
+import TypeContext from '../components/TypeContext';
+import {useContext} from 'react';
 
 const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
+  const { types, setTypes } = useContext(TypeContext);
 
   const { searchstring } = useParams();
 
+  
+  function handleFilter(types) {
+    const mediaTypes = types.join(' '); 
+    return mediaTypes;
+  }
+  
   const loadSearch = (page) => {
-    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=10&Type=movie&search=${searchstring}`)
+    const mediaTypesString = handleFilter(types);
+  
+    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=10&Type=${mediaTypesString}&search=${searchstring}`)
       .then((res) => res.json())
       .then((json) => {
         console.log('Search API response:', json);
@@ -22,9 +33,11 @@ const SearchResultColumn = () => {
         console.error('Error fetching search results:', error);
       });
   };
+  
 
   useEffect(() => {
     loadSearch(currentPage);
+    console.log(types);
   }, [currentPage, searchstring]);
 
   const handlePrevClick = () => {
