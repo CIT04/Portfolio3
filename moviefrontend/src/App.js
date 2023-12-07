@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import Actor from './pages/Actor.jsx';
 import { Route, Routes } from 'react-router';
 import SingleActor from './pages/SingleActor.jsx';
+import Trailer from './components/Trailer.jsx'
 
 
 
@@ -61,11 +62,12 @@ function App() {
       {/* Render the Header component */}
 
       <Header />
-      
+    
 
       {/* Routes */}
       <Routes>
-      <Route path="/" element={ <MovieCarousel medias={medias} />}/>
+
+      <Route path="/" element={[<Trailer movieTitle="css for dummies" />, <MovieCarousel medias={medias} />]} />
       <Route path="/media/:mediaId" element={<MediaDisplay />} />
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>

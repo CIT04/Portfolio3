@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MovieCard from './MovieCard';
 import { NavLink } from 'react-router-dom';
+import Trailer from "./Trailer";
 
 function MovieCarousel({ medias }) {
   const visibleItems = 5; // Set the number of visible items
@@ -31,12 +32,14 @@ function MovieCarousel({ medias }) {
                   year={media.year}
                 />
                 </NavLink>
+                
               </Col>
             ))}
           </Row>
         </Carousel.Item>
       ))}
     </Carousel>
+    
   );
 }
 
