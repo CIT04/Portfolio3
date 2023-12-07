@@ -30,7 +30,7 @@ const Trailer = ({ movieTitle }) => {
   return (
     <div className="trailer-container">
       <h3>Trailer</h3>
-      <h3>(This is a WIP trailer feature)</h3>
+      <h4>(This is a WIP trailer feature)</h4>
       {trailerVideo ? (
         <iframe
           width="560"

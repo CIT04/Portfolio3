@@ -62,11 +62,12 @@ function App() {
       {/* Render the Header component */}
 
       <Header />
-      <Trailer movieTitle="css for dummies" />
+    
 
       {/* Routes */}
       <Routes>
-      <Route path="/" element={ <MovieCarousel medias={medias} />}/>
+
+      <Route path="/" element={[<Trailer movieTitle="css for dummies" />, <MovieCarousel medias={medias} />]} />
       <Route path="/media/:mediaId" element={<MediaDisplay />} />
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>

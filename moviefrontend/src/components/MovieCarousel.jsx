@@ -32,6 +32,7 @@ function MovieCarousel({ medias }) {
                   year={media.year}
                 />
                 </NavLink>
+                
               </Col>
             ))}
           </Row>
