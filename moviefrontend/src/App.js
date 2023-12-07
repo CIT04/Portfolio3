@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import Actor from './pages/Actor.jsx';
 import { Route, Routes } from 'react-router';
 import SingleActor from './pages/SingleActor.jsx';
+import Trailer from './components/Trailer.jsx'
 
 
 
@@ -61,7 +62,7 @@ function App() {
       {/* Render the Header component */}
 
       <Header />
-      
+      <Trailer movieTitle="css for dummies" />
 
       {/* Routes */}
       <Routes>

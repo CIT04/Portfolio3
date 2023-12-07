@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap'; // Import Button component from Bootstrap
 import RatingComponent from "../components/RatingComponent";
 import TextToSpeech from './TextToSpeech'; // Import TextToSpeech component
+import Trailer from "../components/Trailer";
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -20,6 +21,7 @@ const MediaDisplay = () => {
   const { mediaId } = useParams();
   const { actorId } = useParams();
   const [userRating, setUserRating] = useState(0);
+  const [trailerVideo, setTrailerVideo] = useState(null);
 
   
 const handleRatingChange = (selectedRating) => {
@@ -85,7 +87,6 @@ const handleRatingChange = (selectedRating) => {
     );
   };
  
-  
 
   return (
     <div className="movie-page-container">
@@ -100,6 +101,8 @@ const handleRatingChange = (selectedRating) => {
           <h6><b>Original title:</b> {media.title}</h6>
         </div>
       </div>
+     
+      <Trailer movieTitle={media.title} />    
       
 
       <div className="details-container">
