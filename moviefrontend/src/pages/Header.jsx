@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Container, Navbar, Row, Col, Image, Button, Nav } from 'react-bootstrap';
+import { Container, Navbar, Row, Col, Image, Button, Nav, Form } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import CustomDropdown from './CustomDropdown';
 import UserContext from '../components/UserContext';
@@ -34,24 +34,23 @@ function Header() {
 
           {/* Search Bar with Filters */}
           <Col xs={6} className="d-flex align-items-center">
-              <CustomDropdown />
-              <form className="d-flex" onSubmit={handleSearch}>
-                  <input
-                      type="text"
-                      placeholder="Search"
-                      value={searchInput}
-                      onChange={(e) => setSearchInput(e.target.value)}
-                      className="search-input"
-                  />
-                  <Button variant="secondary" type="submit" className="search-button">
-                      Search
-                  </Button>
-              </form>
+            <CustomDropdown />
+            <Form className="d-flex" onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="search-input"
+              />
+              <Button variant="secondary" type="submit" className="search-button">
+                Search
+              </Button>
+            </Form>
           </Col>
 
           {/* Signin/Signup */}
           <Col xs={2} className="d-flex align-items-center justify-content-end">
-
             {userToken != null ? (
               <>
                 <Nav.Link as={NavLink} to="/user" className="signin-link">

@@ -10,7 +10,7 @@ const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
-  const { types, setTypes } = useContext(TypeContext);
+  const { types, setTypesList } = useContext(TypeContext);
 
   const { searchstring } = useParams();
 
@@ -37,7 +37,7 @@ const SearchResultColumn = () => {
 
   useEffect(() => {
     loadSearch(currentPage);
-    console.log(types);
+    console.log(types.length);
   }, [currentPage, searchstring]);
 
   const handlePrevClick = () => {
@@ -83,7 +83,9 @@ const SearchResultColumn = () => {
     <div>
       
       <center>
-      <h2>Search results on: {searchstring}</h2>
+        <div>
+      <h2>Search results on: {searchstring} 
+      {types != null && types.length <3? " - Selected types:"+types: ""}</h2></div>
         <Button onClick={handlePrevClick} disabled={currentPage === 0}>
           Previous 
         </Button>
