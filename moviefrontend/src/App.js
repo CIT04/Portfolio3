@@ -67,7 +67,7 @@ function App() {
       {/* Routes */}
       <Routes>
 
-      <Route path="/" element={[<Trailer movieTitle="css for dummies" />, <MovieCarousel medias={medias} />]} />
+      <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />, <MovieCarousel medias={medias} />]} />
       <Route path="/media/:mediaId" element={<MediaDisplay />} />
       <Route path="/login" element={  <LoginForm />}/>
       <Route path="/signup" element={  <SignUp />}/>

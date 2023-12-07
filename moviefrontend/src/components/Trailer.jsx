@@ -1,4 +1,4 @@
-// Trailer.jsx
+
 
 import React, { useState, useEffect } from "react";
 
@@ -11,7 +11,7 @@ const Trailer = ({ movieTitle }) => {
         const response = await fetch(
           `https://www.googleapis.com/youtube/v3/search?q=${encodeURIComponent(
             movieTitle + " trailer"
-          )}&key=AIzaSyCfYJ8UpE629UnvA4wxVMWCF4lpCVkIdrI&part=snippet&type=video&videoEmbeddable=true&maxResults=1`
+          )}&key=INSERT API KEY HERE (cannot put public api key when publishing on github)&part=snippet&type=video&videoEmbeddable=true&maxResults=1`
         );
         const data = await response.json();
         if (data.items && data.items.length > 0) {
@@ -30,7 +30,6 @@ const Trailer = ({ movieTitle }) => {
   return (
     <div className="trailer-container">
       <h3>Trailer</h3>
-      <h4>(This is a WIP trailer feature)</h4>
       {trailerVideo ? (
         <iframe
           width="560"
@@ -41,7 +40,8 @@ const Trailer = ({ movieTitle }) => {
           allowFullScreen
         ></iframe>
       ) : (
-        <p>No trailer found for {movieTitle}</p>
+        <p>No trailer found for {movieTitle} (Currently disabled due to API key being used up too fast, feel free to insert own api key in trailer.jsx.)
+        </p>
       )}
     </div>
   );
