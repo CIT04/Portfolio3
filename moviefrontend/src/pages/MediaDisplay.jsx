@@ -7,6 +7,7 @@ import Team from "./Team";
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap'; // Import Button component from Bootstrap
 import RatingComponent from "../components/RatingComponent";
+import TextToSpeech from './TextToSpeech'; // Import TextToSpeech component
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -99,6 +100,7 @@ const handleRatingChange = (selectedRating) => {
           <h6><b>Original title:</b> {media.title}</h6>
         </div>
       </div>
+      
 
       <div className="details-container">
         <div className="info-container">
@@ -146,14 +148,20 @@ const handleRatingChange = (selectedRating) => {
         <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
         <p><b>Stars:</b> <div className="stars-container">{actors.map(actor => <NavLink to={`/actor/${actor.personId}`} className="nav-link">{actor.person.name}</NavLink>)}
         </div></p>
-        
 
         <NavLink to={`/media/team/${mediaId}`} className="nav-link">
           {/* Styled Bootstrap Button */}
-          <Button variant="info" className="see-crew-button" style={{ maxWidth: '200px' }}>
-            See Full Crew
-          </Button>
+          <Button
+  variant="info"
+  className="see-crew-button"
+  style={{ maxWidth: "200px" }}
+>
+  See Full Crew
+</Button>
         </NavLink>
+
+        <TextToSpeech textToRead={media.plot} />
+
       </div>
         <div className="plot-container">{media.plot}</div>
       </div>
