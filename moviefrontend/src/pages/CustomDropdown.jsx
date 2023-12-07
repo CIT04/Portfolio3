@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import TypeContext from '../components/TypeContext';
+import { useContext } from 'react';
 
 const CustomDropdown = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const { types, setTypes } = useContext(TypeContext);
 
   const genres = ['Action', 'Drama', 'Comedy', 'Sci-Fi', 'Horror'];
-  const types = ['Movie', 'Series', 'Game'];
-
+  
   const handleGenreChange = (genre) => {
     setSelectedGenres((prevGenres) => {
       if (prevGenres.includes(genre)) {
