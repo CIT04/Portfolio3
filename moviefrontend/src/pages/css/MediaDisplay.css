@@ -187,3 +187,21 @@
   background-color: #0056b3; /* Change the background color on hover */
 }
 
+.actor-box {
+  display: inline-block;
+  padding: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  background-color: #555; /* Slightly lighter background for actor boxes */
+  border-radius: 4px;
+  font-size: 14px;
+  color: #fff; /* White text */
+}
+
+
+.actor-box:hover {
+  background-color: #333; /* Dark background on hover */
+  color: #f5c518; /* IMDb yellow on hover */
+}
+
+

@@ -148,24 +148,29 @@ const handleRatingChange = (selectedRating) => {
 
       <div className="description-container">
       <div className="creators-container">
-        <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
-        <p><b>Stars:</b> <div className="stars-container">{actors.map(actor => <NavLink to={`/actor/${actor.personId}`} className="nav-link">{actor.person.name}</NavLink>)}
-        </div></p>
-
-        <NavLink to={`/media/team/${mediaId}`} className="nav-link">
-          {/* Styled Bootstrap Button */}
-          <Button
-  variant="info"
-  className="see-crew-button"
-  style={{ maxWidth: "200px" }}
->
-  See Full Crew
-</Button>
+  <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
+  <p><b>Stars:</b> 
+    <div className="stars-container">
+      {actors.map(actor => (
+        <NavLink to={`/actor/${actor.personId}`} className="nav-link" key={actor.personId}>
+          <div className="actor-box">{actor.person.name}</div>
         </NavLink>
+      ))}
+    </div>
+  </p>
 
-        <TextToSpeech textToRead={media.plot} />
+  <NavLink to={`/media/team/${mediaId}`} className="nav-link">
+    <Button
+      variant="info"
+      className="see-crew-button"
+      style={{ maxWidth: "200px" }}
+    >
+      See Full Crew
+    </Button>
+  </NavLink>
 
-      </div>
+  <TextToSpeech textToRead={media.plot} />
+</div>
         <div className="plot-container">{media.plot}</div>
       </div>
           
