@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import Team from "./Team";
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap'; // Import Button component from Bootstrap
+import RatingComponent from "../components/RatingComponent";
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -17,14 +18,12 @@ const MediaDisplay = () => {
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
   const { actorId } = useParams();
+  const [userRating, setUserRating] = useState(0);
 
-
-
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const handleBookmark = (status) => {
-    setIsBookmarked(status);};
-
-
+  
+const handleRatingChange = (selectedRating) => {
+  setUserRating(selectedRating);
+};
 
   useEffect(() => {
     fetch("http://localhost:5001/api/media/"+mediaId)
@@ -112,6 +111,9 @@ const MediaDisplay = () => {
           <p><b>IMDB:</b> {rating.imdbRatings}</p>
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
+            <div>
+              <RatingComponent/>
+            </div>
             <div className="star-rating">
               {Array.from({ length: 10 }, (_, index) => (
                 <span
