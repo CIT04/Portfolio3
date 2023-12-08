@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import UserContext from './UserContext';
 
@@ -6,9 +6,19 @@ const RatingComponent = ({ m_id }) => {
   const [hoverRating, setHoverRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const { userToken } = useContext(UserContext);
+  const [rating, setRating] = useState();
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/rating/" + m_id)
+      .then((res) => res.json())
+      .then((json) => {
+        setRating(json);
+        setUserRating(json.localRating); // Set initial localRating value
+      });
+  }, [m_id]);
 
   const handleSaveRating = () => {
-   
+    // Save the rating to the server and update the local state
     fetch('http://localhost:5001/api/localrating/create', {
       method: 'POST',
       headers: {
@@ -19,15 +29,14 @@ const RatingComponent = ({ m_id }) => {
         U_id: userToken.id,
         LocalScore: userRating,
       }),
-    })
+    });
 
-   
+    // Optionally, update the state
+    setRating((prevRating) => ({ ...prevRating, localRating: userRating }));
   };
 
   const handleDeleteRating = () => {
-    
-
-   
+    // Delete the rating from the server and update the local state
     fetch('http://localhost:5001/api/localrating/delete', {
       method: 'DELETE',
       headers: {
@@ -37,9 +46,10 @@ const RatingComponent = ({ m_id }) => {
         M_id: m_id,
         U_id: userToken.id,
       }),
-    })
+    });
 
-    
+    // Optionally, update the state
+    setRating((prevRating) => ({ ...prevRating, localRating: null }));
   };
 
   const handleStarHover = (rating) => {
@@ -70,14 +80,24 @@ const RatingComponent = ({ m_id }) => {
           </span>
         ))}
       </div>
-      {userToken&&<div>
-      <button variant="primary" className="bookmark-button" onClick={handleSaveRating}>
-        Save Rating
-      </button>
-      <button variant="danger" className="bookmark-button" onClick={handleDeleteRating}>
-        Delete Rating
-      </button>
-      </div>}
+      {userToken && (
+        <div>
+          <button
+            variant="primary"
+            className="bookmark-button"
+            onClick={handleSaveRating}
+          >
+            Save Rating
+          </button>
+          <button
+            variant="danger"
+            className="bookmark-button"
+            onClick={handleDeleteRating}
+          >
+            Delete Rating
+          </button>
+        </div>
+      )}
     </div>
   );
 };
