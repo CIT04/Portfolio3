@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './css/SingleActor.css'; // Import the CSS file
+import { NavLink } from 'react-router-dom';
 
 const SingleActor = () => {
   const { actorId } = useParams();
@@ -68,7 +69,9 @@ const SingleActor = () => {
               {knownForMediaDetails.map((media) => (
         <liactor2 key={media.id}>
           <h4>{media.title}</h4>
-          {media.poster && <img src={media.poster} alt={media.title} />}
+          <NavLink to={`/media/${media.id}`}>
+              <img src={media.poster} alt={media.title} />
+            </NavLink>
           {media.year && <p>Year: {media.year}</p>}
         </liactor2>
 
