@@ -19,11 +19,12 @@ const Bookmarks = ({ userid }) => {
       .then((json) => {
         setBookmarks(json);
 
-       
+        // Check if json is an array before fetching media
         if (Array.isArray(json)) {
-         
+          // Use Promise.all to wait for all media fetches to complete
           Promise.all(json.map((bookmark) => fetchMediaForBookmarks(bookmark)))
             .then((mediaArray) => {
+              // Flatten the array of media arrays
               const flattenedMediaArray = mediaArray.flat();
               setMedias(flattenedMediaArray);
             })

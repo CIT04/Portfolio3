@@ -1,76 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import Rating from './Rating';
+import React from 'react';
 
-const RatedForUid = ({ userid }) => {
-  const [ratings, setRatings] = useState([]);
-  const [medias, setMedias] = useState([]);
-
-  useEffect(() => {
-    fetchRatings(userid);
-  }, [userid]);
-
-  function fetchRatings(uid) {
-    fetch(`http://localhost:5001/api/localrating/1`)
-      .then((res) => res.json())
-      .then((json) => {
-        setRatings(json);
-
-        if (Array.isArray(json)) {
-          Promise.all(json.map((rating) => fetchMediaForRatings(rating)))
-            .then((mediaArray) => {
-              const flattenedMediaArray = mediaArray.flat();
-              setMedias(flattenedMediaArray);
-            })
-            .catch((error) => {
-              console.error('Error fetching media for ratings:', error);
-            });
-        } else {
-          console.error('API response is not an array:', json);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching ratings:', error);
-      });
-  }
-
-  function fetchMediaForRatings(rating) {
-    return fetch(`http://localhost:5001/api/media/${rating.m_id}`)
-      .then((res) => res.json())
-      .then((media) => {
-        media.rating = rating.localscore; // Change to rating if needed
-        console.log(media);
-        return media;
-      })
-      .catch((error) => {
-        console.error('Error fetching media for ratings:', error);
-      });
-  }
-
-  return (
-    <div>
-      <br />
-      <br />
-      <h1>Your Rated Movies</h1>
-      {ratings && ratings.length > 0 ? (
-        <table className="table table-bordered table-black-background">
-          <thead>
-            <tr>
-              <th>Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            {medias.map((media) => (
-              <tr key={media.id}>
-                <Rating media={media} />
-              </tr>
+const RatedMovies = ({ ratedMovies }) => {
+    return (
+      <div>
+      <br></br>
+      <br></br>
+        <h1>Your Rated Movies</h1>
+        {ratedMovies && ratedMovies.length > 0 ? (
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {ratedMovies.map((movie) => (
+              <li
+                key={movie.id}
+                style={{
+                  borderBottom: '1px solid #ccc',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <strong style={{ fontSize: '1.2em' }}>{movie.title}</strong>
+                  <div style={{ fontSize: '1em', color: '#888' }}>
+                    {movie.rating.toFixed(1)}/10
+                  </div>
+                </div>
+                <div style={{ fontSize: '1.5em', paddingRight: '50px' }}>
+                  {Array.from({ length: 10 }, (_, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        color:
+                          index < movie.rating
+                            ? 'gold'
+                            : index - 0.5 === movie.rating
+                            ? 'gold'
+                            : 'gray',
+                      }}
+                    >
+                      {index < movie.rating
+                        ? '\u2605' // Full star
+                        : index - 0.5 === movie.rating
+                        ? '\u00BD' // Half star
+                        : '\u2606'} {/* Empty star */}
+                    </span>
+                  ))}
+                </div>
+              </li>
             ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No rated movies yet.</p>
-      )}
-    </div>
-  );
+          </ul>
+        ) : (
+          <p>No rated movies yet.</p>
+        )}
+      </div>
+    );
 };
+  
+const ratedMovies = [
+    
+    
+    
+    { id: 1, title: 'Inception', rating: 5 },
+   
+  ];
+
+  const RatedForUid = ({userid}) => {
+
+  
+
+  
+    return (
+      <div>
+      <RatedMovies ratedMovies={ratedMovies}/>
+      </div>
+    );
+  };
 
 export default RatedForUid;
