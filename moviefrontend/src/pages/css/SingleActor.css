@@ -1,61 +1,81 @@
 /* SingleActor.css */
 
 .actor-details {
-    font-family: 'Arial', sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .actor-details .actor-card2 {
-    border: 1px solid #969696;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    backdrop-filter: blur(5px);
-    background-color: rgba(139, 139, 139, 0.375); /* Semi-transparent white background */
-    overflow: hidden; /* Ensure the blur doesn't bleed out of the box */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition effect */
-  }
-  
-  .actor-details .actor-card2:hover {
-    /* transform: scale(1.05); 
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);  */
-  }
-  
-  .actor-details .actor-card2 h2 {
-    color: #e0d612;
-    margin-bottom: 5px;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .actor-details .actor-card2 p {
-    color: #000000;
-  }
-  
-  .actor-details .actor-movies h3 {
-    color: #333;
-  }
-  
-  .actor-details .actor-movies ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .actor-details .actor-movies li {
-    margin-bottom: 15px;
-  }
-  
-  .actor-details .actor-movies h2 {
-    color: #e0d612;
-    margin-bottom: 5px;
-  }
-  
-  .actor-details .actor-movies p {
-    color: #000000;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.actor-card {
+  border: 1px solid #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #292b2c;
+  color: #fff;
+  transition: none; /* Disable transition for hover effect */
+}
+
+.actor-card:hover {
+  transform: none; /* Disable hover effect */
+}
+
+.actor-name {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.profession {
+  color: #fff; /* White text color for profession */
+  font-size: 18px; /* Adjust font size as needed */
+  margin-top: 5px; /* Add some space between name and profession */
+}
+
+.known-for {
+  margin-top: 30px;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.media-card {
+  border: 2px solid #4e4e4e;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: none; /* Disable transition for hover effect */
+  background-color: #464646;
+}
+
+.media-card:hover {
+  transform: none; /* Disable hover effect */
+}
+
+.media-card img {
+  width: 100%;
+  height: 300px; /* Set a taller fixed height for the images */
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.media-card h3 {
+  padding: 10px;
+  margin: 0;
+}
+
+.year {
+  color: #ccc;
+  padding: 10px;
+  margin: 0;
+}
+
+.actor-card .profession {
+  color: #fff; /* White text color for profession */
+  font-size: 18px; /* Adjust font size as needed */
+  margin-top: 5px; /* Add some space between name and profession */
+  font-weight: bold; /* Make the text bold */
+}
