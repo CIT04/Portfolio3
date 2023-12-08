@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import Rating from './Rating';
+import UserContext from './UserContext';
 
 const RatedForUid = ({ userid }) => {
   const [ratings, setRatings] = useState([]);
   const [medias, setMedias] = useState([]);
+  const { userToken } = useContext(UserContext);
 
   useEffect(() => {
     fetchRatings(userid);
   }, [userid]);
 
   function fetchRatings(uid) {
-    fetch(`http://localhost:5001/api/localrating/1`)
+    fetch(`http://localhost:5001/api/localrating/${userToken.id}`)
       .then((res) => res.json())
       .then((json) => {
         setRatings(json);

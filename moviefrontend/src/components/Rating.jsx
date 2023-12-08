@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import "./css/bookmark.css";
 import BookmarkButton from "./BookmarkButton";
 import { renderImage } from "./imageUtil";
+import RatingComponent from "./RatingComponent";
 
 
 
@@ -21,10 +22,10 @@ const Rating = ({ media }) => {
           {/* Add additional information here */}
           <p>{media.description}</p>
         </div>
-        <div> Date added: </div> 
+        
         <div>
             {/*TODO add rating thing instead*/ }
-          <BookmarkButton onBookmark={bookmarkstatus} m_id={media.id} />
+          <RatingComponent m_id={media.id} />
         </div>
       </div>
     </NavLink>
