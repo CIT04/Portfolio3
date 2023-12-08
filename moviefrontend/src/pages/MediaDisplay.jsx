@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MovieCard from "../components/MovieCard";
 import BookmarkButton from '../components/BookmarkButton';
 import "./css/MediaDisplay.css"; // Update the path based on your project structure
@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap'; // Import Button component from Bootst
 import RatingComponent from "../components/RatingComponent";
 import TextToSpeech from './TextToSpeech'; // Import TextToSpeech component
 import Trailer from "../components/Trailer";
+import UserContext from "../components/UserContext";
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -22,6 +23,7 @@ const MediaDisplay = () => {
   const { actorId } = useParams();
   const [userRating, setUserRating] = useState(0);
   const [trailerVideo, setTrailerVideo] = useState(null);
+  const { userToken, setToken } = useContext(UserContext);
 
   
 const handleRatingChange = (selectedRating) => {
@@ -120,31 +122,9 @@ const handleRatingChange = (selectedRating) => {
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
             <div>
-              <RatingComponent/>
+              <RatingComponent m_id={mediaId}/>
             </div>
-            <div className="star-rating">
-              {Array.from({ length: 10 }, (_, index) => (
-                <span
-                  key={index}
-                  className="star"
-                  style={{
-                    fontSize: '1.5em',
-                    color:
-                      index < rating.averageRating
-                        ? 'gold'
-                        : index - 0.5 === rating.averageRating
-                        ? 'gold'
-                        : 'gray',
-                  }}
-                >
-                  {index < rating.averageRating
-                    ? '\u2605'
-                    : index - 0.5 === rating.averageRating
-                    ? '\u00BD'
-                    : '\u2606'}
-                </span>
-              ))}
-            </div>
+           
           </div>
         </div>
       </div>
