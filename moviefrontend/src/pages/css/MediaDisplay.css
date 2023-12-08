@@ -57,20 +57,30 @@
   margin-bottom: 20px;
 }
 
-.see-crew-button {
-  margin-top: 5px; /* Reduce the top margin */
-  align-self: flex-end;
-  background-color: #f5c518; /* IMDb yellow */
-  color: #333; /* Dark text color */
-  border: none; /* Remove the border */
-  transition: background-color 0.3s, color 0.3s;
+.buttons-container {
   display: flex;
-  
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.see-crew-button {
+  background-color: #f5c518;
+  color: #333;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .see-crew-button:hover {
-  background-color: #333; /* Dark background on hover */
-  color: #f5c518; /* IMDb yellow on hover */
+  background-color: #333;
+  color: #f5c518;
 }
 
 .additional-container {
@@ -203,5 +213,3 @@
   background-color: #333; /* Dark background on hover */
   color: #f5c518; /* IMDb yellow on hover */
 }
-
-

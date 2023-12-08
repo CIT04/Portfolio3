@@ -51,14 +51,17 @@ const handleRatingChange = (selectedRating) => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/media/team/'+mediaId)
+    fetch('http://localhost:5001/api/media/team/' + mediaId)
       .then((res) => res.json())
       .then((json) => {
         setActors(json.actor);
         setCrew(json.crew);
         setWandd(json.writersAndDirectors);
       });
-  },[]);
+  }, []);
+
+  // Log the actors array
+  console.log('Actors:', actors);
 
   const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -128,28 +131,47 @@ const handleRatingChange = (selectedRating) => {
 
       <div className="description-container">
       <div className="creators-container">
-  <p><b>Creators:</b> {wandd.map(writersAndDirectors => writersAndDirectors.person.name).join(', ')}</p>
-  <p><b>Stars:</b> 
+  <p><b>Creators:</b>
     <div className="stars-container">
-      {actors.map(actor => (
-        <NavLink to={`/actor/${actor.personId}`} className="nav-link" key={actor.personId}>
-          <div className="actor-box">{actor.person.name}</div>
+      {wandd.map(writersAndDirectors => (
+        <NavLink
+          to={`/actor/${writersAndDirectors.personId}`}
+          className="nav-link"
+          key={writersAndDirectors.personId}
+        >
+          <div className="actor-box">{writersAndDirectors.person.name}</div>
         </NavLink>
       ))}
     </div>
   </p>
 
-  <NavLink to={`/media/team/${mediaId}`} className="nav-link">
-    <Button
-      variant="info"
-      className="see-crew-button"
-      style={{ maxWidth: "200px" }}
-    >
-      See Full Crew
-    </Button>
-  </NavLink>
+  <p>
+  <b>Stars:</b>
+  <div className="stars-container">
+    {actors.map(actor => (
+      <NavLink
+        to={`/actor/${actor.personId}`}
+        className="nav-link"
+        key={actor.personId}
+      >
+        <div className="actor-box">{actor.person?.name}</div>
+      </NavLink>
+    ))}
+  </div>
+</p>
 
-  <TextToSpeech textToRead={media.plot} />
+  <div className="buttons-container">
+    <NavLink to={`/media/team/${mediaId}`} className="nav-link">
+      <Button
+        variant="info"
+        className="see-crew-button"
+        style={{ maxWidth: "200px" }}
+      >
+        See Full Crew
+      </Button>
+    </NavLink>
+    <TextToSpeech textToRead={media.plot} />
+  </div>
 </div>
         <div className="plot-container">{media.plot}</div>
       </div>
