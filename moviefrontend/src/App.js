@@ -59,14 +59,12 @@ function App() {
   return (
     <div className="App">
       
-      {/* Render the Header component */}
 
       <Header />
     
 
       {/* Routes */}
       <Routes>
-
       <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />, <MovieCarousel medias={medias} />]} />
       <Route path="/media/:mediaId" element={<MediaDisplay />} />
       <Route path="/login" element={  <LoginForm />}/>
@@ -75,49 +73,12 @@ function App() {
       <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
       {/* <Route path="/actor/:id" element={  <Actor/>}/> */}
       <Route path="/user" element={  <UserPageWIP />}/>
-       
-        <Route path="/team" element={  <Team />}/>
+      <Route path="/team" element={  <Team />}/>
       <Route path="/actor/:actorId" element={<SingleActor />} />
       <Route path="/media/team/:mediaId" element={<Team/>} />
-      
-        <Route path="/media/:mediaId" component={MediaDisplay} />
-        
-        {/* Add other routes as needed */}
-      
-
-
+      <Route path="/media/:mediaId" component={MediaDisplay} />
       </Routes>
-     
-    
-      {/* Routes */}
-     
-     
 
-     
-      {/*--------------------Log In Page----------------------*/}
-  
-      
-
-      {/*--------------------Sign Up Page----------------------*/}
-  
-      
-
-
-
-      {/*------User Page--------
-
-      <h1>History</h1>
-      <MovieCarousel medias={medias} />
-
-      <br></br>
-      <br></br>
-
-      <h1>Bookmarks</h1>
-      <MovieCarousel medias={medias} />
-
-      <UserPage searchResults={search}/>
-
-      ------------------------*/}
       
     </div>
   );

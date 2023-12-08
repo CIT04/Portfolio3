@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 const Trailer = ({ movieTitle }) => {
   const [trailerVideo, setTrailerVideo] = useState(null);
 
+
+
   useEffect(() => {
     const searchYouTube = async () => {
       try {
@@ -22,10 +24,10 @@ const Trailer = ({ movieTitle }) => {
       }
     };
 
-    if (movieTitle) {
-      searchYouTube();
-    }
-  }, [movieTitle]);
+      if (movieTitle && !trailerVideo) {  // Add a check to avoid unnecessary API calls
+    searchYouTube();
+  }
+}, [movieTitle, trailerVideo]);
 
   return (
     <div className="trailer-container">
