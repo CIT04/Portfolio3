@@ -1,9 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 
 import UserContext from './UserContext';
 
 const BookmarkButton = ({ m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
   const { userToken, setToken } = useContext(UserContext);
 
   useEffect(() => {
@@ -29,6 +32,14 @@ const BookmarkButton = ({ m_id }) => {
     }
 
     setIsBookmarked(!isBookmarked);
+    setMessage(isBookmarked ? 'Bookmark Removed' : 'Bookmark Added');
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+      setMessage('');
+    }, 1000); 
+
     const bookmarks = {
       M_id: m_id,
       U_id: userToken.id,
@@ -38,7 +49,7 @@ const BookmarkButton = ({ m_id }) => {
       ? `http://localhost:5001/api/bookmark/delete`
       : `http://localhost:5001/api/bookmark/create`;
 
-    const method = isBookmarked? 'DELETE' : 'POST';
+    const method = isBookmarked ? 'DELETE' : 'POST';
 
     fetch(endpoint, {
       method: method,
@@ -47,24 +58,26 @@ const BookmarkButton = ({ m_id }) => {
       },
       body: JSON.stringify(bookmarks),
     })
-    .then((res) => {
+      .then(res => {
         if (res.ok) {
           return res.json(); // Parse JSON if the response is OK
         } else {
           return Promise.reject(`Failed with status ${res.status}`);
         }
       })
-      .then((json) => {
-        // Do something with the response if needed
-        console.log(json);
-      })
-      .catch((error) => {
+      .catch(error => {
         // Handle errors here
         console.error('Error:', error);
       });
-
-    
   };
+
+  const handleClose = () => {
+    // Close the modal and reset the message
+    setShowMessage(false);
+    setMessage('');
+  };
+
+  
 
   if (!userToken) {
     return null; // If userToken is null, do not render the button
@@ -75,9 +88,24 @@ const BookmarkButton = ({ m_id }) => {
   }
 
   return (
-    <button onClick={handleClick} className="bookmark-button">
-      {isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
-    </button>
+    <>
+      <button onClick={handleClick} className="bookmark-button">
+        {isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+      </button>
+
+      {/* Bootstrap Modal for displaying the message */}
+      <Modal show={showMessage} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Bookmark Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
