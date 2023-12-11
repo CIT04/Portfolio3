@@ -54,16 +54,20 @@ const Bookmarks = ({ userid }) => {
   }
 
   return (
-    <table className="table table-bordered table-black-background">
+    <table className="table table-bordered gray-table" >
+      <h2>Your bookmarks</h2>
       <thead>
         <tr>
-          <th>Bookmarked media</th>
-          
+          <th colSpan="2">Bookmarked media</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='gray-tbody'>
         {medias.map((media) => (
-          <Bookmark key={media.id} media={media} />
+          <tr key={media.id}>
+            <td colSpan="3">
+              <Bookmark media={media} />
+            </td>
+          </tr>
         ))}
       </tbody>
     </table>

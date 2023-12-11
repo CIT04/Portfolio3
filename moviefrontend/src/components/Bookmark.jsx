@@ -17,9 +17,10 @@ const Bookmark = ({ media }) => {
   const bookmarkstatus = true;
   console.log(media.poster);
   return (
+    <div className="bookmark-container">
     <NavLink to={`/media/${media.id}`} className="nav-link">
       <div className="bookmark">
-      {renderImage(media.poster, media.title)}
+        {renderImage(media.poster, media.title)}
 
         <div className="bookmark-info">
           <h2>{media.title}</h2>
@@ -28,14 +29,15 @@ const Bookmark = ({ media }) => {
           {/* Add additional information here */}
           <p>{media.description}</p>
         </div>
-        <div> Date added: {formatDate(media.time)}</div> 
-        <div>
-            
-          <BookmarkButton onBookmark={bookmarkstatus} m_id={media.id} />
-        </div>
+
+        <div className="date-added">Date added: {formatDate(media.time)}</div>
       </div>
     </NavLink>
-  );
+    <div>
+      <BookmarkButton onBookmark={bookmarkstatus} m_id={media.id} />
+    </div>
+  </div>
+);
 };
 
 export default Bookmark;

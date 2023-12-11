@@ -11,6 +11,7 @@ const Rating = ({ media }) => {
   const bookmarkstatus = true;
   console.log(media.poster);
   return (
+    <div className="bookmark-container"> 
     <NavLink to={`/media/${media.id}`} className="nav-link">
       <div className="bookmark">
       {renderImage(media.poster, media.title)}
@@ -23,12 +24,14 @@ const Rating = ({ media }) => {
           <p>{media.description}</p>
         </div>
         
+       
+      </div>
+    </NavLink>
         <div>
             {/*TODO add rating thing instead*/ }
           <RatingComponent m_id={media.id} />
         </div>
-      </div>
-    </NavLink>
+    </div>
   );
 };
 
