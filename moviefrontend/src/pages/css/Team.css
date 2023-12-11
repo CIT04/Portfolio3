@@ -2,14 +2,14 @@
   font-family: 'Arial', sans-serif;
   background-color: #232323; /* Dark background color */
   color: #ffffff; /* Text color */
-  margin: 0;
+  margin: 30px 0 0; /* Updated margin-top value to add space at the top */
   padding: 0;
 }
 
 .containerteam {
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 50px;
   padding: 20px;
   background-color: #333333; /* Container background color */
   border-radius: 10px;
@@ -34,12 +34,11 @@
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
-
 }
+
 .liteam:hover {
-  background-color: #333; 
+  background-color: #333;
   color: #f5c518;
-  
 }
 
 .person-name {

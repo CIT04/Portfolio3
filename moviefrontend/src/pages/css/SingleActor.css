@@ -11,6 +11,7 @@
 .actor-card {
   border: 1px solid #333;
   padding: 20px;
+  margin-top: 0px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #292b2c;
@@ -43,16 +44,18 @@
   gap: 20px;
 }
 
+/* Apply hover effect directly to media cards */
 .media-card {
   border: 2px solid #4e4e4e;
   border-radius: 8px;
   overflow: hidden;
-  transition: none; /* Disable transition for hover effect */
-  background-color: #464646;
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+  background-color: #353535;
 }
 
+/* Enable hover effect for media cards */
 .media-card:hover {
-  transform: none; /* Disable hover effect */
+  transform: scale(1.05); /* Adjust the scale as needed */
 }
 
 .media-card img {

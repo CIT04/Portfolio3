@@ -1,88 +1,60 @@
-import './App.css';
-import Header from './pages/Header.jsx';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignUp from './pages/SignUp.jsx';
-import UserPageWIP from './pages/UserPageWIP.jsx';
-import SearchResultColumn from './pages/SearchResultColumn.jsx';
-import MediaDisplay from './pages/MediaDisplay.jsx';
-import React from "react";
-//import ReactDOM from "react-dom/client"
-//mport App from "./App"
-//import { Route, Routes } from "react-router-dom"
-import LoginForm from "./pages/Login.jsx";
-import MovieCarousel from './components/MovieCarousel.jsx';
-import Team from "./pages/Team.jsx";
-import { useState } from 'react';
-import { useEffect } from 'react';
+import Header from './pages/Header.jsx';
+import MovieCard from './components/MovieCard';
+import MediaDisplay from './pages/MediaDisplay';
+import LoginForm from './pages/Login';
+import SignUp from './pages/SignUp';
+import SearchResultColumn from './pages/SearchResultColumn';
+import UserPageWIP from './pages/UserPageWIP';
+import Team from './pages/Team';
+import SingleActor from './pages/SingleActor';
+import Trailer from './components/Trailer';
 import Actor from './pages/Actor.jsx';
-import { Route, Routes } from 'react-router';
-import SingleActor from './pages/SingleActor.jsx';
-import Trailer from './components/Trailer.jsx'
-
-
-
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import HomePage from './pages/HomePage.jsx'; // Import the new HomePage component
+import MovieCarousel from './components/MovieCarousel';
 
 function App() {
+  const [medias, setMedias] = useState([]);
 
-  
-
-  
-  
-  const [mediaCount, setMediaCount] = useState(6);  // 
-  const [medias, setMedias] = useState([]); // The list of users
-
-  const[actorCount, setActorCount] = useState(5);
-  const[actors, setActors]=useState([]);
-
-  const [searchCount, setSearchCount] = useState(6);  // 
-   
-
- // const [selectedMedia, setSelectedMedia] = useState(["tt0795176"]);
- 
-
-  function loadMedias () {
-    fetch("http://localhost:5001/api/media/")
-      .then(res => res.json())
-      .then(json => {setMedias(json.items);});
-  }
-  function loadActors (){
-    fetch("http://localhost:5001/api/person/")
-    .then(res=>res.json())
-    .then(json => {setActors(json.items);});
+  function loadMedias() {
+    fetch('http://localhost:5001/api/media/')
+      .then((res) => res.json())
+      .then((json) => {
+        setMedias(json.items);
+      });
   }
 
-  useEffect(loadMedias, [mediaCount]); // When count changes, load users again
- 
-  useEffect(loadActors, [actorCount]);
-
+  useEffect(() => {
+    loadMedias();
+  }, []);
 
   return (
-    <div className="App">
-      
-
+    <div className="app-container">
       <Header />
-    
 
       {/* Routes */}
       <Routes>
-      <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />, <MovieCarousel medias={medias} />]} />
-      <Route path="/media/:mediaId" element={<MediaDisplay />} />
-      <Route path="/login" element={  <LoginForm />}/>
-      <Route path="/signup" element={  <SignUp />}/>
-      {/* <Route path="/search" element={  <SearchResultColumn searchResults={search}/>}/> */}
-      <Route path="/search/:searchstring" element={<SearchResultColumn  />} />
-      {/* <Route path="/actor/:id" element={  <Actor/>}/> */}
-      <Route path="/user" element={  <UserPageWIP />}/>
-      <Route path="/team" element={  <Team />}/>
-      <Route path="/actor/:actorId" element={<SingleActor />} />
-      <Route path="/media/team/:mediaId" element={<Team/>} />
-      <Route path="/media/:mediaId" component={MediaDisplay} />
+        <Route
+          path="/"
+          element={<HomePage medias={medias} />} // Render HomePage on the homepage
+        />
+        <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />, <MovieCarousel medias={medias} />]} />
+        <Route path="/media/:mediaId" element={<MediaDisplay />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/search/:searchstring" element={<SearchResultColumn />} />
+        <Route path="/user" element={<UserPageWIP />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/actor/:actorId" element={<SingleActor />} />
+        <Route path="/media/team/:mediaId" element={<Team/>} />
+        <Route path="/media/:mediaId" component={MediaDisplay} />
       </Routes>
-
-      
     </div>
   );
-  
 }
 
 export default App;

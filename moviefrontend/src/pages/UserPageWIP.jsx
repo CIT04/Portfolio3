@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import RatedForUid from '../components/RatedForUid.jsx';
 import Bookmarks from '../components/Bookmarks.jsx';
 import UserContext from '../components/UserContext';
+import SearchHistory from '../components/SearchHistory.jsx';
 import { useNavigate } from 'react-router-dom';
 import "./css/userpagecss.css";
 
@@ -25,6 +26,7 @@ const UserPageWIP = () => {
 
   return (
     <div className='container'>
+      <SearchHistory userid={userid}/>
       <RatedForUid userid={userid} />
       <Bookmarks userid={userid} />
     </div>
