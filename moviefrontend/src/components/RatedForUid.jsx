@@ -50,8 +50,6 @@ const RatedForUid = ({ userid }) => {
 
   return (
     <div>
-      <br />
-      <br />
       <h1>Your Rated Movies</h1>
       {ratings && ratings.length > 0 ? (
         <table className="table table-bordered table-black-background">
