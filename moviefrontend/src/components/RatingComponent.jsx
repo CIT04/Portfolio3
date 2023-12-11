@@ -7,17 +7,39 @@ const RatingComponent = ({ m_id }) => {
   const [userRating, setUserRating] = useState(0);
   const { userToken } = useContext(UserContext);
   const [rating, setRating] = useState();
+
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
+
+  const [test, setTest]=useState([]);
+
 
   useEffect(() => {
     fetch(`http://localhost:5001/api/rating/${m_id}`)
       .then((res) => res.json())
       .then((json) => {
         setRating(json);
-        setUserRating(json.localRating); // Set initial localRating value
       });
   }, [m_id]);
+  
+  useEffect(() => {
+    fetch("http://localhost:5001/api/localrating/" + userToken.id)
+      .then((res) => res.json())
+      .then((json) => {
+        setTest(json);
+      });
+  }, [userToken.id]);
+  
+  useEffect(() => {
+    // Find the item in the 'test' array that matches the 'm_id' from the 'rating'
+    const matchingItem = test.find(item => item.m_id === m_id);
+  
+    // If a matching item is found, log its 'localScore'
+    if (matchingItem) {
+      setUserRating(matchingItem.localScore);
+    }
+  }, [test, rating]);
+  
 
   useEffect(() => {
     // Hide the message after a delay
@@ -112,6 +134,7 @@ const RatingComponent = ({ m_id }) => {
 
   return (
     <div className="rating-component">
+     <h2>Your rating</h2>
       <div className="star-rating">
         {[...Array(10)].map((_, index) => (
           <span
@@ -129,7 +152,7 @@ const RatingComponent = ({ m_id }) => {
           </span>
         ))}
       </div>
-      {userToken && (
+      {(
         <div>
           <button
             variant="primary"

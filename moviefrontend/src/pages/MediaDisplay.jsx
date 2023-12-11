@@ -121,15 +121,29 @@ const handleRatingChange = (selectedRating) => {
           <p><b>IMDB:</b> {rating.imdbRatings}</p>
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
-            <div>
-              <RatingComponent m_id={mediaId}/>
+          <div className="star-rating">
+            {[...Array(10)].map((_, index) => (
+              <span
+                key={index}
+                className="star"
+                style={{
+                  fontSize: '1.5em',
+                  color: index < (rating.localRating) ? 'gold' : 'gray',
+                }}
+              
+              >
+                {index < (rating.localRating) ? '\u2605' : '\u2606'}
+              </span>
+              ))}
             </div>
-           
           </div>
         </div>
       </div>
-
+      {userToken&&<div>
+            <RatingComponent m_id={mediaId}/>
+      </div>}
       <div className="description-container">
+      
       <div className="creators-container">
   <p><b>Creators:</b>
     <div className="stars-container">
