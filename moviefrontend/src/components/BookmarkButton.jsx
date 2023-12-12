@@ -38,7 +38,7 @@ const BookmarkButton = ({ m_id }) => {
     setTimeout(() => {
       setShowMessage(false);
       setMessage('');
-    }, 1000); 
+    }, 1000);
 
     const bookmarks = {
       M_id: m_id,
@@ -77,8 +77,6 @@ const BookmarkButton = ({ m_id }) => {
     setMessage('');
   };
 
-  
-
   if (!userToken) {
     return null; // If userToken is null, do not render the button
   }
@@ -95,16 +93,16 @@ const BookmarkButton = ({ m_id }) => {
 
       {/* Bootstrap Modal for displaying the message */}
       <Modal show={showMessage} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Bookmark Status</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+  <Modal.Header closeButton>
+    <Modal.Title style={{ color: 'black' }}>Bookmark Status</Modal.Title>
+  </Modal.Header>
+  <Modal.Body style={{ color: 'black' }}>{message}</Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={handleClose}>
+      Close
+    </Button>
+  </Modal.Footer>
+</Modal>
     </>
   );
 };

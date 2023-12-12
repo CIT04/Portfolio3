@@ -74,7 +74,7 @@ const SearchResultColumn = () => {
   
     return (
       <div className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
-        &uarr;
+        &uarr; <span style={{ fontSize: '0.8em' }}>Back to top</span>
       </div>
     );
   };
