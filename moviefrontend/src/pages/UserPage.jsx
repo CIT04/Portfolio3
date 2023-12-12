@@ -1,7 +1,10 @@
 import React from 'react';
+import { Collapse } from 'react-bootstrap';
 
 const RatedMovies = ({ ratedMovies }) => {
+  const [open, setOpen] = useState(true);
   return (
+    
     <div style={{ margin: '0 50px' }}>
       <br />
       <br />
@@ -53,6 +56,7 @@ const RatedMovies = ({ ratedMovies }) => {
         <p>No rated movies yet.</p>
       )}
     </div>
+   
   );
 };
 

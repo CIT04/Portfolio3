@@ -6,4 +6,52 @@
   .table-black-background th, .table-black-background td {
     border-color: rgb(97, 97, 97);  
   }
+
+  .h2button{
+
+  color:black
+  }
+
+  .fade-enter {
+    opacity: 0;
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+  }
+  
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .top-to-bottom-enter {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  
+  .top-to-bottom-enter-active {
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: transform 300ms ease-in-out;
+  }
+  
+  .top-to-bottom-exit {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  
+  .top-to-bottom-exit-active {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 300ms ease-in-out;
+  }
+  
+  
+  
   
