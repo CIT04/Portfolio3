@@ -6,7 +6,7 @@ const RatingComponent = ({ m_id }) => {
   const [hoverRating, setHoverRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const { userToken } = useContext(UserContext);
-
+  const formattedM_id = m_id.length === 10 ? m_id : m_id.padEnd(10);
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
   const [hasRated, setHasRated] = useState(false);
@@ -18,7 +18,8 @@ const RatingComponent = ({ m_id }) => {
         .then((json) => {
           setUserRating(json);
           json && setHasRated(true);
-          console.log(json)
+          console.log(formattedM_id);
+         
         });
     }, [userToken.id, m_id]);
 
@@ -47,7 +48,7 @@ const RatingComponent = ({ m_id }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        M_id: m_id.trim(),
+        M_id: formattedM_id,
         U_id: userToken.id,
         LocalScore: userRating,
       }),
@@ -100,37 +101,37 @@ const RatingComponent = ({ m_id }) => {
       });
   };
 
-  const handleUpdateRating = () => {
-    fetch('http://localhost:5001/api/localrating/update', {
+  // const handleUpdateRating = () => {
+  //   fetch('http://localhost:5001/api/localrating/update', {
    
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
       
-      body: JSON.stringify({
-        M_id: m_id.trim(),
-        U_id: userToken.id,
-        LocalScore: userRating,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          setMessage('Rating Updated');
-        } else {
-          setMessage('Failed to update rating');
-        }
-        setShowMessage(true);
-        return res.json();
-      })
-      .then((json) => {
-        setUserRating((prevRating) => ({ ...prevRating, localRating: userRating }));
+  //     body: JSON.stringify({
+  //       M_id: m_id.trim(),
+  //       U_id: userToken.id,
+  //       LocalScore: userRating,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         setMessage('Rating Updated');
+  //       } else {
+  //         setMessage('Failed to update rating');
+  //       }
+  //       setShowMessage(true);
+  //       return res.json();
+  //     })
+  //     .then((json) => {
+  //       setUserRating((prevRating) => ({ ...prevRating, localRating: userRating }));
 
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+  // };
 
 
 
@@ -179,7 +180,7 @@ const RatingComponent = ({ m_id }) => {
           <button
             variant="primary"
             className="bookmark-button"
-            onClick={handleUpdateRating}
+            onClick={handleSaveRating}
           >
             Update Rating
           </button>
