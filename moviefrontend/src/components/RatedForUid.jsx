@@ -55,6 +55,8 @@ const RatedForUid = ({ userid }) => {
 
   return (
     <div>
+      <h2>Your Rated Movies</h2>
+      
       <button
         type="button"
         className="btn btn-warning"
@@ -62,9 +64,16 @@ const RatedForUid = ({ userid }) => {
         aria-controls="ratingsCollapse"
         aria-expanded={open}
       >
+      
         <h2button>Click to expand or collapse</h2button>
+       
       </button>
-      <h2>Your Rated Movies</h2>
+      <br>
+      </br>
+      <br>
+      </br>
+      
+      
       <CSSTransition
         in={open}
         timeout={300}

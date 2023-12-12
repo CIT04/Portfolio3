@@ -25,6 +25,7 @@ const SearchHistory = ({ userid }) => {
 
   return (
     <div>
+      <h2>Your Searches</h2>
       <button
         type="button"
         className="btn btn-warning"
@@ -34,14 +35,18 @@ const SearchHistory = ({ userid }) => {
       >
         <h2button>Click to expand or collapse</h2button>
       </button>
-      <h2>Your Searches</h2>
+      <br>
+      </br>
+      <br>
+      </br>
+      
 
       <Collapse in={open} id="searchHistoryCollapse">
         <div>
           <table className="table table-bordered table-black-background">
             <thead>
               <tr>
-                <th>Search Stringssss</th>
+                <th>Search Strings</th>
                 <th>Time</th>
               </tr>
             </thead>

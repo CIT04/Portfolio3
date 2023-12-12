@@ -52,6 +52,7 @@ const Bookmarks = ({ userid }) => {
 
   return (
     <div>
+       <h2>Your Bookmarked Media</h2>
       <Button
         type="button"
         className="btn btn-warning"
@@ -61,7 +62,12 @@ const Bookmarks = ({ userid }) => {
       >
         <h2button>Click to expand or collapse</h2button>
       </Button>
-      <h2>Your Bookmarked Media</h2>
+
+      <br>
+      </br>
+      <br>
+      </br>
+     
 
       <CSSTransition
         in={open}
