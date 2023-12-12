@@ -172,16 +172,16 @@ const RatingComponent = ({ m_id }) => {
       )}
       {/* Bootstrap Modal for displaying the message */}
       <Modal show={showMessage} onHide={handleCloseMessage}>
-        <Modal.Header closeButton>
-          <Modal.Title>Rating Status</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseMessage}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+  <Modal.Header closeButton>
+    <Modal.Title style={{ color: 'black' }}>Bookmark Status</Modal.Title>
+  </Modal.Header>
+  <Modal.Body style={{ color: 'black' }}>{message}</Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={handleCloseMessage}>
+      Close
+    </Button>
+  </Modal.Footer>
+</Modal>
     </div>
   );
 };
