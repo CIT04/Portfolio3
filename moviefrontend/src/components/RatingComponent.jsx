@@ -6,43 +6,22 @@ const RatingComponent = ({ m_id }) => {
   const [hoverRating, setHoverRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const { userToken } = useContext(UserContext);
-  const [rating, setRating] = useState();
-
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
-
-  const [test, setTest]=useState([]);
-
-
+ 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/rating/${m_id}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setRating(json);
-      });
-  }, [m_id]);
+    
+  fetch(`http://localhost:5001/api/localrating/${userToken.id}/${m_id}`)
+        .then((res) => res.json())
+        .then((json) => {
+          setUserRating(json);
+        
+          
+        });
+    }, [userToken.id]);
+
   
   useEffect(() => {
-    fetch("http://localhost:5001/api/localrating/" + userToken.id)
-      .then((res) => res.json())
-      .then((json) => {
-        setTest(json);
-      });
-  }, [userToken.id]);
-  
-  useEffect(() => {
-    // Find the item in the 'test' array that matches the 'm_id' from the 'rating'
-    const matchingItem = test.find(item => item.m_id === m_id);
-  
-    // If a matching item is found, log its 'localScore'
-    if (matchingItem) {
-      setUserRating(matchingItem.localScore);
-    }
-  }, [test, rating]);
-  
-
-  useEffect(() => {
-    // Hide the message after a delay
     const timeout = setTimeout(() => {
       setShowMessage(false);
       setMessage('');
@@ -74,10 +53,7 @@ const RatingComponent = ({ m_id }) => {
         setShowMessage(true);
         return res.json();
       })
-      .then((json) => {
-        // Optionally, update the state
-        setRating((prevRating) => ({ ...prevRating, localRating: userRating }));
-      })
+    
       .catch((error) => {
         // Handle errors here
         console.error('Error:', error);
@@ -105,10 +81,7 @@ const RatingComponent = ({ m_id }) => {
         setShowMessage(true);
         return res.json();
       })
-      .then((json) => {
-        // Optionally, update the state
-        setRating((prevRating) => ({ ...prevRating, localRating: null }));
-      })
+      
       .catch((error) => {
         // Handle errors here
         console.error('Error:', error);
