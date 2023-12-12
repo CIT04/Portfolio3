@@ -64,7 +64,7 @@ function HomePage() {
     fetchMedias(seriesMediaIds, setSeriesMedias);
     fetchMedias(topRatedMediaIds, setTopRatedMedias);
     fetchMedias(trendingMediaIds, setTrendingMedias);
-  }, [popularMediaIds, seriesMediaIds, topRatedMediaIds, trendingMediaIds]);
+  }, []);
 
   return (
     <div className="app-container">
