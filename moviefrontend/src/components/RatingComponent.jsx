@@ -7,12 +7,10 @@ const RatingComponent = ({ m_id }) => {
   const [userRating, setUserRating] = useState(0);
   const { userToken } = useContext(UserContext);
   const [rating, setRating] = useState();
-
+  const [hasRated, setHasRated] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
-
-  const [test, setTest]=useState([]);
-
+  const [test, setTest] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5001/api/rating/${m_id}`)
@@ -21,7 +19,7 @@ const RatingComponent = ({ m_id }) => {
         setRating(json);
       });
   }, [m_id]);
-  
+
   useEffect(() => {
     fetch("http://localhost:5001/api/localrating/" + userToken.id)
       .then((res) => res.json())
@@ -29,17 +27,14 @@ const RatingComponent = ({ m_id }) => {
         setTest(json);
       });
   }, [userToken.id]);
-  
+
   useEffect(() => {
-    // Find the item in the 'test' array that matches the 'm_id' from the 'rating'
-    const matchingItem = test.find(item => item.m_id === m_id);
-  
-    // If a matching item is found, log its 'localScore'
+    const matchingItem = test.find((item) => item.m_id === m_id);
+    setHasRated(!!matchingItem);
     if (matchingItem) {
       setUserRating(matchingItem.localScore);
     }
   }, [test, rating]);
-  
 
   useEffect(() => {
     // Hide the message after a delay
@@ -53,9 +48,14 @@ const RatingComponent = ({ m_id }) => {
   }, [showMessage]);
 
   const handleSaveRating = () => {
-    // Save the rating to the server and update the local state
-    fetch('http://localhost:5001/api/localrating/create', {
-      method: 'POST',
+    const apiUrl = hasRated
+      ? 'http://localhost:5001/api/localrating/update'
+      : 'http://localhost:5001/api/localrating/create';
+
+    const method = hasRated ? 'PUT' : 'POST';
+
+    fetch(apiUrl, {
+      method: method,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -67,25 +67,23 @@ const RatingComponent = ({ m_id }) => {
     })
       .then((res) => {
         if (res.ok) {
-          setMessage('Rating Added');
+          setMessage(hasRated ? 'Rating Updated' : 'Rating Added');
         } else {
-          setMessage('Failed to add rating');
+          setMessage(hasRated ? 'Failed to update rating' : 'Failed to add rating');
         }
         setShowMessage(true);
         return res.json();
       })
       .then((json) => {
-        // Optionally, update the state
         setRating((prevRating) => ({ ...prevRating, localRating: userRating }));
+        setHasRated(true);
       })
       .catch((error) => {
-        // Handle errors here
         console.error('Error:', error);
       });
   };
 
   const handleDeleteRating = () => {
-    // Delete the rating from the server and update the local state
     fetch('http://localhost:5001/api/localrating/delete', {
       method: 'DELETE',
       headers: {
@@ -114,6 +112,41 @@ const RatingComponent = ({ m_id }) => {
         console.error('Error:', error);
       });
   };
+
+  const handleUpdateRating = () => {
+    fetch('http://localhost:5001/api/localrating/update', {
+   
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+      body: JSON.stringify({
+        M_id: m_id.trim(),
+        U_id: userToken.id,
+        LocalScore: userRating,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setMessage('Rating Updated');
+        } else {
+          setMessage('Failed to update rating');
+        }
+        setShowMessage(true);
+        return res.json();
+      })
+      .then((json) => {
+        setRating((prevRating) => ({ ...prevRating, localRating: userRating }));
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+
+
   
 
   const handleStarHover = (rating) => {
@@ -132,9 +165,11 @@ const RatingComponent = ({ m_id }) => {
   };
   
 
+
+
   return (
-    <div className="rating-component">
-     <h2>Your rating</h2>
+    <div key={hasRated} className="rating-component">
+      <h2>Your rating</h2>
       <div className="star-rating">
         {[...Array(10)].map((_, index) => (
           <span
@@ -152,14 +187,14 @@ const RatingComponent = ({ m_id }) => {
           </span>
         ))}
       </div>
-      {(
+      {hasRated ? (
         <div>
           <button
             variant="primary"
             className="bookmark-button"
-            onClick={handleSaveRating}
+            onClick={handleUpdateRating}
           >
-            Save Rating
+            Update Rating
           </button>
           <button
             variant="danger"
@@ -169,21 +204,31 @@ const RatingComponent = ({ m_id }) => {
             Delete Rating
           </button>
         </div>
+      ) : (
+        <div>
+          <button
+            variant="primary"
+            className="bookmark-button"
+            onClick={handleSaveRating}
+          >
+            Save Rating
+          </button>
+        </div>
       )}
       {/* Bootstrap Modal for displaying the message */}
       <Modal show={showMessage} onHide={handleCloseMessage}>
-  <Modal.Header closeButton>
-    <Modal.Title style={{ color: 'black' }}>Bookmark Status</Modal.Title>
-  </Modal.Header>
-  <Modal.Body style={{ color: 'black' }}>{message}</Modal.Body>
-  <Modal.Footer>
-    <Button variant="secondary" onClick={handleCloseMessage}>
-      Close
-    </Button>
-  </Modal.Footer>
-</Modal>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: 'black' }}>Bookmark Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ color: 'black' }}>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseMessage}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
-};
+};  
 
 export default RatingComponent;
