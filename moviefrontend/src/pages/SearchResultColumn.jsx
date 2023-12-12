@@ -5,12 +5,14 @@ import SearchResult from './SearchResult';
 import Button from 'react-bootstrap/Button';
 import TypeContext from '../components/TypeContext';
 import {useContext} from 'react';
+import UserContext from '../components/UserContext';
 
 const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const { types, setTypesList } = useContext(TypeContext);
+  const { userToken } = useContext(UserContext);
 
   const { searchstring } = useParams();
 
@@ -22,8 +24,10 @@ const SearchResultColumn = () => {
   
   const loadSearch = (page) => {
     const mediaTypesString = handleFilter(types);
-  
-    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=10&Type=${mediaTypesString}&search=${searchstring}`)
+    const u_idd = userToken? userToken.id : "";
+    
+
+    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=10&Type=${mediaTypesString}&search=${searchstring}&u_id=${u_idd}`)
       .then((res) => res.json())
       .then((json) => {
         console.log('Search API response:', json);
@@ -37,7 +41,6 @@ const SearchResultColumn = () => {
 
   useEffect(() => {
     loadSearch(currentPage);
-    console.log(types.length);
   }, [currentPage, searchstring]);
 
   const handlePrevClick = () => {
