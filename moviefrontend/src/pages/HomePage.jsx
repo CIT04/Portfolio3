@@ -8,6 +8,36 @@ import './css/HomePage.css';
 function HomePage() {
   const [medias, setMedias] = useState([]);
 
+
+  const ScrollToTopButton = () => {
+    const [isVisible, setIsVisible] = useState(false);
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsVisible(window.scrollY > 200);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+  
+    return (
+      <div className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
+        &uarr; <span style={{ fontSize: '0.8em' }}>Back to top</span>
+      </div>
+    );
+  };
+
   useEffect(() => {
     loadMedias();
   }, []);
@@ -99,6 +129,7 @@ function HomePage() {
       <footer className="footer">
         <p>&copy; {new Date().getFullYear()} CIT GROUP 04. All rights reserved.</p>
       </footer>
+      <ScrollToTopButton />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import "./css/bookmark.css";
 import BookmarkButton from "./BookmarkButton";
 import { renderImage } from "./imageUtil";
+import { Collapse } from 'react-bootstrap';
 
 const formatDate = (time) => {
     const bookmarkDate = new Date(time);
@@ -13,7 +14,10 @@ const formatDate = (time) => {
     });
   };
 
+
+
 const Bookmark = ({ media }) => {
+
   const bookmarkstatus = true;
   console.log(media.poster);
   return (

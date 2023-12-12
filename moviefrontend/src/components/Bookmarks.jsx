@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
-
-
+import { Collapse, Button } from 'react-bootstrap';
+import { CSSTransition } from 'react-transition-group';
 
 const Bookmarks = ({ userid }) => {
   const [medias, setMedias] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
-  
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     fetchBookmarks(userid);
   }, [userid]);
@@ -18,13 +19,9 @@ const Bookmarks = ({ userid }) => {
       .then((res) => res.json())
       .then((json) => {
         setBookmarks(json);
-
-        // Check if json is an array before fetching media
         if (Array.isArray(json)) {
-          // Use Promise.all to wait for all media fetches to complete
           Promise.all(json.map((bookmark) => fetchMediaForBookmarks(bookmark)))
             .then((mediaArray) => {
-              // Flatten the array of media arrays
               const flattenedMediaArray = mediaArray.flat();
               setMedias(flattenedMediaArray);
             })
@@ -54,23 +51,43 @@ const Bookmarks = ({ userid }) => {
   }
 
   return (
-    <table className="table table-bordered gray-table" >
-      <h2>Your bookmarks</h2>
-      <thead>
-        <tr>
-          <th colSpan="2">Bookmarked media</th>
-        </tr>
-      </thead>
-      <tbody className='gray-tbody'>
-        {medias.map((media) => (
-          <tr key={media.id}>
-            <td colSpan="3">
-              <Bookmark media={media} />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+       <h2>Your Bookmarked Media</h2>
+      <Button
+        type="button"
+        className="btn btn-warning"
+        onClick={() => setOpen(!open)}
+        aria-controls="bookmarksCollapse"
+        aria-expanded={open}
+      >
+        <h2button>Click to expand or collapse</h2button>
+      </Button>
+
+      <br>
+      </br>
+      <br>
+      </br>
+     
+
+      <CSSTransition
+        in={open}
+        timeout={300}
+        classNames="top-to-bottom"
+        unmountOnExit
+      >
+        <table className="table table-bordered gray-table">
+          <tbody className="gray-tbody">
+            {medias.map((media) => (
+              <tr key={media.id}>
+                <td colSpan="3">
+                  <Bookmark media={media} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </CSSTransition>
+    </div>
   );
 };
 
