@@ -19,7 +19,7 @@ function HomePage() {
         setMedias(json.items);
       });
   }
-
+  
   return (
     <div className="app-container">
       <Header />
