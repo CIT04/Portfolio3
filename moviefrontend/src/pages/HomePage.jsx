@@ -6,7 +6,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/HomePage.css';
 
 function HomePage() {
-  const [medias, setMedias] = useState([]);
+  // Hardcoded mediaIds for each section
+  const popularMediaIds  = ['tt6791350', 'tt10366206', 'tt6587046', 'tt9362722', 'tt24216002', 'tt0314331', 'tt1160419', 'tt9603212', 'tt6710474', 'tt13238346'];
+  const seriesMediaIds   = ['tt2085059', 'tt0903747', 'tt0108778', 'tt2356777', 'tt0944947', 'tt7366338', 'tt5491994', 'tt0795176', 'tt0185906', 'tt0306414'];
+  const topRatedMediaIds = ['tt11060882','tt0816692', 'tt0317248', 'tt9362722', 'tt6751668', 'tt0407887', 'tt0482571', 'tt1675434', 'tt4154756', 'tt2380307'];
+  const trendingMediaIds = ['tt6741278', 'tt0944947', 'tt0314331', 'tt11198330', 'tt2356777', 'tt0108778', 'tt0386676', 'tt2442560', 'tt2085059', 'tt24216002'];
+
+  const [popularMedias, setPopularMedias] = useState([]);
+  const [seriesMedias, setSeriesMedias] = useState([]);
+  const [topRatedMedias, setTopRatedMedias] = useState([]);
+  const [trendingMedias, setTrendingMedias] = useState([]);
 
 
   const ScrollToTopButton = () => {
@@ -39,17 +48,24 @@ function HomePage() {
   };
 
   useEffect(() => {
-    loadMedias();
-  }, []);
+    // Fetch movie details based on mediaIds for each section
+    const fetchMedias = async (mediaIds, setMedias) => {
+      const mediaDetails = await Promise.all(
+        mediaIds.map(async (mediaId) => {
+          const response = await fetch(`http://localhost:5001/api/media/${mediaId}`);
+          const json = await response.json();
+          return json; // Assuming the API returns the full movie details
+        })
+      );
+      setMedias(mediaDetails);
+    };
 
-  function loadMedias() {
-    fetch('http://localhost:5001/api/media/')
-      .then((res) => res.json())
-      .then((json) => {
-        setMedias(json.items);
-      });
-  }
-  
+    fetchMedias(popularMediaIds, setPopularMedias);
+    fetchMedias(seriesMediaIds, setSeriesMedias);
+    fetchMedias(topRatedMediaIds, setTopRatedMedias);
+    fetchMedias(trendingMediaIds, setTrendingMedias);
+  }, [popularMediaIds, seriesMediaIds, topRatedMediaIds, trendingMediaIds]);
+
   return (
     <div className="app-container">
       <Header />
@@ -57,7 +73,7 @@ function HomePage() {
       <section className="fractured-section popular-section">
         <h2>Popular Movies</h2>
         <div className="movie-grid">
-          {medias.map((media) => (
+          {popularMedias.map((media) => (
             <div key={media.id} className="movie-card">
               <NavLink to={`/media/${media.id}`} className="nav-link">
                 <MovieCard
@@ -75,7 +91,7 @@ function HomePage() {
       <section className="fractured-section series-section">
         <h2>Popular Series</h2>
         <div className="movie-grid">
-          {medias.map((media) => (
+          {seriesMedias.map((media) => (
             <div key={media.id} className="movie-card">
               <NavLink to={`/media/${media.id}`} className="nav-link">
                 <MovieCard
@@ -93,7 +109,7 @@ function HomePage() {
       <section className="fractured-section top-rated-section">
         <h2>Top Rated Movies</h2>
         <div className="movie-grid">
-          {medias.map((media) => (
+          {topRatedMedias.map((media) => (
             <div key={media.id} className="movie-card">
               <NavLink to={`/media/${media.id}`} className="nav-link">
                 <MovieCard
@@ -111,7 +127,7 @@ function HomePage() {
       <section className="fractured-section trending-section">
         <h2>Trending Content</h2>
         <div className="movie-grid">
-          {medias.map((media) => (
+          {trendingMedias.map((media) => (
             <div key={media.id} className="movie-card">
               <NavLink to={`/media/${media.id}`} className="nav-link">
                 <MovieCard

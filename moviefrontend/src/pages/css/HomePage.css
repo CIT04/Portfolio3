@@ -37,10 +37,10 @@ body {
 
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   justify-content: center;
-  max-width: 1200px; /* Adjust the maximum width as needed */
+  max-width: 100%; /* Set max-width to 100% to allow the container to take the full width of the parent */
   margin: 0 auto;
 }
 
