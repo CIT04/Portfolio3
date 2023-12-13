@@ -3,30 +3,30 @@ import { NavLink } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
+import fetchSearchHistory from '../accessLayer/access';
 
 const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    fetchSearchHistory(userid);
-  }, [userid]);
+  const fetchData = async () => {
+    try {
+      const historyData = await fetchSearchHistory(userid);
+      setSearchHistory(historyData);
+    } catch (error) {
+      // Handle errors here
+      console.error('Error fetching search history:', error);
+    }
+  };
 
-  function fetchSearchHistory(uid) {
-    fetch(`http://localhost:5001/api/searchhistory/${uid}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setSearchHistory(json);
-      })
-      .catch((error) => {
-        console.error('Error fetching search history:', error);
-      });
-  }
+  useEffect(() => {
+    fetchData();
+  }, [userid]);
 
   // remove unessesary charachters - keep safe against sql injections (add earlier in search to complely avoid injection)
   const sanitizeSearchString = (searchString) => {
     // Remove any unwanted characters using regex (allowing only alphanumeric and spaces)
-    return searchString.replace(/[^a-zA-Z0-9\s]/g, '');
+    return searchString.replace(/[^a-zA-Z0-9\s]/g," ");
   };
 
   return (
