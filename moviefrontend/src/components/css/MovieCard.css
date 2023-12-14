@@ -40,3 +40,12 @@
 .card-text {
   color: rgb(255, 255, 255); /* Adjust the text color as needed */
 }
+
+.card-plot {
+  color: rgb(255, 255, 255); /* Adjust the text color as needed */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  max-height: 120px; /* Increase the max-height as needed */
+  transition: max-height 0.3s ease; /* Add a smooth transition effect */
+}
+
