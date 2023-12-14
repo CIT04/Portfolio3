@@ -84,6 +84,7 @@ const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => {
                   rotationAngles: [0],
                   scale: 'sqrt', // Use 'sqrt' to scale based on value
                   minSize: 16, // Set the minimum font size
+
                  
                   // rotations: 10,
                   // rotationAngles: [0, 90],
@@ -99,6 +100,7 @@ const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => {
               ) : (
                 <p>No search history found.</p>
               )
+
             ) : (
               <p>Switch to List view to see details.</p>
             )}

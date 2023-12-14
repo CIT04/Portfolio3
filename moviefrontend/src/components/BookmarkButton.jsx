@@ -2,73 +2,60 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 import UserContext from './UserContext';
+import DataAccess from '../accessLayer/DataAccess';
 
 const BookmarkButton = ({ m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
   const { userToken, setToken } = useContext(UserContext);
+  const dataAccess = new DataAccess();
 
   useEffect(() => {
-    // Fetch bookmark status when the component mounts
-    if (userToken) {
-      fetch(`http://localhost:5001/api/bookmark/${userToken.id}`)
-        .then(res => res.json())
-        .then(bookmarks => {
-          // Check if the current media is bookmarked
-          const isMediaBookmarked = bookmarks.some(bookmark => bookmark.m_id === m_id);
+    const fetchBookmarkStatus = async (userId, mediaId, setIsBookmarked) => {
+      try {
+        if (userId) {
+          const bookmarks = await dataAccess.fetchBookmarks(userId);
+          const isMediaBookmarked = bookmarks.some(bookmark => bookmark.m_id === mediaId);
           setIsBookmarked(isMediaBookmarked);
-        });
-    } else {
-      // If userToken is null, set bookmark status to false
-      setIsBookmarked(false);
-    }
+        } else {
+          setIsBookmarked(false);
+        }
+      } catch (error) {
+        console.error('Error fetching bookmark status', error);
+      }
+    };
+  
+    fetchBookmarkStatus(userToken?.id, m_id, setIsBookmarked);
+  
+  
   }, [m_id, userToken]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!userToken) {
       console.log('User not logged in');
       return;
     }
-
-    setIsBookmarked(!isBookmarked);
-    setMessage(isBookmarked ? 'Bookmark Removed' : 'Bookmark Added');
-    setShowMessage(true);
-
-    setTimeout(() => {
-      setShowMessage(false);
-      setMessage('');
-    }, 1000);
-
-    const bookmarks = {
-      M_id: m_id,
-      U_id: userToken.id,
+  
+    try {
+      setIsBookmarked(!isBookmarked);
+      setMessage(isBookmarked ? 'Bookmark Removed' : 'Bookmark Added');
+      setShowMessage(true);
+  
+      setTimeout(() => {
+        setShowMessage(false);
+        setMessage('');
+      }, 1000);
+  
+      if (isBookmarked) {
+        await dataAccess.deleteBookmark(m_id, userToken.id);
+      } else {
+        await dataAccess.createBookmark(m_id, userToken.id);
+      }
+    } catch (error) {
+      // Handle errors here
+      console.error('Error:', error);
     };
-
-    const endpoint = isBookmarked
-      ? `http://localhost:5001/api/bookmark/delete`
-      : `http://localhost:5001/api/bookmark/create`;
-
-    const method = isBookmarked ? 'DELETE' : 'POST';
-
-    fetch(endpoint, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookmarks),
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json(); // Parse JSON if the response is OK
-        } else {
-          return Promise.reject(`Failed with status ${res.status}`);
-        }
-      })
-      .catch(error => {
-        // Handle errors here
-        console.error('Error:', error);
-      });
   };
 
   const handleClose = () => {
