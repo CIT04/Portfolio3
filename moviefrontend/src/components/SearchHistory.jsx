@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
-import fetchSearchHistory from '../accessLayer/access';
+import DataAccess from '../accessLayer/DataAccess';
 
+
+const dataAccess = new DataAccess();
 
 const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
@@ -12,8 +14,12 @@ const SearchHistory = ({ userid }) => {
 
   const fetchData = async () => {
     try {
-      const historyData = await fetchSearchHistory(userid);
+      console.log('Fetching data...');
+     
+      const historyData = await dataAccess.fetchSearchHistory(userid);
+      console.log('Received data:', historyData);
       setSearchHistory(historyData);
+      console.log('Search history set:', searchHistory);
     } catch (error) {
       // Handle errors here
       console.error('Error fetching search history:', error);
@@ -21,7 +27,7 @@ const SearchHistory = ({ userid }) => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(); 
   }, [userid]);
 
   // remove unessesary charachters - keep safe against sql injections (add earlier in search to complely avoid injection)
