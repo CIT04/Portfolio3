@@ -42,7 +42,8 @@ useEffect(() => {
 
   searchHistory.forEach((entry) => {
     const searchStr = entry.search_string;
-    searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
+    const sanitizedSearchStr = searchStr.replace(/[{}]/g, '').replace(/,/g, ' ');
+    searchCountMap.set(sanitizedSearchStr, (searchCountMap.get(sanitizedSearchStr) || 0) + 1);
   });
 
   const updatedWordCloudData = Array.from(searchCountMap).map(
@@ -56,7 +57,7 @@ useEffect(() => {
     }
   );
 
-  // Use setWordCloudData to update the state variable
+
   setWordCloudData(updatedWordCloudData);
 }, [searchHistory]);
 
