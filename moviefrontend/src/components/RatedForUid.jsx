@@ -4,53 +4,49 @@ import UserContext from './UserContext';
 import './css/bookmarks.css';
 import { Collapse, Button } from 'react-bootstrap';
 import { CSSTransition } from 'react-transition-group';
+import DataAccess from '../accessLayer/DataAccess';
+
 
 const RatedForUid = ({ userid }) => {
   const [ratings, setRatings] = useState([]);
   const [medias, setMedias] = useState([]);
   const { userToken } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  
+  const dataAccess = new DataAccess();
+
 
   useEffect(() => {
     fetchRatings(userid);
   }, [userid]);
+  
+  async function fetchRatings(uid) {
+    try {
+      
+      const json = await dataAccess.fetchRatings(userToken.id);
+     
+      if (Array.isArray(json)) {
+        const mediaArray = await Promise.all(
+          json.map((rating) => fetchMediaForRatings(rating))
+        );
 
-  function fetchRatings(uid) {
-    fetch(`http://localhost:5001/api/localrating/${userToken.id}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setRatings(json);
-
-        if (Array.isArray(json)) {
-          Promise.all(json.map((rating) => fetchMediaForRatings(rating)))
-            .then((mediaArray) => {
-              const flattenedMediaArray = mediaArray.flat();
-              setMedias(flattenedMediaArray);
-            })
-            .catch((error) => {
-              console.error('Error fetching media for ratings:', error);
-            });
-        } else {
-          console.error('API response is not an array:', json);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching ratings:', error);
-      });
+        const flattenedMediaArray = mediaArray.flat();
+        setMedias(flattenedMediaArray);
+      } else {
+        console.error('API response is not an array:', json);
+      }
+    } catch (error) {
+      console.error('Error fetching ratings:', error);
+    }
   }
-
-  function fetchMediaForRatings(rating) {
-    return fetch(`http://localhost:5001/api/media/${rating.m_id}`)
-      .then((res) => res.json())
-      .then((media) => {
-        media.rating = rating.localscore; // Change to rating if needed
-        console.log(media);
-        return media;
-      })
-      .catch((error) => {
-        console.error('Error fetching media for ratings:', error);
-      });
+  async function fetchMediaForRatings(rating) {
+    try {
+      const media = await dataAccess.fetchMediaDetails(rating.m_id);
+      media.rating = rating.localscore; 
+      console.log(media);
+      return media;
+    } catch (error) {
+      console.error('Error fetching media for ratings:', error);
+    }
   }
 
   return (
@@ -80,7 +76,7 @@ const RatedForUid = ({ userid }) => {
         classNames="top-to-bottom"
         unmountOnExit
       >
-        {ratings && ratings.length > 0 ? (
+        {medias && medias.length > 0 ? (
           <table className="table table-bordered table-black-background">
             <thead>
               <tr>

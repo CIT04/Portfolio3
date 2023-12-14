@@ -38,6 +38,11 @@ class DataAccess {
   }
 
   
+  async fetchRatings(userId) {
+    const endpoint = `api/localrating/${userId}`;
+    return this.fetchData(endpoint);
+  }
+
   async createBookmark(mediaId, userId) {
     const endpoint = 'api/bookmark/create';
     const method = 'POST';
