@@ -90,6 +90,10 @@ class DataAccess {
     const endpoint = `api/localrating/${userId}`;
     return this.fetchData(endpoint);
   }
+  async fetchRatingsByMid(mid) {
+    const endpoint = `api/localrating/bymid/${mid}`;
+    return this.fetchData(endpoint);
+  }
 
   async fetchRatingsForMedia(userId, mediaId) {
     const endpoint = `api/localrating/${userId}/${mediaId}`;

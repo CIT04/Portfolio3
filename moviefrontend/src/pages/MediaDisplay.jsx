@@ -10,6 +10,8 @@ import RatingComponent from "../components/RatingComponent";
 import TextToSpeech from './TextToSpeech'; // Import TextToSpeech component
 import Trailer from "../components/Trailer";
 import UserContext from "../components/UserContext";
+import DataAccess from "../accessLayer/DataAccess";
+
 
 const MediaDisplay = () => {
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
@@ -24,24 +26,24 @@ const MediaDisplay = () => {
   const [userRating, setUserRating] = useState(0);
   const [trailerVideo, setTrailerVideo] = useState(null);
   const { userToken, setToken } = useContext(UserContext);
-
+  const dataAccess = new DataAccess();
   
 const handleRatingChange = (selectedRating) => {
   setUserRating(selectedRating);
 };
 
-  useEffect(() => {
-    fetch("http://localhost:5001/api/media/"+mediaId)
-      .then((res) => res.json())
-      .then((json) => {
-        setMedia({status: 'done', ...json})
-        setMediaLanguages(json.mediaLanguages)
-        setMediaCountry(json.mediaCountries)
-      });
-  }, []);
-
-  
-
+useEffect(() => {
+  dataAccess.fetchMediaDetails(mediaId)
+    .then((json) => {
+      setMedia({ status: 'done', ...json });
+      setMediaLanguages(json.mediaLanguages);
+      setMediaCountry(json.mediaCountries);
+    })
+    .catch((error) => {
+      console.error('Error fetching media details:', error);
+    });
+}, []);
+//Issues with adding to dataaccess
   useEffect(() => {
     fetch("http://localhost:5001/api/rating/"+mediaId)
       .then((res) => res.json())
@@ -51,12 +53,14 @@ const handleRatingChange = (selectedRating) => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/media/team/' + mediaId)
-      .then((res) => res.json())
+    dataAccess.fetchTeamData(mediaId)
       .then((json) => {
         setActors(json.actor);
         setCrew(json.crew);
         setWandd(json.writersAndDirectors);
+      })
+      .catch((error) => {
+        console.error('Error fetching team data:', error);
       });
   }, []);
 
