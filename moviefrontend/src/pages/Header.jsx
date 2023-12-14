@@ -7,11 +7,35 @@ import './css/HeaderStyle.css';
 
 function Header() {
   const [searchInput, setSearchInput] = useState('');
+  const [error, setError] = useState(null);
   const { userToken, setToken } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const sanitizeSearchString = (searchString) => {
+    // Check for invalid characters using regex
+    if (/[^a-zA-Z0-9\s]/.test(searchString)) {
+      throw new Error('Invalid characters in search input. Please use only alphanumeric characters and spaces.');
+    }
+  
+    // Remove any unwanted characters using regex (allowing only alphanumeric and spaces)
+    return searchString.trim(); // Added trim to remove leading and trailing spaces
+  };
+
   const handleSearch = (e) => {
+
     e.preventDefault();
+    
+    try {
+  
+      const sanitizedSearchInput = sanitizeSearchString(searchInput);
+
+      console.log('Sanitized Search Input:', sanitizedSearchInput);
+      setError(null);
+      
+    } catch (error) {
+      setError(error.message);
+      console.error('Error:', error.message);
+    }
     navigate(`/search/${searchInput}`);
   };
 
@@ -41,11 +65,13 @@ function Header() {
                 placeholder="Search"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="search-input"
+                className={`search-input ${error ? 'is-invalid' : ''}`}
+                
               />
               <Button variant="secondary" type="submit" className="search-button">
                 Search
               </Button>
+              {error && <div className="invalid-feedback">{error}</div>}
             </Form>
           </Col>
 

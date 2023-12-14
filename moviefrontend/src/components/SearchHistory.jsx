@@ -5,6 +5,7 @@ import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
 import fetchSearchHistory from '../accessLayer/access';
 
+
 const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [open, setOpen] = useState(false);
@@ -24,10 +25,7 @@ const SearchHistory = ({ userid }) => {
   }, [userid]);
 
   // remove unessesary charachters - keep safe against sql injections (add earlier in search to complely avoid injection)
-  const sanitizeSearchString = (searchString) => {
-    // Remove any unwanted characters using regex (allowing only alphanumeric and spaces)
-    return searchString.replace(/[^a-zA-Z0-9\s]/g," ");
-  };
+
 
   return (
     <div>
@@ -59,11 +57,11 @@ const SearchHistory = ({ userid }) => {
                   <tr key={index}>
                     <td>
                       <NavLink
-                        to={`/search/${sanitizeSearchString(entry.search_string)}`}
-                        style={{ textDecoration: 'underline', color: 'blue' }}
+                        to={`/search/${entry.search_string}`}
+                        style={{ textDecoration: 'none', color: 'black' }}
                         key={entry.search_string}
                       >
-                        {sanitizeSearchString(entry.search_string)}
+                        {entry.search_string}
                       </NavLink>
                     </td>
                     <td>{entry.time}</td>
