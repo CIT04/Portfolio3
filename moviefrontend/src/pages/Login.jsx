@@ -3,39 +3,28 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import UserContext from '../components/UserContext';
 import './css/LoginForm.css';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
+import DataAccess from '../accessLayer/DataAccess';
 
 const LoginForm = () => {
   const { setToken } = useContext(UserContext);
   const [error, setError] = useState(null);
-  const navi = useNavigate();
+  const navigate = useNavigate();
+  const dataAccess = new DataAccess();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   const loginCredentials = {
-      Username: event.target.username.value,
-      Password: event.target.password.value,
-    };
+
+    const username = event.target.username.value;
+    const password = event.target.password.value;
 
     try {
-      const response = await fetch('http://localhost:5001/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginCredentials),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const json = await response.json();
+      const json = await dataAccess.loginUser(username, password);
       setToken(json);
 
-      // Navigate to "/" after successful login
-      navi('/');
+      
+      navigate('/');
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error logging in:', error);
       setError('Login failed. Please check your credentials.');
     }
   };

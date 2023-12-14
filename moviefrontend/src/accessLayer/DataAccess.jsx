@@ -3,6 +3,54 @@ class DataAccess {
     this.apiBaseUrl = 'http://localhost:5001';
   }
 
+  async searchYouTubeTrailer(movieTitle) {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?q=${encodeURIComponent(
+          movieTitle + " trailer"
+        )}&key=INSERT API KEY HERE (cannot put public api key when publishing on github)&part=snippet&type=video&videoEmbeddable=true&maxResults=1`
+      );
+      const data = await response.json();
+      if (data.items && data.items.length > 0) {
+        return data.items[0].id.videoId;
+      }
+    } catch (error) {
+      console.error("Error searching YouTube:", error);
+      throw error;
+    }
+  }
+
+  async loginUser(username, password) {
+    const loginCredentials = {
+      Username: username,
+      Password: password,
+    };
+
+    try {
+      const response = await this.fetchData('api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginCredentials),
+      });
+
+     
+
+      // Check if the response contains the expected properties
+      if (response.id && response.username && response.token) {
+        return response;
+      } else {
+        console.error('Invalid response format:', response);
+        throw new Error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      throw error;
+    }
+  }
+
+
   async fetchData(endpoint, options) {
     try {
       const response = await fetch(`${this.apiBaseUrl}/${endpoint}`, options);
@@ -88,6 +136,7 @@ class DataAccess {
     }
   }
   
+
 }
 
 export default DataAccess;
