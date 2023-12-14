@@ -4,6 +4,7 @@ import Header from './Header.jsx';
 import MovieCard from '../components/MovieCard.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/HomePage.css';
+import DataAccess from '../accessLayer/DataAccess';
 
 function HomePage() {
   // Hardcoded mediaIds for each section
@@ -17,6 +18,8 @@ function HomePage() {
   const [topRatedMedias, setTopRatedMedias] = useState([]);
   const [trendingMedias, setTrendingMedias] = useState([]);
 
+  
+  const dataAccess = new DataAccess();
 
   const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -48,24 +51,27 @@ function HomePage() {
   };
 
   useEffect(() => {
-    // Fetch movie details based on mediaIds for each section
     const fetchMedias = async (mediaIds, setMedias) => {
-      const mediaDetails = await Promise.all(
-        mediaIds.map(async (mediaId) => {
-          const response = await fetch(`http://localhost:5001/api/media/${mediaId}`);
-          const json = await response.json();
-          return json; // Assuming the API returns the full movie details
-        })
-      );
-      setMedias(mediaDetails);
+      try {
+        const mediaDetails = await Promise.all(
+          mediaIds.map(async (mediaId) => {
+            const mediaData = await dataAccess.fetchMediaDetails(mediaId);
+            return mediaData; 
+          })
+        );
+        setMedias(mediaDetails);
+      } catch (error) {
+        console.error('Error fetching media details', error);
+      }
     };
-
+  
     fetchMedias(popularMediaIds, setPopularMedias);
     fetchMedias(seriesMediaIds, setSeriesMedias);
     fetchMedias(topRatedMediaIds, setTopRatedMedias);
     fetchMedias(trendingMediaIds, setTrendingMedias);
-  }, []);
-
+  
+  
+  }, []); // Include any dependencies if needed
   return (
     <div className="app-container">
       <Header />

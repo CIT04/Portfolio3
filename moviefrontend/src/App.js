@@ -18,20 +18,7 @@ import HomePage from './pages/HomePage.jsx'; // Import the new HomePage componen
 import MovieCarousel from './components/MovieCarousel';
 
 function App() {
-  const [medias, setMedias] = useState([]);
-
-  function loadMedias() {
-    fetch('http://localhost:5001/api/media/')
-      .then((res) => res.json())
-      .then((json) => {
-        setMedias(json.items);
-      });
-  }
-
-  useEffect(() => {
-    loadMedias();
-  }, []);
-
+  
   return (
     <div className="app-container">
       <Header />
@@ -40,9 +27,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage medias={medias} />} // Render HomePage on the homepage
+          element={<HomePage  />} // Render HomePage on the homepage
         />
-        <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />, <MovieCarousel medias={medias} />]} />
+        <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />]} />
         <Route path="/media/:mediaId" element={<MediaDisplay />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUp />} />

@@ -17,6 +17,10 @@ class DataAccess {
       throw error;
     }
   }
+  async fetchMediaDetails(mediaId) {
+    const endpoint = `api/media/${mediaId}`;
+    return this.fetchData(endpoint);
+  }
 
   async fetchSearchHistory(uid) {
     const endpoint = `api/searchhistory/${uid}`;
