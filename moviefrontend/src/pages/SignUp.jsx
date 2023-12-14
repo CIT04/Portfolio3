@@ -57,13 +57,34 @@ const SignUpForm = () => {
       });
     } catch (error) {
       console.error('Error fetching data:', error);
-  
-      if (error.message.includes('Username or Email already exists')) {
-        setError('Signup failed. Username or Email already exists.');
+      
+      if (error.message.includes('Username already exists')) {
+        setError('Signup failed. Username already exists.');
+
       } else if (error.message.includes('Password must be between 8 and 16 characters')) {
         setError('Signup failed. Password must be between 8 and 16 characters.');
+
+      } else if (error.message.includes('Username must be between 4 and 16 characters.')) {
+        setError('Signup failed. Username must be between 4 and 16 characters.');
+
+      } else if (error.message.includes('Email already registered. Want to login?')) {
+        setError('Signup failed. Email already registered. Want to login?');
+
       } else if (error.message.includes('Password must contain at least one uppercase character')) {
         setError('Signup failed. Password must contain at least one uppercase character.');
+
+      } else if (error.message.includes('Invalid email format.')) {
+        setError('Signup failed. Invalid email format.');
+
+      } else if (error.message.includes('Username cannot be empty.')) {
+        setError('Signup failed. Username cannot be empty.');
+    
+      } else if (error.message.includes('Email cannot be empty.')) {
+        setError('Signup failed. Email cannot be empty.');
+    
+      } else if (error.message.includes('Password cannot be empty.')) {
+        setError('Signup failed. Password cannot be empty.');
+   
       } else {
         setError('Signup failed. Please check your credentials.');
       }
@@ -92,21 +113,19 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Username"/>
-      
       <label htmlFor="firstname">First name</label>
       <input type="text" id="firstname" name="firstname" placeholder="First name" />
       <label htmlFor="lastname">Last name</label>
       <input type="text" id="lastname" name="lastname" placeholder="Last name" />
       <label htmlFor="email">Email</label>
       <input type="text" id="email" name="email"/>
-      
       <label htmlFor="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="At least 8 characters, 1 symbol, 1 big letter" />
       <label htmlFor="rePassword">Re-enter password:</label>
       <input type="password" id="rePassword" name="rePassword" />
       <label htmlFor="dob">Birthday</label>
-      <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy" />
-      {error && <div className="invalid-feedback">{error} className={error ? 'form-control is-invalid' : 'form-control'}</div>}
+      <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy"  className={error ? 'form-control is-invalid' : 'form-control'}/>
+      {error && <div className="invalid-feedback">{error}</div>}
       <p>Do you already have an account? <NavLink to="/login"><b>Log in</b></NavLink></p>
       
       <input type="submit" value="Submit" />
