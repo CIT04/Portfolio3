@@ -4,7 +4,7 @@ import Bookmark from './Bookmark';
 import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
 import DataAccess from '../accessLayer/DataAccess';
-
+import ReactWordcloud from 'react-wordcloud';
 
 const dataAccess = new DataAccess();
 
@@ -15,11 +15,9 @@ const SearchHistory = ({ userid }) => {
   const fetchData = async () => {
     try {
       console.log('Fetching data...');
-     
       const historyData = await dataAccess.fetchSearchHistory(userid);
       console.log('Received data:', historyData);
       setSearchHistory(historyData);
-      console.log('Search history set:', searchHistory);
     } catch (error) {
       // Handle errors here
       console.error('Error fetching search history:', error);
@@ -27,63 +25,61 @@ const SearchHistory = ({ userid }) => {
   };
 
   useEffect(() => {
-    fetchData(); 
+    fetchData();
   }, [userid]);
 
-  // remove unessesary charachters - keep safe against sql injections (add earlier in search to complely avoid injection)
+  // Create a map to store the count of each search string
+  const searchCountMap = new Map();
+  searchHistory.forEach((entry) => {
+    const searchStr = entry.search_string;
+    searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
+  });
 
+  // Convert search history data to word cloud format
+  const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => ({
+    text: searchStr,
+    value: count,
+    fontSize: count * 100,
+  }));
 
-  return (
-    <div>
-      <h2>Your Searches</h2>
-      <button
-        type="button"
-        className="btn btn-warning"
-        onClick={() => setOpen(!open)}
-        aria-controls="searchHistoryCollapse" 
-        aria-expanded={open}
-      >
-        <h2button>Click to expand or collapse</h2button>
-      </button>
-      <br />
-      <br />
+  const SearchHistoryWordCloud = ({ searchHistory }) => {
+    return (
+      <div style={{ fontSize: '20px' }}> {/* Set the desired font size, e.g., '20px' */}
+        <h2>Your Searches</h2>
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={() => setOpen(!open)}
+          aria-controls="searchHistoryCollapse"
+          aria-expanded={open}
+        >
+          Click to expand or collapse
+        </button>
+        <br />
+        <br />
 
-      <Collapse in={open} id="searchHistoryCollapse">
-        <div>
-          <table className="table table-bordered table-black-background">
-            <thead>
-              <tr>
-                <th>Search Strings</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(searchHistory) && searchHistory.length > 0 ? (
-                searchHistory.map((entry, index) => (
-                  <tr key={index}>
-                    <td>
-                      <NavLink
-                        to={`/search/${entry.search_string}`}
-                        style={{ textDecoration: 'none', color: 'black' }}
-                        key={entry.search_string}
-                      >
-                        {entry.search_string}
-                      </NavLink>
-                    </td>
-                    <td>{entry.time}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="2">No search history found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </Collapse>
-    </div>
-  );
+        <Collapse in={open} id="searchHistoryCollapse">
+          <div>
+            {Array.isArray(searchHistory) && searchHistory.length > 0 ? (
+              <ReactWordcloud
+                words={wordCloudData}
+                options={{
+                  rotations: 0,
+                  rotationAngles: [0],
+                  scale: 'sqrt', // Use 'sqrt' to scale based on value
+                  minSize: 16, // Set the minimum font size
+                }}
+              />
+            ) : (
+              <p>No search history found.</p>
+            )}
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
+  return <SearchHistoryWordCloud searchHistory={searchHistory} />;
 };
 
 export default SearchHistory;
