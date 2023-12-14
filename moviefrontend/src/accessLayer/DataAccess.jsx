@@ -66,7 +66,27 @@ class DataAccess {
       }),
     });
   }
+  async deleteLocalRating(userId, mediaId) {
+    const endpoint = 'api/localrating/delete';
 
+    try {
+      const response = await this.fetchData(endpoint, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          M_id: mediaId,
+          U_id: userId,
+        }),
+      });
+
+      return response;
+    } catch (error) {
+      console.error('Error deleting local rating:', error);
+      throw error;
+    }
+  }
   
 }
 

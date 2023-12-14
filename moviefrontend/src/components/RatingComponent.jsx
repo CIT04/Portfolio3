@@ -55,66 +55,22 @@ const RatingComponent = ({ m_id }) => {
   
 
   const handleDeleteRating = () => {
-    fetch('http://localhost:5001/api/localrating/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        M_id: m_id,
-        U_id: userToken.id,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
+    dataAccess.deleteLocalRating(userToken.id, m_id)
+      .then((response) => {
+        if (response.ok) {
           setMessage('Rating Deleted');
+          // Trigger a re-render or perform other actions
+          setReloadKey((prevKey) => prevKey + 1);
         } else {
           setMessage('Failed to delete rating');
         }
         setShowMessage(true);
-        return res.json();
       })
-      
       .catch((error) => {
         // Handle errors here
         console.error('Error:', error);
       });
   };
-
-  // const handleUpdateRating = () => {
-  //   fetch('http://localhost:5001/api/localrating/update', {
-   
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-      
-  //     body: JSON.stringify({
-  //       M_id: m_id.trim(),
-  //       U_id: userToken.id,
-  //       LocalScore: userRating,
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         setMessage('Rating Updated');
-  //       } else {
-  //         setMessage('Failed to update rating');
-  //       }
-  //       setShowMessage(true);
-  //       return res.json();
-  //     })
-  //     .then((json) => {
-  //       setUserRating((prevRating) => ({ ...prevRating, localRating: userRating }));
-
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
-
-
   
 
   const handleStarHover = (rating) => {
@@ -123,7 +79,7 @@ const RatingComponent = ({ m_id }) => {
 
   const handleStarClick = () => {
     setUserRating(hoverRating);
-    // Optionally, you can call handleSaveRating here to save the rating immediately
+    
   };
   
 
