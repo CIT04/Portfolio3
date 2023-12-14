@@ -11,6 +11,7 @@ const dataAccess = new DataAccess();
 const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('wordCloud'); // 'wordCloud' or 'list'
 
   const fetchData = async () => {
     try {
@@ -28,23 +29,30 @@ const SearchHistory = ({ userid }) => {
     fetchData();
   }, [userid]);
 
-  // Create a map to store the count of each search string
-  const searchCountMap = new Map();
-  searchHistory.forEach((entry) => {
-    const searchStr = entry.search_string;
-    searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
-  });
 
-  // Convert search history data to word cloud format
-  const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => ({
-    text: searchStr,
+
+
+// Create a map to store the count of each search string
+const searchCountMap = new Map();
+searchHistory.forEach((entry) => {
+  const searchStr = entry.search_string;
+  searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
+});
+
+
+const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => {
+  const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
+  return {
+    text: sanitizedSearchStr,
     value: count,
     fontSize: count * 100,
-  }));
+  };
+});
+
 
   const SearchHistoryWordCloud = ({ searchHistory }) => {
     return (
-      <div style={{ fontSize: '20px' }}> {/* Set the desired font size, e.g., '20px' */}
+      <div style={{ fontSize: '20px' }}>
         <h2>Your Searches</h2>
         <button
           type="button"
@@ -55,23 +63,44 @@ const SearchHistory = ({ userid }) => {
         >
           Click to expand or collapse
         </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => setViewMode('list')}
+        >
+          Switch to List
+        </button>
         <br />
         <br />
 
         <Collapse in={open} id="searchHistoryCollapse">
           <div>
-            {Array.isArray(searchHistory) && searchHistory.length > 0 ? (
-              <ReactWordcloud
-                words={wordCloudData}
-                options={{
-                  rotations: 0,
+            {viewMode === 'wordCloud' ? (
+              Array.isArray(searchHistory) && searchHistory.length > 0 ? (
+                <ReactWordcloud
+                  words={wordCloudData}
+                  options={{
+                    rotations: 0,
                   rotationAngles: [0],
                   scale: 'sqrt', // Use 'sqrt' to scale based on value
                   minSize: 16, // Set the minimum font size
-                }}
-              />
+                 
+                  // rotations: 10,
+                  // rotationAngles: [0, 90],
+                  scale: "sqrt",
+                  spiral: "archimedean",
+                  transitionDuration: 1000,
+                  fontFamily: "impact",
+                  fontSizes: [20, 150],
+                  fontStyle: "normal",
+                  fontWeight: "normal",
+                  }}
+                />
+              ) : (
+                <p>No search history found.</p>
+              )
             ) : (
-              <p>No search history found.</p>
+              <p>Switch to List view to see details.</p>
             )}
           </div>
         </Collapse>
@@ -79,7 +108,73 @@ const SearchHistory = ({ userid }) => {
     );
   };
 
-  return <SearchHistoryWordCloud searchHistory={searchHistory} />;
+  const SearchHistoryList = ({ searchHistory }) => {
+    return (
+      <div>
+        <h2>Your Searches</h2>
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={() => setOpen(!open)}
+          aria-controls="searchHistoryCollapse"
+          aria-expanded={open}
+        >
+          Click to expand or collapse
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => setViewMode('wordCloud')}
+        >
+          Switch to Word Cloud
+        </button>
+        <br />
+        <br />
+
+        <Collapse in={open} id="searchHistoryCollapse">
+          <div>
+            <table className="table table-bordered table-black-background">
+              <thead>
+                <tr>
+                  <th>Search Strings</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(searchHistory) && searchHistory.length > 0 ? (
+                  searchHistory.map((entry, index) => (
+                    <tr key={index}>
+                      <td>
+                        <NavLink
+                          to={`/search/${entry.search_string}`}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          key={entry.search_string}
+                        >
+                          
+                          {entry.search_string.replace(/[{}]/g, '')}
+                        </NavLink>
+                      </td>
+                      <td>{entry.time}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2">No search history found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
+  return viewMode === 'wordCloud' ? (
+    <SearchHistoryWordCloud searchHistory={searchHistory} />
+  ) : (
+    <SearchHistoryList searchHistory={searchHistory} />
+  );
 };
 
 export default SearchHistory;
