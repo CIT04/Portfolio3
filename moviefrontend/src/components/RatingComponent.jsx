@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import UserContext from './UserContext';
+import DataAccess from '../accessLayer/DataAccess';
 
 const RatingComponent = ({ m_id }) => {
   const [hoverRating, setHoverRating] = useState(0);
@@ -10,19 +11,28 @@ const RatingComponent = ({ m_id }) => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
   const [hasRated, setHasRated] = useState(false);
- 
-  useEffect(() => {
-    
-  fetch(`http://localhost:5001/api/localrating/${userToken.id}/${m_id}`)
-        .then((res) => res.json())
-        .then((json) => {
-          setUserRating(json);
-          json && setHasRated(true);
-          console.log(formattedM_id);
-         
-        });
-    }, [userToken.id, m_id]);
+  const dataAccess = new DataAccess();
+  const [reloadKey, setReloadKey] = useState(0);
 
+  const handleReload = () => {
+    //rerender component
+    setReloadKey((prevKey) => prevKey + 1);
+  };
+
+  useEffect(() => {
+    const fetchUserRating = async () => {
+      try {
+        const json = await dataAccess.fetchRatingsForMedia(userToken.id, m_id);
+        setUserRating(json);
+        json && setHasRated(true);
+        console.log(formattedM_id);
+      } catch (error) {
+        console.error('Error fetching user rating:', error);
+      }
+    };
+
+    fetchUserRating();
+  }, [userToken.id, m_id]);
   
   useEffect(() => {
 
@@ -31,48 +41,18 @@ const RatingComponent = ({ m_id }) => {
       setMessage('');
     }, 1000);
 
-    // Cleanup the timeout to avoid memory leaks
     return () => clearTimeout(timeout);
   }, [showMessage]);
 
-  const handleSaveRating = () => {
-    const apiUrl = hasRated
-      ? 'http://localhost:5001/api/localrating/update'
-      : 'http://localhost:5001/api/localrating/create';
-
-    const method = hasRated ? 'PUT' : 'POST';
-
-    fetch(apiUrl, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        M_id: formattedM_id,
-        U_id: userToken.id,
-        LocalScore: userRating,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          setMessage(hasRated ? 'Rating Updated' : 'Rating Added');
-        } else {
-          setMessage(hasRated ? 'Failed to update rating' : 'Failed to add rating');
-        }
-        setShowMessage(true);
-        return res.json();
-      })
-
-      .then((json) => {
-        setUserRating((prevRating) => ({ ...prevRating, localRating: userRating }));
-        setHasRated(true);
-      })
-
-
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  const handleSaveRating = async () => {
+    try {
+      const response = await dataAccess.saveLocalRating(userToken.id, formattedM_id, hasRated, userRating);
+      handleReload();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
 
   const handleDeleteRating = () => {
     fetch('http://localhost:5001/api/localrating/delete', {

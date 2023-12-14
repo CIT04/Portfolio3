@@ -121,6 +121,7 @@ const handleRatingChange = (selectedRating) => {
           <p><b>IMDB:</b> {rating.imdbRatings}</p>
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
+            {/*TODO: Rerender when ratingcomponent does / make own component */}
           <div className="star-rating">
             {[...Array(10)].map((_, index) => (
               <span

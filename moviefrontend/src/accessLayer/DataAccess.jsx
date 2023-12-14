@@ -43,33 +43,31 @@ class DataAccess {
     return this.fetchData(endpoint);
   }
 
-  async createBookmark(mediaId, userId) {
-    const endpoint = 'api/bookmark/create';
-    const method = 'POST';
-    const body = JSON.stringify({ M_id: mediaId, U_id: userId });
+  async fetchRatingsForMedia(userId, mediaId) {
+    const endpoint = `api/localrating/${userId}/${mediaId}`;
+    return this.fetchData(endpoint);
+  }
+  
+  async saveLocalRating(userId, mediaId, hasRated, localScore) {
+    console.log("localscore:"+hasRated)
+    const baseEndpoint = 'api/localrating';
+    const endpoint = hasRated ? `${baseEndpoint}/update` : `${baseEndpoint}/create`;
+    const method = hasRated ?'PUT': 'POST'; 
 
     return this.fetchData(endpoint, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
       },
-      body: body,
+      body: JSON.stringify({
+        U_id: userId,
+        M_id: mediaId,
+        LocalScore: localScore,
+      }),
     });
   }
 
-  async deleteBookmark(mediaId, userId) {
-    const endpoint = 'api/bookmark/delete';
-    const method = 'DELETE';
-    const body = JSON.stringify({ M_id: mediaId, U_id: userId });
-
-    return this.fetchData(endpoint, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
-  }
+  
 }
 
 export default DataAccess;
