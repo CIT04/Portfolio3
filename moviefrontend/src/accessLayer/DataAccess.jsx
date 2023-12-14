@@ -31,6 +31,40 @@ class DataAccess {
     const endpoint = `api/media/team/${mediaId}`;
     return this.fetchData(endpoint);
   }
+
+  async fetchBookmarks(userId) {
+    const endpoint = `api/bookmark/${userId}`;
+    return this.fetchData(endpoint);
+  }
+
+  
+  async createBookmark(mediaId, userId) {
+    const endpoint = 'api/bookmark/create';
+    const method = 'POST';
+    const body = JSON.stringify({ M_id: mediaId, U_id: userId });
+
+    return this.fetchData(endpoint, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    });
+  }
+
+  async deleteBookmark(mediaId, userId) {
+    const endpoint = 'api/bookmark/delete';
+    const method = 'DELETE';
+    const body = JSON.stringify({ M_id: mediaId, U_id: userId });
+
+    return this.fetchData(endpoint, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    });
+  }
 }
 
 export default DataAccess;

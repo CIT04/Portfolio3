@@ -68,6 +68,7 @@ const SearchHistory = ({ userid }) => {
                   rotationAngles: [0],
                   scale: 'sqrt', // Use 'sqrt' to scale based on value
                   minSize: 16, // Set the minimum font size
+                  fontSizes: [20,100]
                 }}
               />
             ) : (
