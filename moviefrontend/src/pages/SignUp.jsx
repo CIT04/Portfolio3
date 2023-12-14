@@ -45,31 +45,39 @@ const SignUpForm = () => {
       });
   
       if (!response.ok) {
-        throw new Error('Signup failed');
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
       }
   
       console.log('Signed up');
   
-      // Call the postLogin function after successful signup
       await postLogin({
-        // Use the login credentials of the user who just signed up
         username: signupCredentials.Username,
         password: signupCredentials.Password,
       });
     } catch (error) {
       console.error('Error fetching data:', error);
-      setError('Signup failed. Username or Email already exists.');
+  
+      if (error.message.includes('Username or Email already exists')) {
+        setError('Signup failed. Username or Email already exists.');
+      } else if (error.message.includes('Password must be between 8 and 16 characters')) {
+        setError('Signup failed. Password must be between 8 and 16 characters.');
+      } else if (error.message.includes('Password must contain at least one uppercase character')) {
+        setError('Signup failed. Password must contain at least one uppercase character.');
+      } else {
+        setError('Signup failed. Please check your credentials.');
+      }
     }
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     const signupCredentials = {
       Username: event.target.username.value,
       Password: event.target.password.value,
-      Firstname: event.target.firstname.value, // Use 'firstname' instead of 'username'
-      Lastname: event.target.lastname.value,   // Use 'lastname' instead of 'username'
+      Firstname: event.target.firstname.value, 
+      Lastname: event.target.lastname.value,   
       Dob: event.target.dob.value,
       Email: event.target.email.value,
     };
@@ -83,21 +91,22 @@ const SignUpForm = () => {
     <h1>Sign Up</h1>
     <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Username" className={error ? 'form-control is-invalid' : 'form-control'}/>
-      {error && <div className="invalid-feedback">{error}</div>}
+      <input type="text" id="username" name="username" placeholder="Username"/>
+      
       <label htmlFor="firstname">First name</label>
       <input type="text" id="firstname" name="firstname" placeholder="First name" />
       <label htmlFor="lastname">Last name</label>
       <input type="text" id="lastname" name="lastname" placeholder="Last name" />
       <label htmlFor="email">Email</label>
-      <input type="text" id="email" name="email" className={error ? 'form-control is-invalid' : 'form-control'}/>
-      {error && <div className="invalid-feedback">{error}</div>}
+      <input type="text" id="email" name="email"/>
+      
       <label htmlFor="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="At least 8 characters, 1 symbol, 1 big letter" />
       <label htmlFor="rePassword">Re-enter password:</label>
       <input type="password" id="rePassword" name="rePassword" />
       <label htmlFor="dob">Birthday</label>
       <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy" />
+      {error && <div className="invalid-feedback">{error} className={error ? 'form-control is-invalid' : 'form-control'}</div>}
       <p>Do you already have an account? <NavLink to="/login"><b>Log in</b></NavLink></p>
       
       <input type="submit" value="Submit" />
