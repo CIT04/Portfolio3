@@ -1,16 +1,57 @@
-/* Your CSS file, e.g., styles.css */
-
 body {
-    margin: 100;
-    padding: 0;
-  }
-  
-  .container {
-    position: absolute;
-    width: 100vw; /* 100% of the viewport width */
-    height: 100vh; /* 100% of the viewport height */
-    margin: 20px; /* Adjust the margin as needed */
-    border: 1px solid #ccc;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #333; /* Dark background color for the entire page */
+  color: #fff; /* Text color */
+}
 
-  
+.user-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.rated-movies-container {
+  text-align: center;
+  background-color: #444; /* Dark background color for the container */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Adjusted box shadow color */
+}
+
+.rated-movies-list {
+  list-style: none;
+  padding: 0;
+}
+
+.rated-movie-item {
+  border-bottom: 1px solid #555; /* Adjusted border color */
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-details {
+  flex: 1;
+}
+
+.rating {
+  font-size: 1em;
+  color: #888;
+}
+
+.star-rating {
+  font-size: 1.5em;
+  padding-right: 20px;
+}
+
+.star {
+  color: gold;
+}
+
+.star.filled {
+  color: gold;
+}
