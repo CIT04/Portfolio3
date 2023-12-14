@@ -7,6 +7,7 @@ import TypeContext from '../components/TypeContext';
 import {useContext} from 'react';
 import UserContext from '../components/UserContext';
 
+
 const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
   const [searchInput, setSearchInput] = useState('');

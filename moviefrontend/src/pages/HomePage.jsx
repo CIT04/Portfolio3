@@ -4,6 +4,8 @@ import Header from './Header.jsx';
 import MovieCard from '../components/MovieCard.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/HomePage.css';
+import ReactWordcloud from 'react-wordcloud';
+import WordCloud from '../components/WordCloud.jsx'
 import DataAccess from '../accessLayer/DataAccess';
 
 function HomePage() {
@@ -50,6 +52,7 @@ function HomePage() {
     );
   };
 
+
   useEffect(() => {
     const fetchMedias = async (mediaIds, setMedias) => {
       try {
@@ -75,6 +78,7 @@ function HomePage() {
   return (
     <div className="app-container">
       <Header />
+      <WordCloud />
 
       <section className="fractured-section popular-section">
         <h2>Popular Movies</h2>
