@@ -33,7 +33,7 @@ function App() {
         <Route path="/media/:mediaId" element={<MediaDisplay />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/search/:searchstring" element={<SearchResultColumn />} />
+        <Route path="/search/:page/:pageSize/:searchstring/:type" element={<SearchResultColumn />} />
         <Route path="/user" element={<UserPageWIP />} />
         <Route path="/team" element={<Team />} />
         <Route path="/actor/:actorId" element={<SingleActor />} />

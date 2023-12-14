@@ -41,6 +41,7 @@ const RatingComponent = ({ m_id }) => {
       setMessage('');
     }, 1000);
 
+
     return () => clearTimeout(timeout);
   }, [showMessage]);
 

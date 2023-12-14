@@ -87,6 +87,7 @@ useEffect(() => {
 
         <Collapse in={open} id="searchHistoryCollapse">
           <div>
+
             {viewMode === 'wordCloud' ? (
               Array.isArray(searchHistory) && searchHistory.length > 0 ? (
                 <>
@@ -117,6 +118,7 @@ useEffect(() => {
               ) : (
                 <p>No search history found.</p>
               )
+
             ) : (
               <p>Switch to List view to see details.</p>
             )}

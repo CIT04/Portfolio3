@@ -3,12 +3,14 @@ import { Container, Navbar, Row, Col, Image, Button, Nav, Form } from 'react-boo
 import { NavLink, useNavigate } from 'react-router-dom';
 import CustomDropdown from './CustomDropdown';
 import UserContext from '../components/UserContext';
+import TypeContext from '../components/TypeContext';
 import './css/HeaderStyle.css';
 
 function Header() {
   const [searchInput, setSearchInput] = useState('');
   const [error, setError] = useState(null);
   const { userToken, setToken } = useContext(UserContext);
+  const { types,setTypesList}=useContext(TypeContext);
   const navigate = useNavigate();
 
   const sanitizeSearchString = (searchString) => {
@@ -36,7 +38,7 @@ function Header() {
       setError(error.message);
       console.error('Error:', error.message);
     }
-    navigate(`/search/${searchInput}`);
+    navigate(`/search/0/10/${searchInput}${types ? `/${types}` : ''}`);
   };
 
   return (
