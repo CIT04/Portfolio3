@@ -22,6 +22,11 @@ class DataAccess {
     const endpoint = `api/searchhistory/${uid}`;
     return this.fetchData(endpoint);
   }
+
+  async fetchTeamData(mediaId) {
+    const endpoint = `api/media/team/${mediaId}`;
+    return this.fetchData(endpoint);
+  }
 }
 
 export default DataAccess;

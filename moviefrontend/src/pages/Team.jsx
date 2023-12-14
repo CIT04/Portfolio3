@@ -2,40 +2,38 @@ import React, { useState, useEffect } from 'react';
 import './css/Team.css';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-
+import DataAccess from '../accessLayer/DataAccess';
 const Team = () => {
   const [actors, setActors] = useState([]);
   const [crew, setCrew] = useState([]);
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
+  const dataAccess = new DataAccess();
+ 
 
-  useEffect(() => {
-    const fetchTeam = async () => {
-      try {
-        const response = await fetch(`http://localhost:5001/api/media/team/${mediaId}`);
-        const json = await response.json();
+// Inside your component...
+useEffect(() => {
+  const fetchTeam = async () => {
+    try {
+      const teamData = await dataAccess.fetchTeamData(mediaId);
 
-        setActors(json.actor || []);
-        setCrew(json.crew || []);
-        setWandd(json.writersAndDirectors || []);
-        console.log(json.crew)
-      } catch (error) {
-        console.error('Error fetching team data', error);
-      
-      }
-    };
+      setActors(teamData.actor || []);
+      setCrew(teamData.crew || []);
+      setWandd(teamData.writersAndDirectors || []);
+      console.log(teamData.crew);
+    } catch (error) {
+      console.error('Error fetching team data', error);
+    }
+  };
 
-    fetchTeam();
-  }, [mediaId]);
+  
+  fetchTeam();
 
-  useEffect(() => {
-    fetch("http://localhost:5001/api/media/"+mediaId)
-      .then((res) => res.json())
-      .then((json) => {
-        setMedia({status: 'done', ...json})
-      });
-    }, []);
+  
+
+}, [mediaId]); 
+
 
 
   // if (actors.length === 0 && crew.length === 0 && wandd.length === 0) {
