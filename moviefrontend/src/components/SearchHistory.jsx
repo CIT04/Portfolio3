@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
 import DataAccess from '../accessLayer/DataAccess';
 import ReactWordcloud from 'react-wordcloud';
+
 
 const dataAccess = new DataAccess();
 
@@ -25,29 +26,39 @@ const SearchHistory = ({ userid }) => {
     }
   };
 
+  
+
   useEffect(() => {
     fetchData();
   }, [userid]);
 
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [wordCloudData, setWordCloudData] = useState([]);
+  const navigate = useNavigate();
 
 
+useEffect(() => {
+  const searchCountMap = new Map();
 
-// Create a map to store the count of each search string
-const searchCountMap = new Map();
-searchHistory.forEach((entry) => {
-  const searchStr = entry.search_string;
-  searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
-});
+  searchHistory.forEach((entry) => {
+    const searchStr = entry.search_string;
+    searchCountMap.set(searchStr, (searchCountMap.get(searchStr) || 0) + 1);
+  });
 
+  const updatedWordCloudData = Array.from(searchCountMap).map(
+    ([searchStr, count]) => {
+      const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
+      return {
+        text: sanitizedSearchStr,
+        value: count,
+        fontSize: count * 100,
+      };
+    }
+  );
 
-const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => {
-  const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
-  return {
-    text: sanitizedSearchStr,
-    value: count,
-    fontSize: count * 100,
-  };
-});
+  // Use setWordCloudData to update the state variable
+  setWordCloudData(updatedWordCloudData);
+}, [searchHistory]);
 
 
   const SearchHistoryWordCloud = ({ searchHistory }) => {
@@ -77,30 +88,34 @@ const wordCloudData = Array.from(searchCountMap).map(([searchStr, count]) => {
           <div>
             {viewMode === 'wordCloud' ? (
               Array.isArray(searchHistory) && searchHistory.length > 0 ? (
-                <ReactWordcloud
-                  words={wordCloudData}
-                  options={{
-                    rotations: 0,
-                  rotationAngles: [0],
-                  scale: 'sqrt', // Use 'sqrt' to scale based on value
-                  minSize: 16, // Set the minimum font size
-
-                 
-                  // rotations: 10,
-                  // rotationAngles: [0, 90],
-                  scale: "sqrt",
-                  spiral: "archimedean",
-                  transitionDuration: 1000,
-                  fontFamily: "impact",
-                  fontSizes: [20, 150],
-                  fontStyle: "normal",
-                  fontWeight: "normal",
-                  }}
-                />
+                <>
+                  <ReactWordcloud
+                    words={wordCloudData}
+                    options={{
+                      rotations: 0,
+                      rotationAngles: [0],
+                      scale: 'sqrt',
+                      minSize: 16,
+                      transitionDuration: 1000,
+                      fontFamily: 'impact',
+                      fontSizes: [20, 150],
+                      fontStyle: 'normal',
+                      fontWeight: 'normal',
+                    }}
+                    callbacks={{
+                    onWordClick: (word) => {
+                    const searchPath = `/search/${encodeURIComponent(word.text)}`;
+                    navigate(searchPath);
+                     },
+                    }}
+                  />
+                  {selectedWord && (
+                    <div style={{ marginTop: '10px' }}>{selectedWord}</div>
+                  )}
+                </>
               ) : (
                 <p>No search history found.</p>
               )
-
             ) : (
               <p>Switch to List view to see details.</p>
             )}
