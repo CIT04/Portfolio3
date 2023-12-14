@@ -1,33 +1,29 @@
 
-
+import DataAccess from "../accessLayer/DataAccess";
 import React, { useState, useEffect } from "react";
 
 const Trailer = ({ movieTitle }) => {
   const [trailerVideo, setTrailerVideo] = useState(null);
-
+  const dataAccess = new DataAccess;
 
 
   useEffect(() => {
     const searchYouTube = async () => {
       try {
-        const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?q=${encodeURIComponent(
-            movieTitle + " trailer"
-          )}&key=INSERT API KEY HERE (cannot put public api key when publishing on github)&part=snippet&type=video&videoEmbeddable=true&maxResults=1`
-        );
-        const data = await response.json();
-        if (data.items && data.items.length > 0) {
-          setTrailerVideo(data.items[0].id.videoId);
+        const videoId = await dataAccess.searchYouTubeTrailer(movieTitle);
+
+        if (videoId) {
+          setTrailerVideo(videoId);
         }
       } catch (error) {
         console.error("Error searching YouTube:", error);
       }
     };
 
-      if (movieTitle && !trailerVideo) {  // Add a check to avoid unnecessary API calls
-    searchYouTube();
-  }
-}, [movieTitle, trailerVideo]);
+    if (movieTitle && !trailerVideo) {
+      searchYouTube();
+    }
+  }, [movieTitle, trailerVideo]);
 
   return (
     <div className="trailer-container">
