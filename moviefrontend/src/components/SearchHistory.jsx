@@ -27,7 +27,7 @@ const SearchHistory = ({ userid }) => {
       console.log('Received data:', historyData);
       setSearchHistory(historyData);
     } catch (error) {
-      // Handle errors here
+    
       console.error('Error fetching search history:', error);
     }
   };
@@ -41,12 +41,15 @@ const SearchHistory = ({ userid }) => {
   useEffect(() => {
     const searchCountMap = new Map();
 
+    //mappin searchstrungs to seachhistory 
     searchHistory.forEach((entry) => {
       const searchStr = entry.search_string;
+      //sanitising search sting for better formatting in search history. also makes injection harder/impossible
       const sanitizedSearchStr = searchStr.replace(/[{}]/g, '').replace(/,/g, ' ');
       searchCountMap.set(sanitizedSearchStr, (searchCountMap.get(sanitizedSearchStr) || 0) + 1);
     });
 
+    //wordcloud data get
     const updatedWordCloudData = Array.from(searchCountMap).map(
       ([searchStr, count]) => {
         const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
@@ -60,7 +63,7 @@ const SearchHistory = ({ userid }) => {
 
     setWordCloudData(updatedWordCloudData);
   }, [searchHistory]);
-
+  
   const clearSearchHistory = async () => {
     try {
       console.log('Clearing search history...');
@@ -226,7 +229,7 @@ const SearchHistory = ({ userid }) => {
   
   return (
     <>
-      {/* Bootstrap Modal for displaying the message */}
+  
       <Modal show={showMessage} onHide={() => setShowMessage(false)}>
         <Modal.Header closeButton>
         <Modal.Title style={{ color: 'black' }}>Search History Status</Modal.Title>
