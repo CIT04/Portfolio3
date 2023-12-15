@@ -1,8 +1,8 @@
 .bodyteams {
   font-family: 'Arial', sans-serif;
-  background-color: #232323; /* Dark background color */
-  color: #ffffff; /* Text color */
-  margin: 30px 0 0; /* Updated margin-top value to add space at the top */
+  background-color: #232323; 
+  color: #ffffff; 
+  margin: 30px 0 0; 
   padding: 0;
 }
 
@@ -11,14 +11,14 @@
   margin: 0 auto;
   margin-top: 50px;
   padding: 20px;
-  background-color: #333333; /* Container background color */
+  background-color: #333333;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for a subtle lift */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
 
 .h1teams,
 .h2teams {
-  color: #e0d612; /* IMDb yellow */
+  color: #e0d612; 
 }
 
 .ulteam {
@@ -29,8 +29,8 @@
 .liteam {
   margin-bottom: 15px;
   padding: 15px;
-  background-color: #444444; /* Lighter grey background color */
-  border: 1px solid #666666; /* Darker grey border */
+  background-color: #444444; 
+  border: 1px solid #666666;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;

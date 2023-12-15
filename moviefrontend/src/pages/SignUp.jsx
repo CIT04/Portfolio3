@@ -127,10 +127,9 @@ const SignUpForm = () => {
       <input type="password" id="rePassword" name="rePassword" />
       <label htmlFor="dob">Birthday</label>
       <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy"  className={error ? 'form-control is-invalid' : 'form-control'}/>
-      {error && <div className="invalid-feedback">{error}</div>}
-      <p>Do you already have an account? <NavLink to="/login"><b>Log in</b></NavLink></p>
-      
+      {error && <div className="invalid-feedback">{error}</div>}      
       <input type="submit" value="Submit" />
+      <p>Do you already have an account? <NavLink to="/login"><b>Log in</b></NavLink></p>
     </form>
   </div>
   );

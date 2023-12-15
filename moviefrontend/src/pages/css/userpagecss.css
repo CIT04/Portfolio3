@@ -2,8 +2,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #333; /* Dark background color for the entire page */
-  color: #fff; /* Text color */
+  background-color: #333;
+  color: #fff; 
 }
 
 .user-page-container {
@@ -15,10 +15,10 @@ body {
 
 .rated-movies-container {
   text-align: center;
-  background-color: #444; /* Dark background color for the container */
+  background-color: #444;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Adjusted box shadow color */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); 
 }
 
 .rated-movies-list {
@@ -27,7 +27,7 @@ body {
 }
 
 .rated-movie-item {
-  border-bottom: 1px solid #555; /* Adjusted border color */
+  border-bottom: 1px solid #555; 
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
