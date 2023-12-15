@@ -38,7 +38,7 @@ function Header() {
       setError(error.message);
       console.error('Error:', error.message);
     }
-    navigate(`/search/0/10/${searchInput}${types ? `/${types}` : ''}`);
+    navigate(`/search/1/10/${searchInput}${types ? `/${types}` : ''}`);
   };
 
   return (

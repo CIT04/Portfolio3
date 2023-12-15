@@ -23,13 +23,17 @@ const SearchResultColumn = () => {
     const mediaTypes = types.join(' '); 
     return mediaTypes;
   }
+  useEffect(() => {
+    // Set currentPage when the page parameter changes
+    setCurrentPage(Number(page)-1 || 0);
+  }, [page]);
   
-  const loadSearch = () => {
+  const loadSearch = (currentPage) => {
     const mediaTypesString = handleFilter(types);
     const u_idd = userToken? userToken.id : "";
     
 
-    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=${pageSize}&Type=${mediaTypesString}&search=${searchstring}&u_id=${u_idd}`)
+    fetch(`http://localhost:5001/api/media/search?page=${currentPage}&pageSize=${pageSize}&Type=${mediaTypesString}&search=${searchstring}&u_id=${u_idd}`)
       .then((res) => res.json())
       .then((json) => {
         console.log('Search API response:', json);

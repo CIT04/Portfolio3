@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
 import { Collapse } from 'react-bootstrap';
 import DataAccess from '../accessLayer/DataAccess';
 import ReactWordcloud from 'react-wordcloud';
-
+import TypeContext from './TypeContext';
 
 const dataAccess = new DataAccess();
 
@@ -13,6 +13,7 @@ const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [open, setOpen] = useState(false);
   const [viewMode, setViewMode] = useState('wordCloud'); // 'wordCloud' or 'list'
+  const {types} = useContext(TypeContext);
 
   const fetchData = async () => {
     try {
@@ -106,7 +107,7 @@ useEffect(() => {
                     }}
                     callbacks={{
                     onWordClick: (word) => {
-                    const searchPath = `/search/${encodeURIComponent(word.text)}`;
+                    const searchPath = `/search/0/10/${encodeURIComponent(word.text)}${types ? `/${types}` : ''}`;
                     navigate(searchPath);
                      },
                     }}
