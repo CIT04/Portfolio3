@@ -20,8 +20,6 @@ const LoginForm = () => {
     try {
       const json = await dataAccess.loginUser(username, password);
       setToken(json);
-
-      
       navigate('/');
     } catch (error) {
       console.error('Error logging in:', error);
@@ -45,13 +43,11 @@ const LoginForm = () => {
           type="password"
           id="password"
           name="password"
-          // className={error ? 'form-control is-invalid' : 'form-control'}
         />
         {error && <div className="invalid-feedback">{error}</div>}
         <input type="submit" value="Submit" />
         <text>
           Do you not have an account?{' '}
-          {/* Display relevant information here */}
         </text>
         <NavLink to="/signup">
           <b>Sign Up</b>

@@ -28,7 +28,6 @@ function Header() {
     e.preventDefault();
     
     try {
-  
       const sanitizedSearchInput = sanitizeSearchString(searchInput);
 
       console.log('Sanitized Search Input:', sanitizedSearchInput);
@@ -68,7 +67,6 @@ function Header() {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 className={`search-input ${error ? 'is-invalid' : ''}`}
-                
               />
               <Button variant="secondary" type="submit" className="search-button">
                 Search

@@ -4,6 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 import Bookmark from './Bookmark';
 import DataAccess from '../accessLayer/DataAccess';
 
+
+// variable to hold the individual bookmark states
 const Bookmarks = ({ userid }) => {
   const [medias, setMedias] = useState([]);
   const [open, setOpen] = useState(false);
@@ -13,15 +15,16 @@ const Bookmarks = ({ userid }) => {
     fetchBookmarks(userid);
   }, [userid]);
 
+
+  //function that fetches bookmarks based on the given user id
   async function fetchBookmarks(uid) {
     try {
       const json = await dataAccess.fetchBookmarks(uid);
-
+//if more than one bookmark -> array -> map them all
       if (Array.isArray(json)) {
         const mediaArray = await Promise.all(
           json.map((bookmark) => fetchMediaForBookmarks(bookmark))
         );
-
         const flattenedMediaArray = mediaArray.flat();
         setMedias(flattenedMediaArray);
       } else {
@@ -43,6 +46,8 @@ const Bookmarks = ({ userid }) => {
     }
   }
 
+
+  //html for showing the bookmarks, uses csstransistion get the wanted collapse effect 
   return (
     <div>
       <h2>Your Bookmarked Media</h2>

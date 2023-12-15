@@ -8,20 +8,24 @@ import DataAccess from '../accessLayer/DataAccess';
 
 
 const RatedForUid = ({ userid }) => {
+
+    // State variables for ratings, medias, userToken, and collapse state
   const [ratings, setRatings] = useState([]);
   const [medias, setMedias] = useState([]);
   const { userToken } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const dataAccess = new DataAccess();
 
-
+ // useEffect to fetch ratings when the component mounts or userid changes
   useEffect(() => {
     fetchRatings(userid);
   }, [userid]);
   
+
+  //fetch the ratings for a user, 
   async function fetchRatings(uid) {
     try {
-      
+      //use dataaccesslayer to run the actual fetch command using the usertoken id
       const json = await dataAccess.fetchRatings(userToken.id);
      
       if (Array.isArray(json)) {
@@ -38,8 +42,12 @@ const RatedForUid = ({ userid }) => {
       console.error('Error fetching ratings:', error);
     }
   }
+
+  //function to fetch media details for a given rating
   async function fetchMediaForRatings(rating) {
     try {
+
+      //again using the dataaccesslayer to fetch data
       const media = await dataAccess.fetchMediaDetails(rating.m_id);
       media.rating = rating.localscore; 
       console.log(media);
@@ -48,7 +56,7 @@ const RatedForUid = ({ userid }) => {
       console.error('Error fetching media for ratings:', error);
     }
   }
-
+ // render the component JSX
   return (
     <div className="rated-for-uid-container">
       <h2>Your Rated Movies</h2>

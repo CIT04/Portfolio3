@@ -5,6 +5,9 @@ import Col from 'react-bootstrap/Col';
 import MovieCard from './MovieCard';
 import { NavLink } from 'react-router-dom';
 
+//this page is no longer used or updated, but will be included anyway
+//because we mention it in our exam/report/documentation
+
 function MovieCarousel({ medias }) {
   if (!medias || !medias.length) {
     // Return early or provide a default behavior when medias is empty
@@ -21,6 +24,8 @@ function MovieCarousel({ medias }) {
 
   const mediaChunks = chunkArray(medias, visibleItems);
 
+
+  //using bootstrap  carousel to show the medias
   return (
     <Carousel keyboard={false} pause={true}>
       {mediaChunks.map((chunk, index) => (
