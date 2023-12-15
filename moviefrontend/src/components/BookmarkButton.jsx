@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-
 import UserContext from './UserContext';
 import DataAccess from '../accessLayer/DataAccess';
 
+//creating bookmark button variable to hold states
 const BookmarkButton = ({ m_id }) => {
   const [isBookmarked, setIsBookmarked] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
@@ -11,6 +11,8 @@ const BookmarkButton = ({ m_id }) => {
   const { userToken, setToken } = useContext(UserContext);
   const dataAccess = new DataAccess();
 
+
+  //update bookmark status based on user id and media id
   useEffect(() => {
     const fetchBookmarkStatus = async (userId, mediaId, setIsBookmarked) => {
       try {
@@ -36,7 +38,7 @@ const BookmarkButton = ({ m_id }) => {
       console.log('User not logged in');
       return;
     }
-  
+  //set msg based on bookmark already added or not, then create bookmark
     try {
       setIsBookmarked(!isBookmarked);
       setMessage(isBookmarked ? 'Bookmark Removed' : 'Bookmark Added');
@@ -58,8 +60,9 @@ const BookmarkButton = ({ m_id }) => {
     };
   };
 
+
+  //close error msg
   const handleClose = () => {
-    // Close the modal and reset the message
     setShowMessage(false);
     setMessage('');
   };
@@ -69,16 +72,18 @@ const BookmarkButton = ({ m_id }) => {
   }
 
   if (isBookmarked === null) {
-    return <p>Loading...</p>; // You may want to add a loading state while fetching
+    return <p>Loading...</p>; 
   }
 
+
+  //render jsx component
   return (
     <>
       <button onClick={handleClick} className="bookmark-button">
         {isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
       </button>
 
-      {/* Bootstrap Modal for displaying the message */}
+      {/* Bootstrap to display the message */}
       <Modal show={showMessage} onHide={handleClose}>
   <Modal.Header closeButton>
     <Modal.Title style={{ color: 'black' }}>Bookmark Status</Modal.Title>

@@ -2,11 +2,13 @@
 import DataAccess from "../accessLayer/DataAccess";
 import React, { useState, useEffect } from "react";
 
+//variable to contain states for trailer
+
 const Trailer = ({ movieTitle }) => {
   const [trailerVideo, setTrailerVideo] = useState(null);
   const dataAccess = new DataAccess;
 
-
+//hook that runs the search the youtube api
   useEffect(() => {
     const searchYouTube = async () => {
       try {

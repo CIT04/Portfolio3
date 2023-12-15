@@ -2,6 +2,9 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+//this entire file just contains the bootstrap and jsx elements to show the different elements on
+//the media page
+
 const TitleCard = ({ title, runtime, rated }) => (
   <Card>
     <Card.Body>
