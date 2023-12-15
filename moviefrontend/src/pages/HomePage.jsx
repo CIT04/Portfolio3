@@ -7,7 +7,7 @@ import './css/HomePage.css';
 import DataAccess from '../accessLayer/DataAccess';
 
 function HomePage() {
-  // Hardcoded mediaIds for each section
+  // Hardcoded mediaIds for each section. These are curated. Maybe in the future add an algorith? Otherwise add an easr way for admins to do it from the webapp
   const popularMediaIds  = ['tt6791350', 'tt10366206', 'tt6587046', 'tt9362722', 'tt24216002', 'tt0314331', 'tt1160419', 'tt9603212', 'tt6710474', 'tt13238346'];
   const seriesMediaIds   = ['tt2085059', 'tt0903747', 'tt0108778', 'tt2356777', 'tt0944947', 'tt7366338', 'tt5491994', 'tt0795176', 'tt0185906', 'tt0306414'];
   const topRatedMediaIds = ['tt11060882','tt0816692', 'tt0317248', 'tt9362722', 'tt6751668', 'tt0407887', 'tt0482571', 'tt1675434', 'tt4154756', 'tt2380307'];
@@ -72,7 +72,8 @@ function HomePage() {
     fetchMedias(trendingMediaIds, setTrendingMedias);
   
   
-  }, []); // Include any dependencies if needed
+  }, []); 
+  
   return (
     <div className="app-container">
       <Header />

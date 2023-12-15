@@ -12,28 +12,24 @@ const SearchResultColumn = () => {
   const [search, setSearch] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
-
   const { types, setTypesList } = useContext(TypeContext);
   const { userToken } = useContext(UserContext);
 
-  const { searchstring, page, pageSize } = useParams();
+  const { searchstring } = useParams();
 
   
   function handleFilter(types) {
+     //filers need to be formatted to be
     const mediaTypes = types.join(' '); 
     return mediaTypes;
   }
-  useEffect(() => {
-    // Set currentPage when the page parameter changes
-    setCurrentPage(Number(page)-1 || 0);
-  }, [page]);
   
-  const loadSearch = (currentPage) => {
+  const loadSearch = (page) => {
     const mediaTypesString = handleFilter(types);
     const u_idd = userToken? userToken.id : "";
     
 
-    fetch(`http://localhost:5001/api/media/search?page=${currentPage}&pageSize=${pageSize}&Type=${mediaTypesString}&search=${searchstring}&u_id=${u_idd}`)
+    fetch(`http://localhost:5001/api/media/search?page=${page}&pageSize=10&Type=${mediaTypesString}&search=${searchstring}&u_id=${u_idd}`)
       .then((res) => res.json())
       .then((json) => {
         console.log('Search API response:', json);

@@ -8,6 +8,8 @@ const SingleActor = () => {
   const [actorDetails, setActorDetails] = useState(null);
   const [knownForMediaDetails, setKnownForMediaDetails] = useState([]);
 
+
+  //TODO: Move to DataAccess.jsx
   useEffect(() => {
     // Fetch actor details based on actorId
     fetch(`http://localhost:5001/api/person/${actorId}`)
@@ -25,6 +27,9 @@ const SingleActor = () => {
       });
   }, [actorId]);
 
+
+
+  //TODO: Move to DataAccess.jsx
   useEffect(() => {
     // Fetch media details for each known media
     Promise.all(
@@ -38,6 +43,7 @@ const SingleActor = () => {
           })
       ) ?? []
     )
+    //validate media details
       .then((mediaDetailsArray) => {
         const validMediaDetails = mediaDetailsArray.filter((media) => media !== null);
         setKnownForMediaDetails(validMediaDetails);

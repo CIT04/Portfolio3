@@ -1,9 +1,11 @@
-// SearchResult.js
+
 import React from 'react';
 import './css/SearchResult.css';
 import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+
+//Generic component for a searchresault
 const SearchResult = ({mediaid, poster, title, year, rating  }) => {
   return (
    

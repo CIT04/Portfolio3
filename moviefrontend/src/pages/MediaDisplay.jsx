@@ -14,12 +14,14 @@ import DataAccess from "../accessLayer/DataAccess";
 
 
 const MediaDisplay = () => {
+  
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
   const [rating, setRating] = useState({ status: 'loading', mediaGenres: [] });
   const [actors, setActors] = useState([]);
   const [mediaLanguages, setMediaLanguages] = useState([]);
   const [mediaCountries, setMediaCountry] = useState([]);
   const [crew, setCrew] = useState([]);
+  //writers and directors = wwand
   const [wandd, setWandd] = useState([]);
   const { mediaId } = useParams();
   const { actorId } = useParams();
@@ -43,7 +45,7 @@ useEffect(() => {
       console.error('Error fetching media details:', error);
     });
 }, []);
-//Issues with adding to dataaccess
+//Issues with adding to dataaccess TODO
   useEffect(() => {
     fetch("http://localhost:5001/api/rating/"+mediaId)
       .then((res) => res.json())
@@ -125,7 +127,7 @@ useEffect(() => {
           <p><b>IMDB:</b> {rating.imdbRatings}</p>
           <p className="rating-label"><b>Rating:</b></p>
           <div className="star-rating-container">
-            {/*TODO: Rerender when ratingcomponent does / make own component */}
+            {/*TODO: Rerender when ratingcomponent*/}
           <div className="star-rating">
             {[...Array(10)].map((_, index) => (
               <span
@@ -222,19 +224,3 @@ useEffect(() => {
 
 export default MediaDisplay;
 
-/*
-  <MediaCards
-    title={media.title}
-    runtime={media.runtime}
-    rated={media.rated}
-    rating={media.rating}
-    average={media.average}
-    poster={media.poster}
-    originalTitle={media.originalTitle}
-    released={media.released}
-    plot={media.plot}
-    lang={media.lang}
-    country={media.country}
-    genre={media.genre}
-  />
-*/
