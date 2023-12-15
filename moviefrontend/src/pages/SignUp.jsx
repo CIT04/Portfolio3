@@ -9,6 +9,8 @@ const SignUpForm = () => {
   const [error, setError] = useState(null);
   const navi = useNavigate();
   
+
+  //TODO: Move to DataAccess.jsx
   const postLogin = async (loginCredentials) => {
     try {
       const response = await fetch('http://localhost:5001/api/user/login', {
@@ -33,7 +35,7 @@ const SignUpForm = () => {
       setError('Login failed. Please check your credentials.');
     }
   };
-  
+  //TODO: Move to DataAccess.jsx
   const postSignup = async (signupCredentials) => {
     try {
       const response = await fetch('http://localhost:5001/api/user/signup', {
