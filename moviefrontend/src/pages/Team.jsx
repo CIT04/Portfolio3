@@ -55,7 +55,7 @@ const Team = () => {
                   <span className="person-name">{actor.person.name}</span>
                   {/* Adjust the character rendering logic */}
                   <span className="character">
-                    Playing: {Array.isArray(actor.characters)
+                    Playing: {Array.isArray(actor.characters) //TODO: Sanitize the characters to remove special characters
                       ? actor.characters.join(', ')
                       : actor.characters || 'N/A'}
                   </span>

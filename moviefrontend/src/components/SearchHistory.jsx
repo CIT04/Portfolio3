@@ -186,7 +186,7 @@ const SearchHistory = ({ userid }) => {
 
         <Collapse in={open} id="searchHistoryCollapse">
           <div>
-            <table className="table table-bordered table-black-background">
+            <table className="table table-dark">
               <thead>
                 <tr>
                   <th>Search Strings</th>
@@ -199,15 +199,16 @@ const SearchHistory = ({ userid }) => {
                     <tr key={index}>
                       <td>
                         <NavLink
-                          to={`/search/0/10/${entry.search_string.replace(/[{}]/g, '')}${types ? `/${types}` : ''}`}
-                          style={{ textDecoration: 'none', color: 'black' }}
+                          to={`/search/${entry.search_string}`}
+                          style={{ textDecoration: 'none', color: '#e0d612' }}
+
                           key={entry.search_string}
                         >
 
                           {entry.search_string.replace(/[{}]/g, '')}
                         </NavLink>
                       </td>
-                      <td>{entry.time}</td>
+                      <td style={{ color: '#e0d612' }}>{entry.time}</td>
                     </tr>
                   ))
                 ) : (

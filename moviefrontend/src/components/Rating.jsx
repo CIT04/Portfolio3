@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-import "./css/bookmark.css";
+import "./css/bookmarks.css";
 import BookmarkButton from "./BookmarkButton";
 import { renderImage } from "./imageUtil";
 import RatingComponent from "./RatingComponent";
