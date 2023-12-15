@@ -12,6 +12,7 @@ const RatingComponent = ({ m_id }) => {
   const [message, setMessage] = useState('');
   const [hasRated, setHasRated] = useState(false);
   const dataAccess = new DataAccess();
+  
   const [reloadKey, setReloadKey] = useState(0);
 
   const handleReload = () => {
@@ -20,6 +21,7 @@ const RatingComponent = ({ m_id }) => {
   };
 
   useEffect(() => {
+    //fetching the data based to see if the user has rated a specefic media
     const fetchUserRating = async () => {
       try {
         const json = await dataAccess.fetchRatingsForMedia(userToken.id, m_id);
@@ -34,17 +36,18 @@ const RatingComponent = ({ m_id }) => {
     fetchUserRating();
   }, [userToken.id, m_id]);
   
+  // use effect to handle user messages
   useEffect(() => {
-
     const timeout = setTimeout(() => {
       setShowMessage(false);
       setMessage('');
     }, 1000);
 
-
     return () => clearTimeout(timeout);
   }, [showMessage]);
 
+
+// handles if rating should be saved or updated
   const handleSaveRating = async () => {
     try {
       const response = await dataAccess.saveLocalRating(userToken.id, formattedM_id, hasRated, userRating);
@@ -54,13 +57,12 @@ const RatingComponent = ({ m_id }) => {
     }
   };
   
-
+// handles if the user wants to delete a rating
   const handleDeleteRating = () => {
     dataAccess.deleteLocalRating(userToken.id, m_id)
       .then((response) => {
         if (response.ok) {
           setMessage('Rating Deleted');
-          // Trigger a re-render or perform other actions
           setReloadKey((prevKey) => prevKey + 1);
         } else {
           setMessage('Failed to delete rating');
@@ -68,22 +70,23 @@ const RatingComponent = ({ m_id }) => {
         setShowMessage(true);
       })
       .catch((error) => {
-        // Handle errors here
+        
         console.error('Error:', error);
       });
   };
   
-
+// sets the hover rating when a user hovers the stars
   const handleStarHover = (rating) => {
     setHoverRating(rating);
   };
 
+// either updates or creates a rating
   const handleStarClick = () => {
     setUserRating(hoverRating);
     
   };
   
-
+  // close the message if its not closing by itself
   const handleCloseMessage = () => {
     setShowMessage(false);
     setMessage('');
@@ -96,6 +99,7 @@ const RatingComponent = ({ m_id }) => {
     <div key={hasRated} className="rating-component">
       <h2>Your rating</h2>
       <div className="star-rating">
+        {/*create the 10 stars the user can interact with */}
         {[...Array(10)].map((_, index) => (
           <span
             key={index}
@@ -104,14 +108,17 @@ const RatingComponent = ({ m_id }) => {
               fontSize: '1.5em',
               color: index < (hoverRating || userRating) ? 'gold' : 'gray',
             }}
+            // checks if the users mouse interacts with the stars
             onMouseEnter={() => handleStarHover(index + 1)}
             onMouseLeave={() => handleStarHover(0)}
             onClick={handleStarClick}
+            
           >
             {index < (hoverRating || userRating) ? '\u2605' : '\u2606'}
           </span>
         ))}
       </div>
+      {/*if the user has rated we create buttons to update or delete */}
       {hasRated ? (
         <div>
           <button
@@ -130,6 +137,7 @@ const RatingComponent = ({ m_id }) => {
           </button>
         </div>
       ) : (
+        //if the user hasent rated we create a save button
         <div>
           <button
             variant="primary"
