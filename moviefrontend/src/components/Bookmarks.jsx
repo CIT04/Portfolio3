@@ -47,7 +47,7 @@ const Bookmarks = ({ userid }) => {
   }
 
 
-  //html for showing the bookmarks, uses csstransistion get the wanted collapse effect 
+  //jsx for showing the bookmarks, uses csstransistion get the wanted collapse effect 
   return (
     <div>
       <h2>Your Bookmarked Media</h2>
