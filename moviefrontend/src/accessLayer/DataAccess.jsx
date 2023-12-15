@@ -118,6 +118,21 @@ class DataAccess {
       }),
     });
   }
+
+  async deleteSearchHistory(u_id) {
+    const endpoint = `api/searchhistory/${u_id}`;
+    try {
+      const response = await this.fetchData(endpoint, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error deleting search history:', error);
+    }
+  }
+  
   async deleteLocalRating(userId, mediaId) {
     const endpoint = 'api/localrating/delete';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Bookmark from './Bookmark';
 import './css/bookmarks.css';
-import { Collapse } from 'react-bootstrap';
+import { Collapse , Button, Modal} from 'react-bootstrap';
 import DataAccess from '../accessLayer/DataAccess';
 import ReactWordcloud from 'react-wordcloud';
 import TypeContext from './TypeContext';
@@ -13,7 +13,12 @@ const SearchHistory = ({ userid }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [open, setOpen] = useState(false);
   const [viewMode, setViewMode] = useState('wordCloud'); // 'wordCloud' or 'list'
-  const {types} = useContext(TypeContext);
+  const { types } = useContext(TypeContext);
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [wordCloudData, setWordCloudData] = useState([]);
+  const navigate = useNavigate();
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
 
   const fetchData = async () => {
     try {
@@ -27,41 +32,54 @@ const SearchHistory = ({ userid }) => {
     }
   };
 
-  
-
   useEffect(() => {
     fetchData();
   }, [userid]);
 
-  const [selectedWord, setSelectedWord] = useState(null);
-  const [wordCloudData, setWordCloudData] = useState([]);
-  const navigate = useNavigate();
 
 
-useEffect(() => {
-  const searchCountMap = new Map();
+  useEffect(() => {
+    const searchCountMap = new Map();
 
-  searchHistory.forEach((entry) => {
-    const searchStr = entry.search_string;
-    const sanitizedSearchStr = searchStr.replace(/[{}]/g, '').replace(/,/g, ' ');
-    searchCountMap.set(sanitizedSearchStr, (searchCountMap.get(sanitizedSearchStr) || 0) + 1);
-  });
+    searchHistory.forEach((entry) => {
+      const searchStr = entry.search_string;
+      const sanitizedSearchStr = searchStr.replace(/[{}]/g, '').replace(/,/g, ' ');
+      searchCountMap.set(sanitizedSearchStr, (searchCountMap.get(sanitizedSearchStr) || 0) + 1);
+    });
 
-  const updatedWordCloudData = Array.from(searchCountMap).map(
-    ([searchStr, count]) => {
-      const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
-      return {
-        text: sanitizedSearchStr,
-        value: count,
-        fontSize: count * 100,
-      };
+    const updatedWordCloudData = Array.from(searchCountMap).map(
+      ([searchStr, count]) => {
+        const sanitizedSearchStr = searchStr.replace(/[{}]/g, '');
+        return {
+          text: sanitizedSearchStr,
+          value: count,
+          fontSize: count * 100,
+        };
+      }
+    );
+
+    setWordCloudData(updatedWordCloudData);
+  }, [searchHistory]);
+
+  const clearSearchHistory = async () => {
+    try {
+      console.log('Clearing search history...');
+      await dataAccess.deleteSearchHistory(userid);
+      console.log('Search history cleared.');
+      setMessage('Search History Cleared');
+      setShowMessage(true);
+
+      setTimeout(() => {
+        setShowMessage(false);
+        setMessage('');
+      }, 1000);
+
+      fetchData();
+    } catch (error) {
+      console.error('Error clearing search history:', error);
     }
-  );
-
-
-  setWordCloudData(updatedWordCloudData);
-}, [searchHistory]);
-
+  };
+  
 
   const SearchHistoryWordCloud = ({ searchHistory }) => {
     return (
@@ -82,6 +100,13 @@ useEffect(() => {
           onClick={() => setViewMode('list')}
         >
           Switch to List
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={clearSearchHistory}
+        >
+          Clear Search History
         </button>
         <br />
         <br />
@@ -106,10 +131,10 @@ useEffect(() => {
                       fontWeight: 'normal',
                     }}
                     callbacks={{
-                    onWordClick: (word) => {
-                    const searchPath = `/search/0/10/${encodeURIComponent(word.text)}${types ? `/${types}` : ''}`;
-                    navigate(searchPath);
-                     },
+                      onWordClick: (word) => {
+                        const searchPath = `/search/0/10/${encodeURIComponent(word.text)}${types ? `/${types}` : ''}`;
+                        navigate(searchPath);
+                      },
                     }}
                   />
                   {selectedWord && (
@@ -129,7 +154,7 @@ useEffect(() => {
     );
   };
 
-  const SearchHistoryList = ({ searchHistory }) => {
+  const SearchHistoryList = () => {
     return (
       <div>
         <h2>Your Searches</h2>
@@ -148,6 +173,13 @@ useEffect(() => {
           onClick={() => setViewMode('wordCloud')}
         >
           Switch to Word Cloud
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={clearSearchHistory}
+        >
+          Clear Search History
         </button>
         <br />
         <br />
@@ -171,7 +203,7 @@ useEffect(() => {
                           style={{ textDecoration: 'none', color: 'black' }}
                           key={entry.search_string}
                         >
-                          
+
                           {entry.search_string.replace(/[{}]/g, '')}
                         </NavLink>
                       </td>
@@ -190,11 +222,28 @@ useEffect(() => {
       </div>
     );
   };
+  
+  return (
+    <>
+      {/* Bootstrap Modal for displaying the message */}
+      <Modal show={showMessage} onHide={() => setShowMessage(false)}>
+        <Modal.Header closeButton>
+        <Modal.Title style={{ color: 'black' }}>Search History Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ color: 'black' }}>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowMessage(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-  return viewMode === 'wordCloud' ? (
-    <SearchHistoryWordCloud searchHistory={searchHistory} />
-  ) : (
-    <SearchHistoryList searchHistory={searchHistory} />
+      {viewMode === 'wordCloud' ? (
+        <SearchHistoryWordCloud searchHistory={searchHistory} />
+      ) : (
+        <SearchHistoryList />
+      )}
+    </>
   );
 };
 
