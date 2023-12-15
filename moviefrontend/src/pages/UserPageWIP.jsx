@@ -12,18 +12,18 @@ const UserPageWIP = () => {
 
   useEffect(() => {
     if (userToken === null) {
-      // If userToken is null, navigate to the home screen
+      // If userToken is null navigate to home screen
       navigate('/');
     }
   }, [userToken, navigate]);
 
-  // If userToken is null, don't render the components
+  // If userToken is null dont render
   if (userToken === null) {
     return null;
   }
 
   const userid = userToken.id;
-
+//render the 3 components of the page
   return (
     <div className='container'>
       <SearchHistory userid={userid}/>

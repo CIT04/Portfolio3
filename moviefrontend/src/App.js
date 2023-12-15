@@ -14,11 +14,11 @@ import Trailer from './components/Trailer';
 import Actor from './pages/Actor.jsx';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HomePage from './pages/HomePage.jsx'; // Import the new HomePage component
+import HomePage from './pages/HomePage.jsx'; 
 import MovieCarousel from './components/MovieCarousel';
 
 function App() {
-  
+  //call all page components
   return (
     <div className="app-container">
       <Header />
@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage  />} // Render HomePage on the homepage
+          element={<HomePage  />} 
         />
         <Route path="/" element={[<Trailer movieTitle="Css for Dummies" />]} />
         <Route path="/media/:mediaId" element={<MediaDisplay />} />
