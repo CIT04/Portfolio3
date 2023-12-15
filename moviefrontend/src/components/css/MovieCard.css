@@ -1,22 +1,21 @@
-/* MovieCard.css */
-
 .card {
   position: relative;
   overflow: hidden;
-  transition: height 0.3s ease; /* Add a smooth transition effect */
+  transition: height 0.3s ease; 
 }
 
 .card:hover {
-  height: 400px; /* Increase the height on hover */
-}
-
-.card-img-top {
   height: 400px;
-  transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
 
 .card:hover .card-img-top {
-  transform: scale(1.1); /* Increase the image size on hover */
+  transform: scale(1.1); 
+}
+
+
+.card-img-top {
+  height: 400px;
+  transition: transform 0.3s ease; 
 }
 
 .card-body {
@@ -24,28 +23,27 @@
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 34px; /* Set the initial minimal height for the plot */
+  max-height: 34px; 
   overflow: hidden;
-  padding: 5px; /* Adjust the padding as needed */
-  background-color: rgba(45, 45, 45, 0.7); /* Add a semi-transparent background */
-  backdrop-filter: blur(5px); /* Add the blur effect to the background */
-  transition: max-height 0.3s ease; /* Add a smooth transition effect */
+  padding: 5px; 
+  background-color: rgba(45, 45, 45, 0.7); 
+  backdrop-filter: blur(5px);
+  transition: max-height 0.3s ease;
 }
 
 .card:hover .card-body {
-  max-height: 100%; /* Expand the text area on hover */
+  max-height: 100%; 
 }
 
 .card-title,
 .card-text {
-  color: rgb(255, 255, 255); /* Adjust the text color as needed */
+  color: rgb(255, 255, 255); 
 }
 
 .card-plot {
-  color: rgb(255, 255, 255); /* Adjust the text color as needed */
+  color: rgb(255, 255, 255); 
   overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis for overflow text */
-  max-height: 120px; /* Increase the max-height as needed */
-  transition: max-height 0.3s ease; /* Add a smooth transition effect */
+  text-overflow: ellipsis; 
+  max-height: 120px;
+  transition: max-height 0.3s ease;
 }
-
