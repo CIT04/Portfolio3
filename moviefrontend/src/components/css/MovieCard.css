@@ -12,7 +12,6 @@
   transform: scale(1.1); 
 }
 
-
 .card-img-top {
   height: 400px;
   transition: transform 0.3s ease; 
@@ -23,7 +22,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 34px; 
+  max-height: 65px; /* Adjust this value to accommodate your title */
   overflow: hidden;
   padding: 5px; 
   background-color: rgba(45, 45, 45, 0.7); 
