@@ -50,7 +50,7 @@ const RatedForUid = ({ userid }) => {
   }
 
   return (
-    <div>
+    <div className="rated-for-uid-container">
       <h2>Your Rated Movies</h2>
       
       <button
@@ -77,7 +77,7 @@ const RatedForUid = ({ userid }) => {
         unmountOnExit
       >
         {medias && medias.length > 0 ? (
-          <table className="table table-bordered table-black-background">
+          <table className="table table-dark striped">
             <thead>
               <tr>
                 <th>Title</th>
