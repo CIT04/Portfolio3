@@ -1,3 +1,4 @@
+// Importing necessary modules and components
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import "./css/bookmarks.css";
