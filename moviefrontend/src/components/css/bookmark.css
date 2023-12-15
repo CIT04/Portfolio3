@@ -1,12 +1,9 @@
-/* bookmark.css */
-
 .bookmark {
     display: flex;
     align-items: stretch;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     width: 100%;
-    
   }
   
   .bookmark img {
@@ -14,16 +11,22 @@
     height: 4em;
     border-radius: 4px;
     margin-right: 10px;
-    
   }
+
   .bookmark-info {
     flex-grow: 1;
-    padding: 0 10px; /* Add padding as needed */
+    padding: 0 10px; 
   }
   
   .bookmark h2 {
     font-size: 1.2em; 
     margin: 0;
+  }
+
+  .bookmark-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
   }
   
   .nav-link {
@@ -31,13 +34,7 @@
    
   }
   .date-added {
-  margin-left: 2em; /* Push "Date added" to the far right */
-}
-  
-.bookmark-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  margin-left: 2em;
 }
 
 .gray-table {

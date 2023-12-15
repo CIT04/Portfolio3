@@ -65,7 +65,7 @@ const Bookmarks = ({ userid }) => {
         classNames="top-to-bottom"
         unmountOnExit
       >
-        <table className="table table-bordered gray-table">
+        <table className="table table-dark">
           <tbody className="gray-tbody">
             {medias.map((media) => (
               <tr key={media.id}>
