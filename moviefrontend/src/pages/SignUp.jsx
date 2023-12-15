@@ -57,6 +57,7 @@ const SignUpForm = () => {
         username: signupCredentials.Username,
         password: signupCredentials.Password,
       });
+      //TODO: Figure out better case management here. Works for now
     } catch (error) {
       console.error('Error fetching data:', error);
       

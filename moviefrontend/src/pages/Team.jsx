@@ -10,6 +10,9 @@ const Team = () => {
   const { mediaId } = useParams();
   const [media, setMedia] = useState({ status: 'loading', mediaGenres: [] });
 
+
+
+  //TODO: Move to DataAccess.jsx
   useEffect(() => {
     const fetchTeam = async () => {
       try {
@@ -29,6 +32,8 @@ const Team = () => {
     fetchTeam();
   }, [mediaId]);
 
+
+  //TODO: Move to DataAccess.jsx
   useEffect(() => {
     fetch(`http://localhost:5001/api/media/${mediaId}`)
       .then((res) => res.json())
@@ -53,9 +58,9 @@ const Team = () => {
               <NavLink to={`/actor/${actor.personId}`} className="nav-link" key={actor.personId}>
                 <li className="liteam" key={index}>
                   <span className="person-name">{actor.person.name}</span>
-                  {/* Adjust the character rendering logic */}
+              
                   <span className="character">
-                    Playing: {Array.isArray(actor.characters) //TODO: Sanitize the characters to remove special characters
+                    Playing: {Array.isArray(actor.characters)
                       ? actor.characters.join(', ')
                       : actor.characters || 'N/A'}
                   </span>

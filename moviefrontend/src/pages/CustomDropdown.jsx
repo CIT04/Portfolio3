@@ -12,8 +12,7 @@ const CustomDropdown = () => {
   const [error, setError] = useState('');
   const { types, setTypesList } = useContext(TypeContext);
 
-  const genres = ['Action', 'Drama', 'Comedy', 'Sci-Fi', 'Horror'];
-
+  
   useEffect(() => {
     // Update allTypes whenever types change
     setAllTypes(types);
@@ -42,10 +41,7 @@ const CustomDropdown = () => {
   return (
     <NavDropdown title="Filters" id="basic-nav-dropdown" className="custom-dropdown">
       <div className="d-flex flex-column p-4">
-        {/*TODO: Implement genres */}
-        {/* ... (code for genres) */}
 
-        {/* Types*/}
         <div className="mb-3">
           <h6 className="mb-2">Type</h6>
           <Form>
