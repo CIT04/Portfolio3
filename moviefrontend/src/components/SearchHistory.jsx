@@ -167,7 +167,7 @@ useEffect(() => {
                     <tr key={index}>
                       <td>
                         <NavLink
-                          to={`/search/${entry.search_string}`}
+                          to={`/search/0/10/${entry.search_string.replace(/[{}]/g, '')}${types ? `/${types}` : ''}`}
                           style={{ textDecoration: 'none', color: 'black' }}
                           key={entry.search_string}
                         >
